@@ -295,7 +295,9 @@
             overflow: hidden;
             box-shadow: 0 15px 50px rgba(0,0,0,0.15); 
             border: 15px solid #fff;
-            background-color: #fff;
+            /* เพิ่มสีพื้นหลังและขนาดขั้นต่ำ เผื่อรูปโหลดไม่ได้จะได้ไม่ดูพัง */
+            background-color: #f0f0f0;
+            min-height: 200px;
             position: relative;
             transform: rotate(1deg);
         }
@@ -467,12 +469,12 @@
         </div>
     </section>
 
-    <!-- 4. SIGNATURE SECTION (Updated Image) -->
+    <!-- 4. SIGNATURE SECTION (Updated Image to .png) -->
     <section class="signature-section">
         <div class="signature-container">
             <div class="signature-img-box" data-aos="fade-right">
-                <!-- แก้ไขตรงนี้ให้ใช้รูป maepu-signature.jpg -->
-                <img src="images/maepu-signature.jpg" alt="น้ำพริกปลาสลิด" class="signature-img">
+                <!-- แก้ไขตรงนี้ให้ใช้รูป maepu-signature.png ตามที่ลูกค้าสงสัย -->
+                <img src="images/maepu-signature.png" alt="น้ำพริกปลาสลิด" class="signature-img">
             </div>
             <div class="signature-text" data-aos="fade-left">
                 <span class="badge">Must Try</span>
@@ -567,7 +569,8 @@
 
             <!-- Grand Image Banner -->
             <div class="grand-banner">
-                <img src="images/grand-banner.jpg" alt="⚠️ ไม่พบรูป 'grand-banner.jpg' กรุณาเช็คชื่อไฟล์">
+                <!-- ผมเปลี่ยนชื่อเป็น banner.jpg ให้สั้นลงจะได้ไม่พิมพ์ผิดครับ -->
+                <img src="images/banner.jpg" alt="⚠️ ไม่พบรูป 'banner.jpg' กรุณาเช็คชื่อไฟล์">
             </div>
 
             <!-- Credit -->
