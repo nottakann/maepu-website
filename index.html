@@ -23,21 +23,28 @@
             --secondary-color: #ffcc80; /* สีส้มอ่อน */
         }
 
-        /* Reset CSS & Fix Overflow Issue */
+        /* Reset CSS */
         * {
-            box-sizing: border-box; /* สำคัญมาก: รวม padding ในความกว้าง ไม่ให้ล้นจอ */
+            box-sizing: border-box; 
             margin: 0;
             padding: 0;
         }
 
-        html, body {
-            width: 100%;
-            max-width: 100%;
-            overflow-x: hidden; /* ป้องกันการเลื่อนแนวนอน */
+        /* --- แก้ไขเรื่อง Scroll ติดนิ้ว --- */
+        html {
             scroll-behavior: smooth;
+            /* เอา overflow-x: hidden ออกจาก html เพื่อให้ scroll ลื่นไหล */
+        }
+
+        body {
+            width: 100%;
+            /* ย้าย overflow-x มาที่ body แทน */
+            overflow-x: hidden; 
+            position: relative;
             font-family: 'Sarabun', sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
+            -webkit-overflow-scrolling: touch; /* เพิ่มความลื่นบน iOS */
         }
 
         h1, h2, h3 { font-family: 'Charmonman', cursive; font-weight: 700; }
@@ -392,7 +399,7 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- Hero Section (Updated Background & Added Scroll Indicator) -->
     <header class="hero">
         <div class="hero-overlay"></div>
         <div class="hero-content" data-aos="fade-up">
