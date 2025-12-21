@@ -141,49 +141,6 @@
             animation: bounce 2s infinite;
         }
 
-        /* --- NEW: FLOATING SCROLL HINT FOR PRODUCTS --- */
-        .product-floating-hint {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%) translateY(20px); /* ซ่อนลงไปนิดนึงก่อน */
-            background-color: rgba(216, 67, 21, 0.95); /* สีส้มแบรนด์ */
-            color: white;
-            padding: 15px 30px;
-            border-radius: 50px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-            z-index: 900; /* อยู่ต่ำกว่าเมนูและปุ่มติดต่อ */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            cursor: pointer;
-            opacity: 0; /* ซ่อนไว้ก่อน */
-            visibility: hidden;
-            transition: all 0.5s ease;
-            pointer-events: none; /* กดไม่ได้ตอนซ่อน */
-            width: max-content;
-        }
-        .product-floating-hint.visible {
-            opacity: 1;
-            visibility: visible;
-            transform: translateX(-50%) translateY(0); /* เด้งขึ้นมา */
-            pointer-events: auto;
-        }
-        .product-floating-hint p { margin: 0 0 5px 0; font-size: 0.9rem; font-weight: 600; }
-        
-        /* Animation: Swipe Up Hand (สไตล์ TikTok) */
-        .product-floating-hint i { 
-            font-size: 1.8rem; 
-            animation: swipe-up 1.5s infinite; 
-            text-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
-
-        @keyframes swipe-up {
-            0% { transform: translateY(10px); opacity: 0; }
-            20% { opacity: 1; } /* ปรากฏขึ้น */
-            100% { transform: translateY(-20px); opacity: 0; } /* เลื่อนขึ้นแล้วจางหาย */
-        }
-
         /* --- SCROLL HINT (STATIC) --- */
         .scroll-hint {
             text-align: center;
@@ -473,12 +430,6 @@
         </div>
     </div>
 
-    <!-- NEW: FLOATING HINT FOR PRODUCTS -->
-    <div id="product-hint" class="product-floating-hint">
-        <p>เลื่อนเพื่อดูสินค้าและรีวิวเพิ่มเติม</p>
-        <i class="fas fa-hand-pointer"></i>
-    </div>
-
     <!-- 1. PRODUCT SECTION -->
     <section id="products" class="product-section">
         <div data-aos="fade-up">
@@ -735,24 +686,33 @@
     <script>
         AOS.init({ duration: 1000, once: true });
 
-        // Logic for Product Floating Hint
+        // Logic for Auto Scroll Nudge (Behavioral Nudge)
         const productSection = document.getElementById('products');
-        const productHint = document.getElementById('product-hint');
-
-        // กลับมาใช้ระบบเลื่อนอัตโนมัติของ Browser (Native) 
-        // เพื่อแก้ปัญหาอาการหนืดและให้ความรู้สึกที่เป็นธรรมชาติที่สุดครับ
-        productHint.addEventListener('click', () => {
-            document.getElementById('reviews').scrollIntoView({ behavior: 'smooth' });
-        });
+        let hasNudged = false; // ตัวแปรเช็คว่าเคยเลื่อนให้รึยัง (ทำแค่ครั้งเดียวพอ)
 
         window.addEventListener('scroll', () => {
+            if (hasNudged) return; // ถ้าเคยทำแล้ว ก็จบการทำงาน
+
             const rect = productSection.getBoundingClientRect();
-            // ถ้าหัวข้อสินค้าแนะนำอยู่บนหน้าจอ (rect.top < window.innerHeight/2)
-            // และยังเลื่อนไม่ถึง 300px ของ section นั้น (rect.top > -300)
-            if (rect.top < window.innerHeight / 2 && rect.top > -300) {
-                productHint.classList.add('visible');
-            } else {
-                productHint.classList.remove('visible');
+            
+            // เช็คว่าส่วนหัวของสินค้าแนะนำ อยู่ในระยะสายตาหรือไม่ (top < 200px)
+            // และต้องไม่เลยขึ้นไปข้างบนจนมองไม่เห็น (top > -100)
+            if (rect.top < 200 && rect.top > -100) {
+                
+                // ตั้งเวลา 2 วินาที (2000ms) แล้วค่อยเลื่อน
+                setTimeout(() => {
+                    if (hasNudged) return; // เช็คซ้ำกันเหนียว
+                    
+                    // สั่งให้เลื่อนลงมานิดหน่อย (300px) แบบ Smooth
+                    window.scrollBy({
+                        top: 300, 
+                        behavior: 'smooth'
+                    });
+                    
+                    hasNudged = true; // จำไว้ว่าทำแล้ว
+                }, 2000);
+                
+                hasNudged = true; // กันไม่ให้ตั้งเวลาซ้ำหลายรอบในเสี้ยววินาที
             }
         });
     </script>
