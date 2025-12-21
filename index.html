@@ -462,7 +462,7 @@
     </div>
 
     <!-- NEW: FLOATING HINT FOR PRODUCTS -->
-    <div id="product-hint" class="product-floating-hint" onclick="document.getElementById('reviews').scrollIntoView();">
+    <div id="product-hint" class="product-floating-hint">
         <p>เลื่อนเพื่อดูสินค้าและรีวิวเพิ่มเติม</p>
         <i class="fas fa-chevron-down"></i>
     </div>
@@ -706,7 +706,8 @@
 
             <!-- Grand Image Banner -->
             <div class="grand-banner">
-                <img src="images/grand-banner.jpg" alt="⚠️ ไม่พบรูป 'grand-banner.jpg' กรุณาเช็คชื่อไฟล์">
+                <!-- ผมเปลี่ยนชื่อเป็น banner.jpg ให้สั้นลงจะได้ไม่พิมพ์ผิดครับ -->
+                <img src="images/banner.jpg" alt="⚠️ ไม่พบรูป 'banner.jpg' กรุณาเช็คชื่อไฟล์">
             </div>
 
             <!-- Credit -->
@@ -722,9 +723,46 @@
     <script>
         AOS.init({ duration: 1000, once: true });
 
+        // --- Custom Slow Scroll Function (ฟังก์ชันเลื่อนช้า) ---
+        function slowScrollTo(targetSelector, duration) {
+            const target = document.querySelector(targetSelector);
+            if(!target) return;
+            
+            const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
+            const startPosition = window.pageYOffset;
+            const distance = targetPosition - startPosition;
+            let startTime = null;
+
+            function animation(currentTime) {
+                if (startTime === null) startTime = currentTime;
+                const timeElapsed = currentTime - startTime;
+                
+                // ใช้ ease-in-out เพื่อให้นุ่มนวล (เริ่มช้า เร็วตรงกลาง จบช้า)
+                const run = ease(timeElapsed, startPosition, distance, duration);
+                window.scrollTo(0, run);
+                
+                if (timeElapsed < duration) requestAnimationFrame(animation);
+            }
+
+            // สูตรคำนวณการเคลื่อนที่แบบ ease-in-out
+            function ease(t, b, c, d) {
+                t /= d / 2;
+                if (t < 1) return c / 2 * t * t + b;
+                t--;
+                return -c / 2 * (t * (t - 2) - 1) + b;
+            }
+
+            requestAnimationFrame(animation);
+        }
+
         // Logic for Product Floating Hint
         const productSection = document.getElementById('products');
         const productHint = document.getElementById('product-hint');
+
+        // เพิ่ม Event Click ให้ปุ่มนี้เลื่อนช้าๆ (2 วินาที)
+        productHint.addEventListener('click', () => {
+            slowScrollTo('#reviews', 2000); 
+        });
 
         window.addEventListener('scroll', () => {
             const rect = productSection.getBoundingClientRect();
