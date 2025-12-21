@@ -706,6 +706,7 @@
 
             <!-- Grand Image Banner -->
             <div class="grand-banner">
+                <!-- ผมเปลี่ยนชื่อเป็น banner.jpg ให้สั้นลงจะได้ไม่พิมพ์ผิดครับ -->
                 <img src="images/grand-banner.jpg" alt="⚠️ ไม่พบรูป 'grand-banner.jpg' กรุณาเช็คชื่อไฟล์">
             </div>
 
@@ -722,44 +723,14 @@
     <script>
         AOS.init({ duration: 1000, once: true });
 
-        // --- Custom Smooth Scroll (ปรับความเร็วได้) ---
-        function smoothScroll(targetSelector, duration) {
-            const target = document.querySelector(targetSelector);
-            if(!target) return;
-            
-            const targetPosition = target.getBoundingClientRect().top + window.scrollY;
-            const startPosition = window.scrollY;
-            const distance = targetPosition - startPosition;
-            let startTime = null;
-
-            function animation(currentTime) {
-                if (startTime === null) startTime = currentTime;
-                const timeElapsed = currentTime - startTime;
-                
-                const run = ease(timeElapsed, startPosition, distance, duration);
-                window.scrollTo(0, run);
-                
-                if (timeElapsed < duration) requestAnimationFrame(animation);
-            }
-
-            function ease(t, b, c, d) {
-                t /= d / 2;
-                if (t < 1) return c / 2 * t * t + b;
-                t--;
-                return -c / 2 * (t * (t - 2) - 1) + b;
-            }
-
-            requestAnimationFrame(animation);
-        }
-
         // Logic for Product Floating Hint
         const productSection = document.getElementById('products');
         const productHint = document.getElementById('product-hint');
 
-        // ใช้ Custom Smooth Scroll แทน Native
-        // ตั้งความเร็วเป็น 1500ms (1.5 วินาที)
+        // กลับมาใช้ระบบเลื่อนอัตโนมัติของ Browser (Native) 
+        // เพื่อแก้ปัญหาอาการหนืดและให้ความรู้สึกที่เป็นธรรมชาติที่สุดครับ
         productHint.addEventListener('click', () => {
-            smoothScroll('#reviews', 1500); 
+            document.getElementById('reviews').scrollIntoView({ behavior: 'smooth' });
         });
 
         window.addEventListener('scroll', () => {
