@@ -3,389 +3,557 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>น้ำพริกแม่ปู - แม่ผมเป็นสาวชิค</title>
+    <title>น้ำพริกแม่ปู - Original Homemade</title>
     
-    <!-- ฟอนต์ภาษาไทยสวยๆ -->
-    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <!-- ฟอนต์: ใช้ 2 ฟอนต์เพื่อสร้างมิติ -->
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600&family=Charmonman:wght@700&display=swap" rel="stylesheet">
     
-    <!-- ไอคอน (FontAwesome) สำหรับรูปพริก รูป Facebook, Line -->
+    <!-- ไอคอน -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-    <!-- ไลบรารี่สำหรับทำ Animation (AOS) -->
+    <!-- Animation Lib -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
-        /* --- CSS Theme: Retro Chic 2.0 (อัปเกรดลูกเล่น) --- */
+        /* --- CSS Master Variables --- */
         :root {
-            --bg-color: #fff8e1; /* เหลืองนวล */
-            --primary-orange: #ff9800; /* ส้มสดใส */
-            --dark-brown: #4e342e; /* น้ำตาลเข้ม */
-            --accent-red: #c62828; /* แดงก่ำ */
-            --soft-cream: #fffdf9; /* ครีมอ่อน */
+            --bg-color: #fdfbf7; /* สีครีมกระดาษ */
+            --text-color: #3e2723; /* สีน้ำตาลเข้มเกือบดำ */
+            --accent-color: #d84315; /* สีส้มอิฐ (Retro Orange) */
+            --secondary-color: #ffcc80; /* สีส้มอ่อน */
         }
 
-        body { 
-            font-family: 'Sarabun', sans-serif; 
-            margin: 0; 
-            padding: 0; 
-            line-height: 1.8; 
-            color: var(--dark-brown);
+        body {
+            font-family: 'Sarabun', sans-serif;
             background-color: var(--bg-color);
-            background-image: radial-gradient(#ffe0b2 1px, transparent 1px);
-            background-size: 20px 20px; /* ลายจุดจางๆ เพิ่มลูกเล่นพื้นหลัง */
+            color: var(--text-color);
+            margin: 0;
+            overflow-x: hidden;
         }
 
-        /* --- Floating Button (ปุ่มติดต่อลอยมุมจอ) --- */
-        .fab-container {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 999;
+        h1, h2, h3 { font-family: 'Charmonman', cursive; font-weight: 700; }
+
+        /* --- NAVBAR --- */
+        nav {
             display: flex;
-            flex-direction: column;
-            gap: 10px;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background: rgba(253, 251, 247, 0.95);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid #eee;
         }
-        .fab-btn {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
+        .logo { font-size: 1.5rem; color: var(--accent-color); font-weight: bold; text-decoration: none; }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            margin-left: 30px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        .nav-links a:hover { color: var(--accent-color); }
+        .btn-cta {
+            background-color: var(--accent-color);
+            color: white !important;
+            padding: 10px 25px;
+            border-radius: 50px;
+            box-shadow: 0 4px 10px rgba(216, 67, 21, 0.3);
+            text-decoration: none;
+            transition: transform 0.2s;
+            display: inline-block;
+        }
+        .btn-cta:hover { transform: scale(1.05); }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            height: 90vh;
             display: flex;
             align-items: center;
             justify-content: center;
+            text-align: center;
+            position: relative;
+            background-image: url('images/hero-bg.jpg'); /* อย่าลืมใส่รูปปกนะครับ */
+            background-size: cover;
+            background-position: center;
+        }
+        .hero-overlay {
+            position: absolute; inset: 0;
+            background: rgba(0,0,0,0.3);
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
             color: white;
-            font-size: 30px;
-            text-decoration: none;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            transition: transform 0.3s;
+            max-width: 800px;
+            padding: 20px;
         }
-        .fab-btn:hover { transform: scale(1.1); }
-        .fab-line { background-color: #06C755; }
-        .fab-fb { background-color: #1877F2; }
-        
-        /* --- Header --- */
-        header { 
-            background: linear-gradient(135deg, #ffb74d, #ffa726); 
-            color: white; 
-            padding: 60px 20px; 
-            text-align: center; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-            border-bottom: 5px solid #e65100;
-            position: relative;
+        .hero h1 { font-size: 4rem; margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+        .hero p { font-size: 1.5rem; font-family: 'Sarabun'; font-weight: 300; }
+
+        /* --- MARQUEE --- */
+        .marquee {
+            background: var(--accent-color);
+            color: white;
+            padding: 15px 0;
+            white-space: nowrap;
             overflow: hidden;
+            font-family: 'Charmonman';
+            font-size: 1.2rem;
         }
-        /* ลูกเล่นวงกลมตกแต่งใน Header */
-        header::before {
-            content: '';
-            position: absolute;
-            top: -50px; left: -50px;
-            width: 150px; height: 150px;
-            background: rgba(255,255,255,0.2);
-            border-radius: 50%;
-        }
-        header h1 { 
-            margin: 0; font-size: 3.5em; font-weight: 800; 
-            color: var(--accent-red); 
-            text-shadow: 3px 3px 0px #ffeb3b; /* เงาแบบ Retro */
-            letter-spacing: 2px;
-        }
-        header p { font-size: 1.4em; font-weight: 600; margin-top: 10px; text-shadow: 1px 1px 2px rgba(0,0,0,0.2); }
+        .marquee-content { display: inline-block; animation: scroll 20s linear infinite; }
+        @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-        /* --- Navigation --- */
-        nav { 
-            background: var(--dark-brown); 
-            padding: 15px; 
-            text-align: center; 
-            position: sticky; 
-            top: 0; 
-            z-index: 100; 
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2); 
+        /* --- PRODUCT SHOWCASE --- */
+        .product-section { padding: 80px 20px; text-align: center; }
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 40px auto;
         }
-        nav a { 
-            color: #ffe0b2; 
-            text-decoration: none; 
-            margin: 0 20px; 
-            font-weight: 600; 
-            transition: 0.3s; 
-            display: inline-block;
-        }
-        nav a:hover { color: var(--primary-orange); transform: translateY(-2px); }
-
-        .container { max-width: 900px; margin: auto; padding: 40px 20px; }
-
-        /* --- Story Section --- */
-        .section-header { text-align: center; margin-bottom: 50px; }
-        .section-header h2 { 
-            color: var(--accent-red); 
-            font-size: 2.5em; 
-            font-weight: 800; 
-            display: inline-block;
-            border-bottom: 3px dashed var(--primary-orange);
-            padding-bottom: 10px;
-        }
-
-        .story-card { 
-            background: var(--soft-cream);
-            border-left: 6px solid var(--primary-orange);
-            padding: 30px; 
-            margin-bottom: 30px; 
-            border-radius: 12px; 
-            box-shadow: 0 5px 15px rgba(93, 64, 55, 0.1);
-            position: relative;
-        }
-        .story-card::after {
-            content: '"';
-            position: absolute;
-            top: 10px; right: 20px;
-            font-size: 4em;
-            color: rgba(255, 152, 0, 0.2);
-            font-family: serif;
-        }
-        .story-card h3 { color: var(--dark-brown); margin-top: 0; font-weight: 700; display: flex; align-items: center;}
-        .story-card h3 i { margin-right: 10px; color: var(--accent-red); }
-
-        /* --- Highlight Box (จุดกำเนิด) --- */
-        .highlight-box { 
-            background-color: #fff3e0;
-            border: 4px double var(--accent-red);
-            padding: 40px; 
-            border-radius: 20px; 
-            text-align: center; 
-            margin: 60px 0;
-            position: relative;
-        }
-        .chic-logo {
-            width: 250px;
-            margin: -80px auto 20px auto; /* ดึงโลโก้ขึ้นไปเกาะขอบบน */
-            display: block;
-            filter: drop-shadow(0px 10px 10px rgba(0,0,0,0.2));
-            transition: transform 0.5s;
-        }
-        .chic-logo:hover { transform: rotate(-5deg) scale(1.05); }
-
-        /* --- Products Section (Gimmick: Spicy Level) --- */
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 30px; }
-        
-        .product { 
-            background: white; 
-            padding: 0; 
-            border-radius: 15px; 
-            text-align: center; 
-            box-shadow: 0 10px 20px rgba(0,0,0,0.08); 
+        .product-card {
+            background: white;
+            border-radius: 15px;
             overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
             transition: transform 0.3s;
             border: 1px solid #eee;
         }
-        .product:hover { transform: translateY(-10px); }
-        
-        .product-img-container {
-            width: 100%;
-            height: 200px;
-            background-color: #ddd;
-            overflow: hidden;
+        .product-card:hover { transform: translateY(-10px); }
+        .product-img-box { height: 250px; background: #eee; overflow: hidden; }
+        .product-img-box img { width: 100%; height: 100%; object-fit: cover; }
+        .product-info { padding: 20px; }
+        .price { font-size: 1.5rem; color: var(--accent-color); font-weight: bold; }
+
+        /* --- REVIEWS SECTION (UPDATED FOR LARGE IMAGES) --- */
+        .reviews-section {
+            background-color: #fff3e0;
+            padding: 80px 20px;
+            text-align: center;
         }
-        .product-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+        .review-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1100px;
+            margin: 40px auto;
+            align-items: start; /* จัดให้การ์ดไม่ยืดเท่ากัน เพื่อให้สวยงามตามความสูงรูป */
+        }
+        .review-card {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            border: 1px solid #fff;
+            transition: transform 0.3s;
+            overflow: hidden;
+            text-align: left; /* จัดข้อความชิดซ้ายให้อ่านง่ายขึ้น */
+        }
+        .review-card:hover { transform: translateY(-5px); border-color: var(--secondary-color); }
+        
+        /* สไตล์รูป Capture แชท/รีวิว */
+        .review-img {
+            width: 100%; 
+            height: auto; /* ให้สูงตามสัดส่วนรูปจริง */
+            border-radius: 10px; 
+            object-fit: contain;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+            background-color: #f9f9f9; /* สีรองพื้นถ้ารูปยังไม่โหลด */
+            border: 1px solid #eee;
             transition: transform 0.5s;
         }
-        .product:hover .product-img { transform: scale(1.1); }
-
-        .product-info { padding: 20px; }
-        .spicy-level { margin: 10px 0; color: var(--accent-red); }
-        .price-tag {
-            background: var(--accent-red);
-            color: white;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-weight: bold;
-            display: inline-block;
+        /* Zoom effect เมื่อชี้ที่รูป */
+        .review-card:hover .review-img { transform: scale(1.02); }
+        
+        .stars { color: #ffb300; margin-bottom: 10px; font-size: 1rem; }
+        .review-text { 
+            font-style: italic; 
+            color: #555; 
+            margin-bottom: 15px; 
+            line-height: 1.6; 
+            font-size: 0.95rem;
+            background: #fafafa;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        .customer-name { 
+            font-weight: bold; 
+            color: var(--accent-color); 
+            font-family: 'Charmonman'; 
+            font-size: 1.1rem; 
+            display: block;
             margin-top: 10px;
         }
+        .customer-type { font-size: 0.8rem; color: #999; }
 
-        /* --- Menu Ideas (New Section) --- */
-        .menu-ideas {
-            background: white;
-            padding: 30px;
+        /* --- VIDEO REVIEWS SECTION --- */
+        .video-section { padding: 80px 20px; text-align: center; background-color: #fff; }
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1100px;
+            margin: 40px auto;
+        }
+        .video-card {
             border-radius: 15px;
-            margin-top: 50px;
-            text-align: center;
-            border: 2px dashed var(--primary-orange);
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            background: #000;
+            aspect-ratio: 9/16;
+            position: relative;
         }
-        .menu-icons {
+        .video-placeholder {
+            width: 100%; height: 100%; display: flex;
+            align-items: center; justify-content: center;
+            color: white; flex-direction: column;
+        }
+
+        /* --- SIGNATURE SECTION --- */
+        .signature-section {
+            background: var(--text-color); /* พื้นหลังสีเข้ม ดูพรีเมียม */
+            color: white;
+            padding: 80px 20px;
+            overflow: hidden;
+            position: relative;
+        }
+        .signature-container {
             display: flex;
-            justify-content: center;
-            gap: 40px;
-            margin-top: 20px;
             flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            max-width: 1100px;
+            margin: auto;
+            gap: 50px;
         }
-        .menu-item i { font-size: 3em; color: var(--dark-brown); margin-bottom: 10px; }
-        .menu-item p { font-weight: 600; }
+        .signature-img-box {
+            flex: 1;
+            min-width: 300px;
+            position: relative;
+        }
+        /* กรอบรูปซ้อนกัน สร้างลูกเล่น */
+        .signature-img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 20px 20px 0px rgba(255, 255, 255, 0.1);
+            transform: rotate(-2deg);
+            transition: transform 0.5s;
+        }
+        .signature-img:hover { transform: rotate(0deg) scale(1.02); }
+        
+        .signature-text {
+            flex: 1;
+            min-width: 300px;
+        }
+        .badge {
+            background: var(--accent-color);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+        .sig-price {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--secondary-color);
+            margin: 20px 0;
+        }
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+        .feature-list li { margin-bottom: 10px; font-size: 1.1rem; }
+        .feature-list li i { color: var(--accent-color); margin-right: 10px; }
 
-        /* --- Footer --- */
-        footer { background: var(--dark-brown); color: #ffe0b2; text-align: center; padding: 40px; margin-top: 60px; }
-        .footer-quote { font-style: italic; opacity: 0.8; margin-top: 10px; }
+        /* --- ABOUT & TIMELINE --- */
+        .about-section { padding: 80px 40px; background: var(--bg-color); }
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            max-width: 1100px;
+            margin: auto;
+        }
+        .about-img {
+            width: 100%; border-radius: 20px 0 20px 0;
+            box-shadow: 15px 15px 0px var(--secondary-color);
+        }
+        .about-text h2 { font-size: 3rem; color: var(--accent-color); margin-bottom: 20px; }
 
-        /* Responsive Mobile */
-        @media (max-width: 600px) {
-            header h1 { font-size: 2.5em; }
-            .chic-logo { width: 200px; margin-top: -60px; }
-            .fab-btn { width: 50px; height: 50px; font-size: 24px; }
+        .timeline-section { background-color: #fff; padding: 80px 20px; text-align: center; }
+        .timeline-container { max-width: 800px; margin: auto; text-align: left; border-left: 2px solid var(--secondary-color); padding-left: 30px; }
+        .timeline-item { margin-bottom: 40px; position: relative; }
+        .timeline-item::before {
+            content: ''; width: 15px; height: 15px; background: var(--accent-color);
+            border-radius: 50%; position: absolute; left: -38.5px; top: 5px;
+        }
+        .year { font-weight: bold; color: var(--accent-color); font-size: 1.2rem; }
+
+        /* --- FOOTER --- */
+        footer { background: var(--text-color); color: #fff; padding: 60px 20px; text-align: center; }
+        .social-icons a { color: white; font-size: 1.5rem; margin: 0 10px; transition: 0.3s; }
+        .social-icons a:hover { color: var(--accent-color); }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .grid-container, .signature-container { flex-direction: column; grid-template-columns: 1fr; }
+            nav { padding: 15px; }
+            .nav-links { display: none; }
+            .signature-img-box { margin-bottom: 30px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- ปุ่มลอยติดต่อ -->
-    <div class="fab-container">
-        <a href="#" class="fab-btn fab-line"><i class="fab fa-line"></i></a>
-        <a href="#" class="fab-btn fab-fb"><i class="fab fa-facebook-f"></i></a>
-    </div>
+    <!-- Navbar -->
+    <nav>
+        <a href="#" class="logo">Maepu.</a>
+        <div class="nav-links">
+            <a href="#products">Menu</a>
+            <a href="#reviews">Reviews</a>
+            <a href="#about">Story</a>
+            <a href="#contact" class="btn-cta">Order Now</a>
+        </div>
+    </nav>
 
-    <header>
-        <div data-aos="fade-down">
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content" data-aos="fade-up">
+            <p>EST. 2024</p>
             <h1>น้ำพริกแม่ปู</h1>
-            <p>Connecting the DOTs: จากรสมือแม่...สู่ความตั้งใจของลูกชาย</p>
+            <p>"แม่ผมเป็นสาวชิค... และทำกับข้าวอร่อยมาก"</p>
+            <div style="margin-top: 30px;">
+                <a href="#products" class="btn-cta" style="padding: 15px 40px; font-size: 1.2rem;">ดูสินค้า</a>
+            </div>
         </div>
     </header>
 
-    <nav>
-        <a href="#history">เส้นทางของเรา</a>
-        <a href="#products">สินค้า</a>
-        <a href="#menu">กินคู่กับอะไร?</a>
-        <a href="#contact">ติดต่อ</a>
-    </nav>
-
-    <div class="container">
-        
-        <!-- Story Section -->
-        <section id="history">
-            <div class="section-header" data-aos="fade-up">
-                <h2>Connecting the DOTs</h2>
-                <p>3 ปีแห่งการเรียนรู้ สู่รสชาติที่ลงตัว</p>
-            </div>
-
-            <div class="story-card" data-aos="fade-right">
-                <h3><i class="fas fa-gamepad"></i> ยุคเริ่มต้น: ค้นหาตัวตน</h3>
-                <p><strong>3 ปีที่แล้ว:</strong> เริ่มต้นจากยุคออนไลน์บูม ลองผิดลองถูกกับการเป็น Streamer เกม ทำให้ได้ Logic ความคิดจากเพื่อนๆ โปรแกรมเมอร์ และเรียนรู้ว่า "ถ้าไม่ใช่ตัวจริง ก็ยืนระยะยาก"</p>
-            </div>
-
-            <div class="story-card" data-aos="fade-left">
-                <h3><i class="fas fa-utensils"></i> ล้ม ลุก คลุกคลาน</h3>
-                <p>ผันตัวมาเป็น <strong>พ่อค้าข้าวขาหมู</strong> เจอบทเรียนราคาแพงเรื่องต้นทุน แต่ก็ได้วิชา "คน" จากการเป็นพนักงานเสิร์ฟและไกด์ทัวร์ ทำให้เข้าใจหัวใจของการบริการ</p>
-            </div>
-
-            <div class="story-card" data-aos="fade-right">
-                <h3><i class="fas fa-graduation-cap"></i> กลับสู่มหาวิทยาลัย & ผู้จัดการร้าน</h3>
-                <p>การกลับไปเรียนและการได้รับโอกาสเป็นผู้จัดการร้านอาหาร เปรียบเหมือนการกระโดดลงมหาสมุทร โดยมีครอบครัวเป็นห่วงยางช่วยพยุง จนได้วิชาบริหารมาแบบจัดเต็ม</p>
-            </div>
-
-            <!-- Highlight Box with Logo -->
-            <div class="highlight-box" data-aos="zoom-in">
-                <!-- ใส่รูปโลโก้ตรงนี้ -->
-                <img src="images/logo-chic.png" alt="โลโก้แม่ปูสาวชิค" class="chic-logo">
-
-                <h2>🦀 จุดกำเนิด "น้ำพริกแม่ปู"</h2>
-                <p>สิ่งที่ผมอยากทำ ไม่ใช่แค่สินค้า แต่คือการตะโกนบอกโลกว่า</p>
-                <h3 style="color: #c62828;">"แม่ผมทำอาหารอร่อยมาก!"</h3>
-                <p>วันนี้ผม <strong>All-in</strong> ขยายกำลังการผลิต เพื่อส่งต่อความอร่อยกว่า 2,000 กระปุก ให้ทุกคนได้รับรู้ถึงความตั้งใจของแม่และผมครับ</p>
-            </div>
-
-            <div class="poem-box" style="text-align: center; color: #795548; margin-top: 40px;" data-aos="fade-up">
-                <p><em>"ขอบพระคุณสิ่งดีๆ ที่มีให้... เป็นบทกลอนส่งจาก 'พาย' ถึงทุกคนเอย"</em></p>
-                <small>Note to self | 16.06.68 | 3dot14...</small>
-            </div>
-        </section>
-
-        <!-- Products Section -->
-        <section id="products" style="margin-top: 80px;">
-            <div class="section-header" data-aos="fade-up">
-                <h2>สินค้าแนะนำ</h2>
-                <p>รสชาติจัดจ้าน เครื่องแน่นทุกกระปุก</p>
-            </div>
-            
-            <div class="product-grid">
-                <!-- สินค้า 1 -->
-                <div class="product" data-aos="flip-left">
-                    <div class="product-img-container">
-                        <!-- ใส่รูปสินค้า 1 -->
-                        <img src="images/product-tadang.jpg" alt="น้ำพริกตาแดง" class="product-img">
-                    </div>
-                    <div class="product-info">
-                        <h3>น้ำพริกตาแดง</h3>
-                        <div class="spicy-level">
-                            ความเผ็ด: <i class="fas fa-pepper-hot"></i><i class="fas fa-pepper-hot"></i><i class="fas fa-pepper-hot"></i>
-                        </div>
-                        <p>รสชาติต้นตำรับ ถึงเครื่องสมุนไพร ทานง่าย อร่อยได้ทุกมื้อ</p>
-                        <span class="price-tag">50 บาท</span>
-                    </div>
-                </div>
-
-                <!-- สินค้า 2 -->
-                <div class="product" data-aos="flip-left" data-aos-delay="200">
-                    <div class="product-img-container">
-                        <!-- ใส่รูปสินค้า 2 -->
-                        <img src="images/product-mangda.jpg" alt="น้ำพริกนรกแมงดา" class="product-img">
-                    </div>
-                    <div class="product-info">
-                        <h3>น้ำพริกนรกแมงดา</h3>
-                        <div class="spicy-level">
-                            ความเผ็ด: <i class="fas fa-pepper-hot"></i><i class="fas fa-pepper-hot"></i><i class="fas fa-pepper-hot"></i><i class="fas fa-pepper-hot"></i><i class="fas fa-fire"></i>
-                        </div>
-                        <p>หอมกลิ่นแมงดาแท้ๆ เผ็ดร้อนสะใจ สายแซ่บตัวจริงต้องลอง</p>
-                        <span class="price-tag">60 บาท</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Menu Ideas (Gimmick ใหม่) -->
-        <section id="menu" data-aos="fade-up">
-            <div class="menu-ideas">
-                <h3>🍽️ อร่อยง่ายๆ ได้หลายเมนู</h3>
-                <div class="menu-icons">
-                    <div class="menu-item">
-                        <i class="fas fa-egg"></i>
-                        <p>จิ้มไข่ต้ม</p>
-                    </div>
-                    <div class="menu-item">
-                        <i class="fas fa-carrot"></i>
-                        <p>แกล้มผักสด</p>
-                    </div>
-                    <div class="menu-item">
-                        <i class="fas fa-bowl-rice"></i>
-                        <p>คลุกข้าวสวยร้อนๆ</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contact -->
-        <section id="contact" style="text-align: center; margin-top: 80px;" data-aos="zoom-in">
-            <div style="background: #fff8e1; padding: 40px; border-radius: 20px; border: 2px dashed #ffb74d;">
-                <h2>สนใจสั่งซื้อ / พูดคุย</h2>
-                <p>กดปุ่มด้านล่างเพื่อทักหาเราได้เลยครับ</p>
-                <div style="font-size: 1.5em; font-weight: bold; color: var(--accent-red); margin-top: 20px;">
-                    <i class="fab fa-line" style="color: #06C755;"></i> @maepu
-                </div>
-            </div>
-        </section>
-
+    <!-- Marquee -->
+    <div class="marquee">
+        <div class="marquee-content">
+            ✦ HOMEMADE ORIGINAL ✦ ไม่ใส่วัตถุกันเสีย ✦ รสชาติจัดจ้าน ✦ สูตรลับฉบับคุณแม่ ✦ HOMEMADE ORIGINAL ✦ ไม่ใส่วัตถุกันเสีย ✦ รสชาติจัดจ้าน ✦ สูตรลับฉบับคุณแม่
+        </div>
     </div>
 
-    <footer>
-        <h3>น้ำพริกแม่ปู</h3>
-        <p>แม่ผมเป็นสาวชิค... และทำกับข้าวอร่อยมาก</p>
-        <p class="footer-quote">&copy; 2024 Created with ❤️ by Pai.</p>
+    <!-- 1. PRODUCT SECTION -->
+    <section id="products" class="product-section">
+        <div data-aos="fade-up">
+            <h2>สินค้าแนะนำ</h2>
+            <p>คัดสรรวัตถุดิบอย่างดี ตำสดใหม่ทุกกระปุก</p>
+        </div>
+        
+        <div class="product-grid">
+            <div class="product-card" data-aos="zoom-in">
+                <div class="product-img-box">
+                    <img src="images/product-tadang.jpg" alt="น้ำพริกตาแดง">
+                </div>
+                <div class="product-info">
+                    <h3>น้ำพริกตาแดง</h3>
+                    <p>สูตรโบราณ เผ็ดกำลังดี</p>
+                    <div class="price">50.-</div>
+                </div>
+            </div>
+
+            <div class="product-card" data-aos="zoom-in" data-aos-delay="100">
+                <div class="product-img-box">
+                    <img src="images/product-mangda.jpg" alt="น้ำพริกนรกแมงดา">
+                </div>
+                <div class="product-info">
+                    <h3>น้ำพริกนรกแมงดา</h3>
+                    <p>หอมแมงดาแท้ แซ่บถึงใจ</p>
+                    <div class="price">60.-</div>
+                </div>
+            </div>
+
+            <div class="product-card" data-aos="zoom-in" data-aos-delay="200">
+                <div class="product-img-box">
+                    <img src="images/product-other.jpg" alt="เมนูพิเศษ">
+                </div>
+                <div class="product-info">
+                    <h3>ไตปลาคั่วกลิ้ง (New!)</h3>
+                    <p>เครื่องแกงใต้แท้ๆ เข้มข้น</p>
+                    <div class="price">80.-</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. REVIEWS SECTION (Modified for Large Images) -->
+    <section id="reviews" class="reviews-section">
+        <div data-aos="fade-up">
+            <h2>เสียงจากลูกค้าตัวจริง</h2>
+            <p>Capture ความประทับใจ การันตีความอร่อย</p>
+        </div>
+        
+        <div class="review-grid">
+            <!-- Review 1 -->
+            <div class="review-card" data-aos="fade-up">
+                <!-- ใส่รูป Capture แชท หรือ รูปรีวิวใหญ่ๆ ตรงนี้ -->
+                <img src="images/review-1.jpg" alt="Capture รีวิวลูกค้า" class="review-img">
+                <div class="stars">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+                <p class="review-text">"อร่อยมากค่ะ เหมือนแม่ทำให้ทานที่บ้าน รสชาติถึงเครื่องมากๆ สั่งซ้ำแน่นอนค่ะ"</p>
+                <div>
+                    <span class="customer-name">คุณส้ม</span>
+                    <span class="customer-type">ลูกค้าประจำ (จาก Line)</span>
+                </div>
+            </div>
+            <!-- Review 2 -->
+            <div class="review-card" data-aos="fade-up" data-aos-delay="100">
+                <img src="images/review-2.jpg" alt="Capture รีวิวลูกค้า" class="review-img">
+                <div class="stars">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+                <p class="review-text">"น้ำพริกนรกแมงดาหอมมาก กินกับข้าวสวยร้อนๆ คือนิพพาน ส่งไว แพ็คของดีมากครับ"</p>
+                <div>
+                    <span class="customer-name">คุณบอย</span>
+                    <span class="customer-type">พนักงานออฟฟิศ (จาก Facebook)</span>
+                </div>
+            </div>
+            <!-- Review 3 -->
+            <div class="review-card" data-aos="fade-up" data-aos-delay="200">
+                <img src="images/review-3.jpg" alt="Capture รีวิวลูกค้า" class="review-img">
+                <div class="stars">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+                <p class="review-text">"ชอบที่แม่ค้าใส่ใจ สะอาด รสชาติคงที่กี่ปีก็เหมือนเดิม เป็นกำลังใจให้แบรนด์แม่ปูนะคะ"</p>
+                <div>
+                    <span class="customer-name">คุณนุ่น</span>
+                    <span class="customer-type">ลูกค้าใหม่</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. INFLUENCER VIDEO SECTION -->
+    <section class="video-section">
+        <div data-aos="fade-up">
+            <h2>รีวิวจาก Influencer</h2>
+            <p>ใครได้ชิมเป็นต้องติดใจ!</p>
+        </div>
+
+        <div class="video-grid">
+            <div class="video-card" data-aos="zoom-in">
+                <div class="video-placeholder">
+                    <i class="fab fa-youtube" style="font-size: 3rem; color: red;"></i>
+                    <p style="margin-top: 10px;">วาง Embed Code ตรงนี้</p>
+                </div>
+            </div>
+            <div class="video-card" data-aos="zoom-in" data-aos-delay="100">
+                <div class="video-placeholder">
+                    <i class="fab fa-tiktok" style="font-size: 3rem;"></i>
+                    <p style="margin-top: 10px;">วาง Embed Code ตรงนี้</p>
+                </div>
+            </div>
+            <div class="video-card" data-aos="zoom-in" data-aos-delay="200">
+                <div class="video-placeholder">
+                    <i class="fab fa-instagram" style="font-size: 3rem; color: #E1306C;"></i>
+                    <p style="margin-top: 10px;">วาง Embed Code ตรงนี้</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. SIGNATURE PRODUCT -->
+    <section class="signature-section">
+        <div class="signature-container">
+            <div class="signature-img-box" data-aos="fade-right">
+                <!-- ใส่รูปน้ำพริกปลาสลิดที่นี่ -->
+                <img src="images/product-plasalid.jpg" alt="น้ำพริกปลาสลิด" class="signature-img">
+            </div>
+            <div class="signature-text" data-aos="fade-left">
+                <span class="badge">Must Try</span>
+                <h2 style="color: #ffcc80; font-size: 3rem; margin-bottom: 10px;">น้ำพริกปลาสลิด</h2>
+                <h3 style="color: white; font-family: 'Sarabun'; font-weight: 300;">กรอบ หอม ถึงเครื่องสมุนไพร</h3>
+                <p style="opacity: 0.9; margin-top: 20px;">
+                    ที่สุดของความอร่อย! เราใช้เนื้อปลาสลิดแท้ 100% ทอดจนเหลืองกรอบ 
+                    นำมาคั่วกับเครื่องแกงสูตรลับของคุณแม่ปู จนแห้งสนิท ไม่อมน้ำมัน 
+                    หอมกลิ่นสมุนไพรตลบอบอวล เคี้ยวเพลินจนหยุดไม่ได้
+                </p>
+                
+                <ul class="feature-list">
+                    <li><i class="fas fa-check-circle"></i> เนื้อปลาสลิดเน้นๆ เต็มคำ</li>
+                    <li><i class="fas fa-check-circle"></i> ไม่ใส่วัตถุกันเสีย</li>
+                    <li><i class="fas fa-check-circle"></i> เก็บได้นาน 3 เดือน</li>
+                </ul>
+
+                <div class="sig-price">120 บาท</div>
+                
+                <a href="#contact" class="btn-cta" style="padding: 15px 50px; font-size: 1.2rem; box-shadow: 0 4px 15px rgba(216, 67, 21, 0.5);">
+                    สั่งเลย! <i class="fas fa-shopping-basket"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. STORY SECTION -->
+    <section id="about" class="about-section">
+        <div class="grid-container">
+            <div data-aos="fade-right">
+                <img src="images/mae-pu-cooking.jpg" alt="แม่ปูทำอาหาร" class="about-img">
+            </div>
+            <div class="about-text" data-aos="fade-left">
+                <h2>Connecting the DOTs</h2>
+                <p><strong>จากรสมือแม่...สู่ความตั้งใจของลูกชาย</strong></p>
+                <p>3 ปีแห่งการลองผิดลองถูก ตั้งแต่สตรีมเมอร์ พนักงานเสิร์ฟ จนถึงผู้จัดการร้านอาหาร ทุกจุด (DOTs) หล่อหลอมให้ผมเข้าใจคุณค่าของ "ความอร่อย" และ "การบริการ"</p>
+                <p>วันนี้ผมอยากตะโกนบอกโลกว่า <strong>"แม่ผมทำอาหารอร่อยมาก!"</strong> และนี่คือจุดเริ่มต้นของน้ำพริกแม่ปู</p>
+                <br>
+                <img src="images/logo-chic.png" alt="Logo" style="width: 100px;">
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. TIMELINE -->
+    <section class="timeline-section">
+        <h2 style="color: var(--accent-color);">เส้นทางของเรา</h2>
+        <div class="timeline-container">
+            <div class="timeline-item" data-aos="fade-up">
+                <span class="year">2021</span>
+                <h3>จุดเริ่มต้น & การเรียนรู้</h3>
+                <p>เริ่มต้นจากการเป็น Streamer และเรียนรู้วิธีการทำเว็บ ได้เรียนรู้ Logic การคิดจากเพื่อนๆ โปรแกรมเมอร์</p>
+            </div>
+            <div class="timeline-item" data-aos="fade-up">
+                <span class="year">2022-2023</span>
+                <h3>ล้ม ลุก คลุกคลาน</h3>
+                <p>เปิดร้านข้าวขาหมูแต่เจอปัญหาต้นทุน ผันตัวไปเป็นไกด์และพนักงานบริการ เพื่อเรียนรู้ศาสตร์ของ "คน"</p>
+            </div>
+            <div class="timeline-item" data-aos="fade-up">
+                <span class="year">NOW</span>
+                <h3>น้ำพริกแม่ปู The Beginning</h3>
+                <p>All-in ขยายกำลังการผลิต เพื่อส่งมอบรสชาติฝีมือแม่ให้ทุกคนได้ชิม</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <h2>Maepu.</h2>
+        <p>3dot1415926535897 | แม่ผมเป็นสาวชิค</p>
+        <div class="social-icons" style="margin-top: 20px;">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-line"></i></a>
+        </div>
+        <p style="margin-top: 40px; font-size: 0.8rem; opacity: 0.7;">&copy; 2024 Maepu Homemade. All rights reserved.</p>
     </footer>
 
-    <!-- Script สำหรับทำ Animation (ต้องมีบรรทัดนี้ ไม่งั้นไม่ขยับ) -->
+    <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({
-            duration: 1000, /* ความเร็วในการขยับ (1000ms = 1วินาที) */
-            once: true, /* ขยับแค่ครั้งเดียวพอ */
-        });
+        AOS.init({ duration: 1000, once: true });
     </script>
 </body>
 </html>
