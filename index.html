@@ -724,28 +724,34 @@
         AOS.init({ duration: 1000, once: true });
 
         // Logic for Auto Scroll Nudge (Specific for Mobile)
-        const firstProduct = document.querySelector('.product-card'); 
-        let hasNudged = false; 
+        const productCards = document.querySelectorAll('.product-card');
+        const nudgedIndices = new Set(); // เก็บรายการที่เลื่อนไปแล้ว
 
         window.addEventListener('scroll', () => {
-            // เงื่อนไข: ทำเฉพาะบนมือถือ + ยังไม่เคยทำ + มีการ์ดสินค้า
-            if (window.innerWidth > 768 || hasNudged || !firstProduct) return; 
+            // เงื่อนไข: ทำเฉพาะบนมือถือ
+            if (window.innerWidth > 768) return; 
 
-            const rect = firstProduct.getBoundingClientRect();
-            
-            // เช็คว่าสินค้าชิ้นแรก "เข้ามาอยู่ในจอแล้ว" (Top < กลางจอ)
-            if (rect.top < window.innerHeight / 2 && rect.bottom > 0) {
+            // วนลูปเช็คเฉพาะสินค้าชิ้นที่ 1 และ 2 (Index 0 และ 1)
+            for (let i = 0; i < 2; i++) {
+                const card = productCards[i];
+                if (!card || nudgedIndices.has(i)) continue;
+
+                const rect = card.getBoundingClientRect();
                 
-                hasNudged = true; // ล็อกทันทีไม่ให้ทำซ้ำ
+                // เช็คว่าสินค้า "เข้ามาอยู่ในสายตาแล้ว" (Top < กลางจอ) และยังไม่เลยจอไป
+                if (rect.top < window.innerHeight / 2 && rect.bottom > 100) {
+                    
+                    nudgedIndices.add(i); // ล็อกทันทีไม่ให้ทำซ้ำ
 
-                // รอ 2 วินาที ให้ลูกค้าดูรูปแป๊บนึง
-                setTimeout(() => {
-                    // เลื่อนลงไปหาชิ้นที่ 2 (กะระยะประมาณความสูงการ์ด)
-                    window.scrollBy({
-                        top: firstProduct.offsetHeight + 30, // ความสูงการ์ด + ช่องว่าง
-                        behavior: 'smooth'
-                    });
-                }, 2000);
+                    // รอ 2 วินาที ให้ลูกค้าดูรูปแป๊บนึง
+                    setTimeout(() => {
+                        // เลื่อนลงไปหาชิ้นถัดไป (กะระยะประมาณความสูงการ์ด + ช่องว่าง)
+                        window.scrollBy({
+                            top: card.offsetHeight + 30, 
+                            behavior: 'smooth'
+                        });
+                    }, 2000);
+                }
             }
         });
     </script>
