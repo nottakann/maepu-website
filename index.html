@@ -141,6 +141,37 @@
             animation: bounce 2s infinite;
         }
 
+        /* --- NEW: FLOATING SCROLL HINT FOR PRODUCTS --- */
+        .product-floating-hint {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px); /* ซ่อนลงไปนิดนึงก่อน */
+            background-color: rgba(216, 67, 21, 0.95); /* สีส้มแบรนด์ */
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            z-index: 900; /* อยู่ต่ำกว่าเมนูและปุ่มติดต่อ */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            opacity: 0; /* ซ่อนไว้ก่อน */
+            visibility: hidden;
+            transition: all 0.5s ease;
+            pointer-events: none; /* กดไม่ได้ตอนซ่อน */
+            width: max-content;
+        }
+        .product-floating-hint.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0); /* เด้งขึ้นมา */
+            pointer-events: auto;
+        }
+        .product-floating-hint p { margin: 0; font-size: 0.9rem; font-weight: 600; }
+        .product-floating-hint i { margin-top: 5px; font-size: 1.2rem; animation: bounce 2s infinite; }
+
         /* --- SCROLL HINT (STATIC) --- */
         .scroll-hint {
             text-align: center;
@@ -430,6 +461,11 @@
         </div>
     </div>
 
+    <!-- NEW: FLOATING HINT FOR PRODUCTS -->
+    <div id="product-hint" class="product-floating-hint" style="display: none;">
+        <!-- ลบปุ่มเดิมออก ตามที่ขอครับ -->
+    </div>
+
     <!-- 1. PRODUCT SECTION -->
     <section id="products" class="product-section">
         <div data-aos="fade-up">
@@ -438,6 +474,7 @@
         </div>
         
         <div class="product-grid">
+            <!-- First Product Card (Target for auto-scroll) -->
             <div class="product-card" data-aos="zoom-in">
                 <div class="product-img-box">
                     <img src="images/product-tadang.jpg" alt="น้ำพริกตาแดง">
@@ -686,33 +723,29 @@
     <script>
         AOS.init({ duration: 1000, once: true });
 
-        // Logic for Auto Scroll Nudge (Behavioral Nudge)
-        const productSection = document.getElementById('products');
-        let hasNudged = false; // ตัวแปรเช็คว่าเคยเลื่อนให้รึยัง (ทำแค่ครั้งเดียวพอ)
+        // Logic for Auto Scroll Nudge (Specific for Mobile)
+        const firstProduct = document.querySelector('.product-card'); 
+        let hasNudged = false; 
 
         window.addEventListener('scroll', () => {
-            if (hasNudged) return; // ถ้าเคยทำแล้ว ก็จบการทำงาน
+            // เงื่อนไข: ทำเฉพาะบนมือถือ + ยังไม่เคยทำ + มีการ์ดสินค้า
+            if (window.innerWidth > 768 || hasNudged || !firstProduct) return; 
 
-            const rect = productSection.getBoundingClientRect();
+            const rect = firstProduct.getBoundingClientRect();
             
-            // เช็คว่าส่วนหัวของสินค้าแนะนำ อยู่ในระยะสายตาหรือไม่ (top < 200px)
-            // และต้องไม่เลยขึ้นไปข้างบนจนมองไม่เห็น (top > -100)
-            if (rect.top < 200 && rect.top > -100) {
+            // เช็คว่าสินค้าชิ้นแรก "เข้ามาอยู่ในจอแล้ว" (Top < กลางจอ)
+            if (rect.top < window.innerHeight / 2 && rect.bottom > 0) {
                 
-                // ตั้งเวลา 2 วินาที (2000ms) แล้วค่อยเลื่อน
+                hasNudged = true; // ล็อกทันทีไม่ให้ทำซ้ำ
+
+                // รอ 2 วินาที ให้ลูกค้าดูรูปแป๊บนึง
                 setTimeout(() => {
-                    if (hasNudged) return; // เช็คซ้ำกันเหนียว
-                    
-                    // สั่งให้เลื่อนลงมานิดหน่อย (300px) แบบ Smooth
+                    // เลื่อนลงไปหาชิ้นที่ 2 (กะระยะประมาณความสูงการ์ด)
                     window.scrollBy({
-                        top: 300, 
+                        top: firstProduct.offsetHeight + 30, // ความสูงการ์ด + ช่องว่าง
                         behavior: 'smooth'
                     });
-                    
-                    hasNudged = true; // จำไว้ว่าทำแล้ว
                 }, 2000);
-                
-                hasNudged = true; // กันไม่ให้ตั้งเวลาซ้ำหลายรอบในเสี้ยววินาที
             }
         });
     </script>
