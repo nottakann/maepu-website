@@ -128,7 +128,7 @@
         .product-info { padding: 20px; }
         .price { font-size: 1.5rem; color: var(--accent-color); font-weight: bold; }
 
-        /* --- REVIEWS SECTION (UPDATED FOR LARGE IMAGES) --- */
+        /* --- REVIEWS SECTION --- */
         .reviews-section {
             background-color: #fff3e0;
             padding: 80px 20px;
@@ -140,7 +140,7 @@
             gap: 30px;
             max-width: 1100px;
             margin: 40px auto;
-            align-items: start; /* จัดให้การ์ดไม่ยืดเท่ากัน เพื่อให้สวยงามตามความสูงรูป */
+            align-items: start;
         }
         .review-card {
             background: white;
@@ -150,47 +150,26 @@
             border: 1px solid #fff;
             transition: transform 0.3s;
             overflow: hidden;
-            text-align: left; /* จัดข้อความชิดซ้ายให้อ่านง่ายขึ้น */
+            text-align: left;
         }
         .review-card:hover { transform: translateY(-5px); border-color: var(--secondary-color); }
         
-        /* สไตล์รูป Capture แชท/รีวิว */
         .review-img {
-            width: 100%; 
-            height: auto; /* ให้สูงตามสัดส่วนรูปจริง */
-            border-radius: 10px; 
-            object-fit: contain;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            margin-bottom: 20px;
-            background-color: #f9f9f9; /* สีรองพื้นถ้ารูปยังไม่โหลด */
-            border: 1px solid #eee;
-            transition: transform 0.5s;
+            width: 100%; height: auto; border-radius: 10px; object-fit: contain;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin-bottom: 20px;
+            background-color: #f9f9f9; border: 1px solid #eee; transition: transform 0.5s;
         }
-        /* Zoom effect เมื่อชี้ที่รูป */
         .review-card:hover .review-img { transform: scale(1.02); }
         
         .stars { color: #ffb300; margin-bottom: 10px; font-size: 1rem; }
         .review-text { 
-            font-style: italic; 
-            color: #555; 
-            margin-bottom: 15px; 
-            line-height: 1.6; 
-            font-size: 0.95rem;
-            background: #fafafa;
-            padding: 10px;
-            border-radius: 8px;
+            font-style: italic; color: #555; margin-bottom: 15px; 
+            line-height: 1.6; font-size: 0.95rem; background: #fafafa; padding: 10px; border-radius: 8px;
         }
-        .customer-name { 
-            font-weight: bold; 
-            color: var(--accent-color); 
-            font-family: 'Charmonman'; 
-            font-size: 1.1rem; 
-            display: block;
-            margin-top: 10px;
-        }
+        .customer-name { font-weight: bold; color: var(--accent-color); font-family: 'Charmonman'; font-size: 1.1rem; display: block; margin-top: 10px; }
         .customer-type { font-size: 0.8rem; color: #999; }
 
-        /* --- VIDEO REVIEWS SECTION --- */
+        /* --- VIDEO REVIEWS --- */
         .video-section { padding: 80px 20px; text-align: center; background-color: #fff; }
         .video-grid {
             display: grid;
@@ -215,7 +194,7 @@
 
         /* --- SIGNATURE SECTION --- */
         .signature-section {
-            background: var(--text-color); /* พื้นหลังสีเข้ม ดูพรีเมียม */
+            background: var(--text-color);
             color: white;
             padding: 80px 20px;
             overflow: hidden;
@@ -230,48 +209,21 @@
             margin: auto;
             gap: 50px;
         }
-        .signature-img-box {
-            flex: 1;
-            min-width: 300px;
-            position: relative;
-        }
-        /* กรอบรูปซ้อนกัน สร้างลูกเล่น */
+        .signature-img-box { flex: 1; min-width: 300px; position: relative; }
         .signature-img {
-            width: 100%;
-            border-radius: 20px;
+            width: 100%; border-radius: 20px;
             box-shadow: 20px 20px 0px rgba(255, 255, 255, 0.1);
-            transform: rotate(-2deg);
-            transition: transform 0.5s;
+            transform: rotate(-2deg); transition: transform 0.5s;
         }
         .signature-img:hover { transform: rotate(0deg) scale(1.02); }
-        
-        .signature-text {
-            flex: 1;
-            min-width: 300px;
-        }
+        .signature-text { flex: 1; min-width: 300px; }
         .badge {
-            background: var(--accent-color);
-            color: white;
-            padding: 5px 15px;
-            border-radius: 50px;
-            font-weight: bold;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            display: inline-block;
-            margin-bottom: 15px;
+            background: var(--accent-color); color: white; padding: 5px 15px;
+            border-radius: 50px; font-weight: bold; font-size: 0.9rem;
+            text-transform: uppercase; letter-spacing: 1px; display: inline-block; margin-bottom: 15px;
         }
-        .sig-price {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: var(--secondary-color);
-            margin: 20px 0;
-        }
-        .feature-list {
-            list-style: none;
-            padding: 0;
-            margin: 20px 0;
-        }
+        .sig-price { font-size: 2.5rem; font-weight: bold; color: var(--secondary-color); margin: 20px 0; }
+        .feature-list { list-style: none; padding: 0; margin: 20px 0; }
         .feature-list li { margin-bottom: 10px; font-size: 1.1rem; }
         .feature-list li i { color: var(--accent-color); margin-right: 10px; }
 
@@ -285,10 +237,7 @@
             max-width: 1100px;
             margin: auto;
         }
-        .about-img {
-            width: 100%; border-radius: 20px 0 20px 0;
-            box-shadow: 15px 15px 0px var(--secondary-color);
-        }
+        .about-img { width: 100%; border-radius: 20px 0 20px 0; box-shadow: 15px 15px 0px var(--secondary-color); }
         .about-text h2 { font-size: 3rem; color: var(--accent-color); margin-bottom: 20px; }
 
         .timeline-section { background-color: #fff; padding: 80px 20px; text-align: center; }
@@ -300,10 +249,42 @@
         }
         .year { font-weight: bold; color: var(--accent-color); font-size: 1.2rem; }
 
-        /* --- FOOTER --- */
-        footer { background: var(--text-color); color: #fff; padding: 60px 20px; text-align: center; }
-        .social-icons a { color: white; font-size: 1.5rem; margin: 0 10px; transition: 0.3s; }
-        .social-icons a:hover { color: var(--accent-color); }
+        /* --- GRAND FOOTER (NEW DESIGN) --- */
+        .grand-footer {
+            background: linear-gradient(to bottom, #fff8e1, #fff);
+            padding: 80px 20px 40px;
+            text-align: center;
+            border-top: 5px solid var(--accent-color);
+        }
+        .contact-title { font-size: 2.5rem; color: var(--text-color); margin-bottom: 40px; }
+        
+        .social-large {
+            display: flex; justify-content: center; gap: 30px; margin-bottom: 30px; flex-wrap: wrap;
+        }
+        .social-item {
+            display: flex; flex-direction: column; align-items: center; color: var(--text-color);
+            text-decoration: none; transition: transform 0.3s;
+        }
+        .social-item:hover { transform: translateY(-5px); color: var(--accent-color); }
+        .social-item i { font-size: 3.5rem; margin-bottom: 10px; }
+        
+        .phone-box {
+            background: var(--accent-color); color: white;
+            display: inline-block; padding: 20px 50px; border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(216, 67, 21, 0.3); margin: 20px 0 50px;
+            transform: rotate(-2deg); transition: transform 0.3s;
+        }
+        .phone-box:hover { transform: rotate(0deg) scale(1.05); }
+        .phone-number { font-size: 3.5rem; font-weight: 800; font-family: 'Sarabun'; line-height: 1; }
+        .phone-label { font-size: 1.2rem; opacity: 0.9; }
+
+        .grand-banner {
+            max-width: 1000px; margin: 0 auto 40px; border-radius: 20px; overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1); border: 2px solid #fff;
+        }
+        .grand-banner img { width: 100%; height: auto; display: block; }
+
+        .credit-text { font-size: 0.9rem; color: #aaa; margin-top: 40px; font-weight: 300; }
 
         @media (max-width: 768px) {
             .hero h1 { font-size: 2.5rem; }
@@ -311,6 +292,9 @@
             nav { padding: 15px; }
             .nav-links { display: none; }
             .signature-img-box { margin-bottom: 30px; }
+            .phone-number { font-size: 2.5rem; }
+            .social-large { gap: 20px; }
+            .social-item i { font-size: 2.5rem; }
         }
     </style>
 </head>
@@ -390,7 +374,7 @@
         </div>
     </section>
 
-    <!-- 2. REVIEWS SECTION (Modified for Large Images) -->
+    <!-- 2. REVIEWS SECTION -->
     <section id="reviews" class="reviews-section">
         <div data-aos="fade-up">
             <h2>เสียงจากลูกค้าตัวจริง</h2>
@@ -400,7 +384,6 @@
         <div class="review-grid">
             <!-- Review 1 -->
             <div class="review-card" data-aos="fade-up">
-                <!-- ใส่รูป Capture แชท หรือ รูปรีวิวใหญ่ๆ ตรงนี้ -->
                 <img src="images/review-1.jpg" alt="Capture รีวิวลูกค้า" class="review-img">
                 <div class="stars">
                     <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
@@ -471,7 +454,6 @@
     <section class="signature-section">
         <div class="signature-container">
             <div class="signature-img-box" data-aos="fade-right">
-                <!-- ใส่รูปน้ำพริกปลาสลิดที่นี่ -->
                 <img src="images/product-plasalid.jpg" alt="น้ำพริกปลาสลิด" class="signature-img">
             </div>
             <div class="signature-text" data-aos="fade-left">
@@ -538,16 +520,45 @@
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer id="contact">
-        <h2>Maepu.</h2>
-        <p>3dot1415926535897 | แม่ผมเป็นสาวชิค</p>
-        <div class="social-icons" style="margin-top: 20px;">
-            <a href="#"><i class="fab fa-facebook"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-line"></i></a>
+    <!-- 7. GRAND FOOTER & CONTACT -->
+    <footer id="contact" class="grand-footer">
+        <div data-aos="fade-up">
+            <h2 class="contact-title">หากสนใจสามารถติดต่อได้</h2>
+            
+            <!-- Social Icons -->
+            <div class="social-large">
+                <a href="#" class="social-item">
+                    <i class="fab fa-instagram" style="color: #E1306C;"></i>
+                    <span>Instagram</span>
+                </a>
+                <a href="#" class="social-item">
+                    <i class="fab fa-line" style="color: #06C755;"></i>
+                    <span>Line OA</span>
+                </a>
+                <a href="#" class="social-item">
+                    <i class="fab fa-tiktok" style="color: #000;"></i>
+                    <span>TikTok</span>
+                </a>
+            </div>
+
+            <!-- Big Phone Number -->
+            <div class="phone-box">
+                <div class="phone-label">โทรสั่งความอร่อย</div>
+                <div class="phone-number">095-534-3310</div>
+            </div>
+
+            <!-- Grand Image Banner (รูปใหญ่ที่มีโลโก้และรีวิว) -->
+            <div class="grand-banner">
+                <!-- ใส่รูปใหญ่ของคุณตรงนี้ -->
+                <img src="images/grand-banner.jpg" alt="รีวิวแน่นๆ และโลโก้แม่ปู">
+            </div>
+
+            <!-- Credit -->
+            <div class="credit-text">
+                <p>ขอบพระคุณ คุณ riko สำหรับที่ปรึกษาทำเว็ปไซต์</p>
+                <p style="font-size: 0.8rem; margin-top: 10px;">&copy; 2024 Maepu Homemade. All rights reserved.</p>
+            </div>
         </div>
-        <p style="margin-top: 40px; font-size: 0.8rem; opacity: 0.7;">&copy; 2024 Maepu Homemade. All rights reserved.</p>
     </footer>
 
     <!-- Scripts -->
