@@ -30,24 +30,26 @@
             padding: 0;
         }
 
-        /* --- แก้ไขเรื่อง Scroll ติดนิ้ว --- */
         html {
             scroll-behavior: smooth;
-            /* เอา overflow-x: hidden ออกจาก html เพื่อให้ scroll ลื่นไหล */
         }
 
         body {
             width: 100%;
-            /* ย้าย overflow-x มาที่ body แทน */
             overflow-x: hidden; 
             position: relative;
             font-family: 'Sarabun', sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
-            -webkit-overflow-scrolling: touch; /* เพิ่มความลื่นบน iOS */
+            -webkit-overflow-scrolling: touch;
         }
 
         h1, h2, h3 { font-family: 'Charmonman', cursive; font-weight: 700; }
+
+        /* --- แก้ปัญหา Animation ล้นจอ (สำคัญ!) --- */
+        section {
+            overflow: hidden; /* ตัดส่วนเกินของ Animation ทิ้ง ไม่ให้ขยายจอ */
+        }
 
         /* --- NAVBAR --- */
         nav {
@@ -82,23 +84,22 @@
         }
         .btn-cta:hover { transform: scale(1.05); }
 
-        /* --- HERO SECTION (ปรับรูปพื้นหลังเป็น Signature) --- */
+        /* --- HERO SECTION --- */
         .hero {
-            height: 90vh; /* สูงเกือบเต็มจอ */
+            height: 90vh;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
             position: relative;
-            /* เปลี่ยนรูปพื้นหลังเป็นรูป Signature ตามที่ขอครับ */
             background-image: url('images/maepu-signature.png'); 
             background-size: cover;
             background-position: center;
             background-color: #3e2723;
+            overflow: hidden; /* เพิ่มกันเหนียว */
         }
         .hero-overlay {
             position: absolute; inset: 0;
-            /* เพิ่มความเข้มของ Overlay เพื่อให้ตัวหนังสืออ่านง่ายเมื่อวางบนรูปสินค้า */
             background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(62, 39, 35, 0.7));
         }
         .hero-content {
@@ -107,12 +108,12 @@
             color: white;
             max-width: 800px;
             padding: 20px;
-            text-shadow: 2px 2px 10px rgba(0,0,0,0.8); /* เพิ่มเงาตัวหนังสือให้ชัดขึ้น */
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
         }
         .hero h1 { font-size: 4rem; margin-bottom: 10px; color: #fff; }
         .hero p { font-size: 1.5rem; font-family: 'Sarabun'; font-weight: 300; }
 
-        /* --- SCROLL INDICATOR (HERO) --- */
+        /* --- SCROLL INDICATOR --- */
         .scroll-indicator {
             position: absolute;
             bottom: 30px;
@@ -135,10 +136,10 @@
         }
         .scroll-arrow {
             font-size: 2rem;
-            animation: bounce 2s infinite; /* สั่งให้เด้งดึ๋งๆ */
+            animation: bounce 2s infinite;
         }
 
-        /* --- SCROLL HINT (สำหรับ Section อื่นๆ) --- */
+        /* --- SCROLL HINT --- */
         .scroll-hint {
             text-align: center;
             margin-top: 50px;
@@ -152,7 +153,6 @@
         .scroll-hint p { margin: 0 0 5px 0; font-size: 0.9rem; font-weight: 600; }
         .scroll-hint i { font-size: 1.5rem; animation: bounce 2s infinite; }
 
-        /* คีย์เฟรมสำหรับทำ Animation เด้ง */
         @keyframes bounce {
             0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
             40% {transform: translateY(-10px);}
@@ -173,7 +173,7 @@
         @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
         /* --- PRODUCT SHOWCASE --- */
-        .product-section { padding: 80px 20px 40px; text-align: center; } /* ลด padding ล่างนิดนึง */
+        .product-section { padding: 80px 20px 40px; text-align: center; }
         .product-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -197,7 +197,6 @@
             transition: filter 0.3s;
         }
         .product-card:hover .product-img-box img { filter: sepia(0) contrast(1.1) saturate(1.2); }
-        
         .product-info { padding: 20px; }
         .price { font-size: 1.5rem; color: var(--accent-color); font-weight: bold; }
 
@@ -226,14 +225,12 @@
             text-align: left;
         }
         .review-card:hover { transform: translateY(-5px); border-color: var(--secondary-color); }
-        
         .review-img {
             width: 100%; height: auto; border-radius: 10px; object-fit: contain;
             box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin-bottom: 20px;
             background-color: #f9f9f9; border: 1px solid #eee; transition: transform 0.5s;
         }
         .review-card:hover .review-img { transform: scale(1.02); }
-        
         .stars { color: #ffb300; margin-bottom: 10px; font-size: 1rem; }
         .review-text { 
             font-style: italic; color: #555; margin-bottom: 15px; 
@@ -270,7 +267,7 @@
             background: var(--text-color);
             color: white;
             padding: 80px 20px 40px;
-            overflow: hidden;
+            overflow: hidden; /* สำคัญมาก: ใส่ตรงนี้เพื่อแก้บัคหน้าจอล้น */
             position: relative;
         }
         .signature-container {
@@ -302,7 +299,11 @@
         .feature-list li i { color: var(--accent-color); margin-right: 10px; }
 
         /* --- ABOUT & TIMELINE --- */
-        .about-section { padding: 80px 40px; background: var(--bg-color); }
+        .about-section { 
+            padding: 80px 40px; 
+            background: var(--bg-color);
+            overflow: hidden; /* สำคัญมาก: แก้บัค Connecting DOTs ล้นจอ */
+        }
         .grid-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -329,6 +330,7 @@
             padding: 80px 20px 40px;
             text-align: center;
             border-top: 5px solid var(--accent-color);
+            overflow: hidden; /* กันเหนียวที่ footer ด้วย */
         }
         .contact-title { font-size: 2.5rem; color: var(--text-color); margin-bottom: 40px; }
         
@@ -359,7 +361,6 @@
             overflow: hidden;
             box-shadow: 0 15px 50px rgba(0,0,0,0.15); 
             border: 15px solid #fff;
-            /* เพิ่มสีพื้นหลังและขนาดขั้นต่ำ เผื่อรูปโหลดไม่ได้จะได้ไม่ดูพัง */
             background-color: #f0f0f0;
             min-height: 200px;
             position: relative;
@@ -383,6 +384,8 @@
             .social-item i { font-size: 2.5rem; }
             /* ปรับการหมุนให้น้อยลงในมือถือ เพื่อลดปัญหา overflow */
             .grand-banner, .phone-box, .signature-img { transform: rotate(0deg) !important; }
+            /* ลดขนาด Padding บนมือถือ */
+            .about-section { padding: 60px 20px; }
         }
     </style>
 </head>
@@ -399,7 +402,7 @@
         </div>
     </nav>
 
-    <!-- Hero Section (Updated Background & Added Scroll Indicator) -->
+    <!-- Hero Section -->
     <header class="hero">
         <div class="hero-overlay"></div>
         <div class="hero-content" data-aos="fade-up">
@@ -411,7 +414,7 @@
             </div>
         </div>
 
-        <!-- Scroll Down Indicator (ตัวช่วยบอกให้เลื่อน) -->
+        <!-- Scroll Down Indicator -->
         <div class="scroll-indicator" onclick="document.getElementById('products').scrollIntoView();">
             <span class="scroll-text">เลื่อนเพื่อดูสินค้า</span>
             <i class="fas fa-chevron-down scroll-arrow"></i>
@@ -467,7 +470,7 @@
             </div>
         </div>
 
-        <!-- Scroll Hint to Reviews -->
+        <!-- Scroll Hint -->
         <div class="scroll-hint" onclick="document.getElementById('reviews').scrollIntoView();">
             <p>ดูรีวิวจากลูกค้าตัวจริง</p>
             <i class="fas fa-chevron-down"></i>
@@ -517,7 +520,7 @@
             </div>
         </div>
 
-        <!-- Scroll Hint to Video -->
+        <!-- Scroll Hint -->
         <div class="scroll-hint" onclick="document.querySelector('.video-section').scrollIntoView();">
             <p>ดูรีวิวจาก Influencer</p>
             <i class="fas fa-chevron-down"></i>
@@ -552,18 +555,17 @@
             </div>
         </div>
 
-        <!-- Scroll Hint to Signature -->
+        <!-- Scroll Hint -->
         <div class="scroll-hint" onclick="document.querySelector('.signature-section').scrollIntoView();">
             <p>ดูเมนู Signature ของเรา</p>
             <i class="fas fa-chevron-down"></i>
         </div>
     </section>
 
-    <!-- 4. SIGNATURE SECTION (Updated Image to .png) -->
+    <!-- 4. SIGNATURE SECTION -->
     <section class="signature-section">
         <div class="signature-container">
             <div class="signature-img-box" data-aos="fade-right">
-                <!-- แก้ไขตรงนี้ให้ใช้รูป maepu-signature.png ตามที่ลูกค้าสงสัย -->
                 <img src="images/maepu-signature.png" alt="น้ำพริกปลาสลิด" class="signature-img">
             </div>
             <div class="signature-text" data-aos="fade-left">
@@ -590,7 +592,7 @@
             </div>
         </div>
 
-        <!-- Scroll Hint to Story -->
+        <!-- Scroll Hint -->
         <div class="scroll-hint" style="color: white; margin-top: 30px;" onclick="document.getElementById('about').scrollIntoView();">
             <p>อ่านเรื่องราวของแม่ปู</p>
             <i class="fas fa-chevron-down"></i>
@@ -665,8 +667,7 @@
 
             <!-- Grand Image Banner -->
             <div class="grand-banner">
-                <!-- ผมเปลี่ยนชื่อเป็น banner.jpg ให้สั้นลงจะได้ไม่พิมพ์ผิดครับ -->
-                <img src="images/banner.jpg" alt="⚠️ ไม่พบรูป 'banner.jpg' กรุณาเช็คชื่อไฟล์">
+                <img src="images/grand-banner.jpg" alt="⚠️ ไม่พบรูป 'grand-banner.jpg' กรุณาเช็คชื่อไฟล์">
             </div>
 
             <!-- Credit -->
