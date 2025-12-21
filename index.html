@@ -723,45 +723,13 @@
     <script>
         AOS.init({ duration: 1000, once: true });
 
-        // --- Custom Slow Scroll Function (ฟังก์ชันเลื่อนช้า) ---
-        function slowScrollTo(targetSelector, duration) {
-            const target = document.querySelector(targetSelector);
-            if(!target) return;
-            
-            const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
-            const startPosition = window.pageYOffset;
-            const distance = targetPosition - startPosition;
-            let startTime = null;
-
-            function animation(currentTime) {
-                if (startTime === null) startTime = currentTime;
-                const timeElapsed = currentTime - startTime;
-                
-                // ใช้ ease-in-out เพื่อให้นุ่มนวล (เริ่มช้า เร็วตรงกลาง จบช้า)
-                const run = ease(timeElapsed, startPosition, distance, duration);
-                window.scrollTo(0, run);
-                
-                if (timeElapsed < duration) requestAnimationFrame(animation);
-            }
-
-            // สูตรคำนวณการเคลื่อนที่แบบ ease-in-out
-            function ease(t, b, c, d) {
-                t /= d / 2;
-                if (t < 1) return c / 2 * t * t + b;
-                t--;
-                return -c / 2 * (t * (t - 2) - 1) + b;
-            }
-
-            requestAnimationFrame(animation);
-        }
-
         // Logic for Product Floating Hint
         const productSection = document.getElementById('products');
         const productHint = document.getElementById('product-hint');
 
-        // เพิ่ม Event Click ให้ปุ่มนี้เลื่อนช้าๆ (2 วินาที)
+        // Restore native smooth scroll
         productHint.addEventListener('click', () => {
-            slowScrollTo('#reviews', 2000); 
+            document.getElementById('reviews').scrollIntoView({ behavior: 'smooth' });
         });
 
         window.addEventListener('scroll', () => {
