@@ -30,25 +30,27 @@
             padding: 0;
         }
 
+        /* --- แก้ไขเรื่อง Scroll ติดนิ้ว --- */
         html {
             scroll-behavior: smooth;
         }
 
         body {
             width: 100%;
+            /* ย้าย overflow-x มาที่ body แทน */
             overflow-x: hidden; 
             position: relative;
             font-family: 'Sarabun', sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
-            -webkit-overflow-scrolling: touch;
+            -webkit-overflow-scrolling: touch; /* เพิ่มความลื่นบน iOS */
         }
 
         h1, h2, h3 { font-family: 'Charmonman', cursive; font-weight: 700; }
 
-        /* --- แก้ปัญหา Animation ล้นจอ (สำคัญ!) --- */
+        /* --- แก้ปัญหา Animation ล้นจอ --- */
         section {
-            overflow: hidden; /* ตัดส่วนเกินของ Animation ทิ้ง ไม่ให้ขยายจอ */
+            overflow: hidden; 
         }
 
         /* --- NAVBAR --- */
@@ -96,7 +98,7 @@
             background-size: cover;
             background-position: center;
             background-color: #3e2723;
-            overflow: hidden; /* เพิ่มกันเหนียว */
+            overflow: hidden;
         }
         .hero-overlay {
             position: absolute; inset: 0;
@@ -113,7 +115,7 @@
         .hero h1 { font-size: 4rem; margin-bottom: 10px; color: #fff; }
         .hero p { font-size: 1.5rem; font-family: 'Sarabun'; font-weight: 300; }
 
-        /* --- SCROLL INDICATOR --- */
+        /* --- SCROLL INDICATOR (HERO) --- */
         .scroll-indicator {
             position: absolute;
             bottom: 30px;
@@ -139,7 +141,38 @@
             animation: bounce 2s infinite;
         }
 
-        /* --- SCROLL HINT --- */
+        /* --- NEW: FLOATING SCROLL HINT FOR PRODUCTS --- */
+        .product-floating-hint {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px); /* ซ่อนลงไปนิดนึงก่อน */
+            background-color: rgba(216, 67, 21, 0.95); /* สีส้มแบรนด์ */
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            z-index: 900; /* อยู่ต่ำกว่าเมนูและปุ่มติดต่อ */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            opacity: 0; /* ซ่อนไว้ก่อน */
+            visibility: hidden;
+            transition: all 0.5s ease;
+            pointer-events: none; /* กดไม่ได้ตอนซ่อน */
+            width: max-content;
+        }
+        .product-floating-hint.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0); /* เด้งขึ้นมา */
+            pointer-events: auto;
+        }
+        .product-floating-hint p { margin: 0; font-size: 0.9rem; font-weight: 600; }
+        .product-floating-hint i { margin-top: 5px; font-size: 1.2rem; animation: bounce 2s infinite; }
+
+        /* --- SCROLL HINT (STATIC) --- */
         .scroll-hint {
             text-align: center;
             margin-top: 50px;
@@ -414,7 +447,7 @@
             </div>
         </div>
 
-        <!-- Scroll Down Indicator -->
+        <!-- Scroll Down Indicator (Hero) -->
         <div class="scroll-indicator" onclick="document.getElementById('products').scrollIntoView();">
             <span class="scroll-text">เลื่อนเพื่อดูสินค้า</span>
             <i class="fas fa-chevron-down scroll-arrow"></i>
@@ -426,6 +459,12 @@
         <div class="marquee-content">
             ✦ HOMEMADE ORIGINAL ✦ ไม่ใส่วัตถุกันเสีย ✦ รสชาติจัดจ้าน ✦ สูตรลับฉบับคุณแม่ ✦ HOMEMADE ORIGINAL ✦ ไม่ใส่วัตถุกันเสีย ✦ รสชาติจัดจ้าน ✦ สูตรลับฉบับคุณแม่
         </div>
+    </div>
+
+    <!-- NEW: FLOATING HINT FOR PRODUCTS -->
+    <div id="product-hint" class="product-floating-hint" onclick="document.getElementById('reviews').scrollIntoView();">
+        <p>เลื่อนเพื่อดูสินค้าและรีวิวเพิ่มเติม</p>
+        <i class="fas fa-chevron-down"></i>
     </div>
 
     <!-- 1. PRODUCT SECTION -->
@@ -470,7 +509,7 @@
             </div>
         </div>
 
-        <!-- Scroll Hint -->
+        <!-- Scroll Hint (Static - Keep for backup) -->
         <div class="scroll-hint" onclick="document.getElementById('reviews').scrollIntoView();">
             <p>ดูรีวิวจากลูกค้าตัวจริง</p>
             <i class="fas fa-chevron-down"></i>
@@ -682,6 +721,21 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 1000, once: true });
+
+        // Logic for Product Floating Hint
+        const productSection = document.getElementById('products');
+        const productHint = document.getElementById('product-hint');
+
+        window.addEventListener('scroll', () => {
+            const rect = productSection.getBoundingClientRect();
+            // ถ้าหัวข้อสินค้าแนะนำอยู่บนหน้าจอ (rect.top < window.innerHeight/2)
+            // และยังเลื่อนไม่ถึง 300px ของ section นั้น (rect.top > -300)
+            if (rect.top < window.innerHeight / 2 && rect.top > -300) {
+                productHint.classList.add('visible');
+            } else {
+                productHint.classList.remove('visible');
+            }
+        });
     </script>
 </body>
 </html>
