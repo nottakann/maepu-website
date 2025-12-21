@@ -73,7 +73,7 @@
 
         /* --- HERO SECTION (ปรับรูปพื้นหลังเป็น Signature) --- */
         .hero {
-            height: 90vh;
+            height: 90vh; /* สูงเกือบเต็มจอ */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -100,6 +100,38 @@
         }
         .hero h1 { font-size: 4rem; margin-bottom: 10px; color: #fff; }
         .hero p { font-size: 1.5rem; font-family: 'Sarabun'; font-weight: 300; }
+
+        /* --- SCROLL INDICATOR (NEW: ตัวช่วยบอกให้เลื่อนลง) --- */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            text-align: center;
+            z-index: 3;
+            cursor: pointer;
+            opacity: 0.9;
+            transition: opacity 0.3s;
+        }
+        .scroll-indicator:hover { opacity: 1; }
+        .scroll-text {
+            display: block;
+            font-size: 1rem;
+            margin-bottom: 10px;
+            font-weight: 300;
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+        }
+        .scroll-arrow {
+            font-size: 2rem;
+            animation: bounce 2s infinite; /* สั่งให้เด้งดึ๋งๆ */
+        }
+        /* คีย์เฟรมสำหรับทำ Animation เด้ง */
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-10px);}
+            60% {transform: translateY(-5px);}
+        }
 
         /* --- MARQUEE --- */
         .marquee {
@@ -339,7 +371,7 @@
         </div>
     </nav>
 
-    <!-- Hero Section (Updated Background) -->
+    <!-- Hero Section (Updated Background & Added Scroll Indicator) -->
     <header class="hero">
         <div class="hero-overlay"></div>
         <div class="hero-content" data-aos="fade-up">
@@ -349,6 +381,12 @@
             <div style="margin-top: 30px;">
                 <a href="#products" class="btn-cta" style="padding: 15px 40px; font-size: 1.2rem;">ดูสินค้า</a>
             </div>
+        </div>
+
+        <!-- Scroll Down Indicator (ตัวช่วยบอกให้เลื่อน) -->
+        <div class="scroll-indicator" onclick="document.getElementById('products').scrollIntoView();">
+            <span class="scroll-text">เลื่อนเพื่อดูสินค้า</span>
+            <i class="fas fa-chevron-down scroll-arrow"></i>
         </div>
     </header>
 
