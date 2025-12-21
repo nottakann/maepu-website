@@ -149,7 +149,7 @@
             transform: translateX(-50%) translateY(20px); /* ซ่อนลงไปนิดนึงก่อน */
             background-color: rgba(216, 67, 21, 0.95); /* สีส้มแบรนด์ */
             color: white;
-            padding: 12px 25px;
+            padding: 15px 30px;
             border-radius: 50px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.3);
             z-index: 900; /* อยู่ต่ำกว่าเมนูและปุ่มติดต่อ */
@@ -169,8 +169,20 @@
             transform: translateX(-50%) translateY(0); /* เด้งขึ้นมา */
             pointer-events: auto;
         }
-        .product-floating-hint p { margin: 0; font-size: 0.9rem; font-weight: 600; }
-        .product-floating-hint i { margin-top: 5px; font-size: 1.2rem; animation: bounce 2s infinite; }
+        .product-floating-hint p { margin: 0 0 5px 0; font-size: 0.9rem; font-weight: 600; }
+        
+        /* Animation: Swipe Up Hand (สไตล์ TikTok) */
+        .product-floating-hint i { 
+            font-size: 1.8rem; 
+            animation: swipe-up 1.5s infinite; 
+            text-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        @keyframes swipe-up {
+            0% { transform: translateY(10px); opacity: 0; }
+            20% { opacity: 1; } /* ปรากฏขึ้น */
+            100% { transform: translateY(-20px); opacity: 0; } /* เลื่อนขึ้นแล้วจางหาย */
+        }
 
         /* --- SCROLL HINT (STATIC) --- */
         .scroll-hint {
@@ -464,7 +476,7 @@
     <!-- NEW: FLOATING HINT FOR PRODUCTS -->
     <div id="product-hint" class="product-floating-hint">
         <p>เลื่อนเพื่อดูสินค้าและรีวิวเพิ่มเติม</p>
-        <i class="fas fa-chevron-down"></i>
+        <i class="fas fa-hand-pointer"></i>
     </div>
 
     <!-- 1. PRODUCT SECTION -->
