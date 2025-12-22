@@ -916,30 +916,37 @@
     <script>
         AOS.init({ duration: 1000, once: true });
 
-        // Logic for Product Nudge (Specific for Mobile)
+        // Logic for Product Nudge (Specific for Mobile) - REFACTORED TO INTERSECTION OBSERVER
         const productCards = document.querySelectorAll('.product-card');
         const nudgedIndices = new Set(); 
-        const initTime = Date.now(); // Safety guard: เก็บเวลาเริ่มโหลด
 
-        window.addEventListener('scroll', () => {
-            if (window.innerWidth > 768) return; 
+        if (window.innerWidth <= 768) {
+             const productObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const index = Array.from(productCards).indexOf(entry.target);
+                        // สนใจเฉพาะการ์ด 2 ใบแรก
+                        if (index !== -1 && index < 2 && !nudgedIndices.has(index)) {
+                            nudgedIndices.add(index);
+                            
+                            // หน่วงเวลา 2.5 วินาที แล้วเลื่อนลง
+                            setTimeout(() => {
+                                // เช็คอีกทีว่ายังอยู่ในจอไหม (เผื่อคนเลื่อนหนีไปแล้ว)
+                                const rect = entry.target.getBoundingClientRect();
+                                if (rect.top < window.innerHeight && rect.bottom > 0) {
+                                     window.scrollBy({ top: entry.target.offsetHeight + 30, behavior: 'smooth' });
+                                }
+                            }, 2500);
+                        }
+                    }
+                });
+            }, { threshold: 0.8 }); // ต้องเห็นเกือบเต็มใบ (80%) ถึงจะเริ่มนับ
 
-            // Safety guard: ถ้าเพิ่งเข้าเว็บมาไม่ถึง 3 วินาที ห้ามเลื่อนเองเด็ดขาด
-            if (Date.now() - initTime < 3000) return;
+            // เริ่ม Observe เฉพาะ 2 ใบแรก
+            if(productCards.length > 0) productObserver.observe(productCards[0]);
+            if(productCards.length > 1) productObserver.observe(productCards[1]);
+        }
 
-            for (let i = 0; i < 2; i++) {
-                const card = productCards[i];
-                if (!card || nudgedIndices.has(i)) continue;
-
-                const rect = card.getBoundingClientRect();
-                if (rect.top < window.innerHeight / 2 && rect.bottom > 100) {
-                    nudgedIndices.add(i); 
-                    setTimeout(() => {
-                        window.scrollBy({ top: card.offsetHeight + 30, behavior: 'smooth' });
-                    }, 3000); // ปรับเป็น 3 วินาทีตามที่ขอ
-                }
-            }
-        });
 
         // --- NEW: Next Review Button Feature ---
         const nextReviewBtn = document.getElementById('next-review-btn');
