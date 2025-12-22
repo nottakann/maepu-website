@@ -172,6 +172,44 @@
         .product-floating-hint p { margin: 0; font-size: 0.9rem; font-weight: 600; }
         .product-floating-hint i { margin-top: 5px; font-size: 1.2rem; animation: bounce 2s infinite; }
 
+        /* --- NEW: NEXT REVIEW BUTTON (POP UP) --- */
+        .next-review-btn {
+            position: fixed;
+            bottom: 40px; /* สูงจากขอบล่างนิดหน่อย */
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: rgba(30, 30, 30, 0.65); /* สีดำจางๆ โปร่งแสง */
+            backdrop-filter: blur(5px); /* เบลอฉากหลังให้ดูแพง */
+            color: white;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(255,255,255,0.1);
+            white-space: nowrap;
+        }
+        .next-review-btn.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+        .next-review-btn:hover {
+            background: rgba(30, 30, 30, 0.85);
+            transform: translateX(-50%) scale(1.05);
+        }
+        .next-review-btn i {
+            animation: bounce 2s infinite;
+        }
+
         /* --- SCROLL HINT (STATIC) --- */
         .scroll-hint {
             text-align: center;
@@ -751,6 +789,11 @@
         </div>
     </section>
 
+    <!-- NEW: Pop-up Button for Next Review -->
+    <div id="next-review-btn" class="next-review-btn">
+        ดูรีวิวถัดไป <i class="fas fa-chevron-down"></i>
+    </div>
+
     <!-- 4. SIGNATURE SECTION -->
     <section class="signature-section">
         <div class="signature-container">
@@ -898,38 +941,70 @@
             }
         });
 
-        // --- NEW: Video Section Auto-Nudge Feature ---
-        const videoSection = document.querySelector('.video-section');
-        let videoNudgeDone = false;
-        let videoTimer = null;
+        // --- NEW: Next Review Button Feature ---
+        const nextReviewBtn = document.getElementById('next-review-btn');
+        const socialCards = document.querySelectorAll('.social-card');
 
-        if (videoSection) {
-            const videoObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        // เริ่มนับเวลาเมื่อเห็น (เฉพาะจอมือถือ/แท็บเล็ต)
-                        if (!videoNudgeDone && window.innerWidth < 1000) {
-                            videoTimer = setTimeout(() => {
-                                // เช็คอีกทีว่ายังอยู่ที่เดิมไหม (กันเลื่อนหนีไปแล้วแล้วมันกระตุกตาม)
-                                const rect = videoSection.getBoundingClientRect();
-                                const isStillVisible = (rect.top < window.innerHeight && rect.bottom >= 0);
-                                
-                                if (isStillVisible && !videoNudgeDone) {
-                                    videoNudgeDone = true;
-                                    // เลื่อนลงไปประมาณความสูงการ์ด+Header (ประมาณ 380px)
-                                    window.scrollBy({ top: 380, behavior: 'smooth' }); 
-                                }
-                            }, 3500); // ปรับหน่วงเวลาเป็น 3.5 วินาที (ให้คนดูคลิปแป๊บนึง)
-                        }
-                    } else {
-                        // ถ้าเลื่อนออกก่อน 3.5 วิ ให้ยกเลิกการนับ
-                        if (videoTimer) clearTimeout(videoTimer);
-                    }
-                });
-            }, { threshold: 0.3 }); // ต้องเห็นเกิน 30% ของโซน ถึงจะเริ่มนับ
+        function checkVideoSectionNav() {
+            // Hide on Desktop
+            if (window.innerWidth > 992) {
+                nextReviewBtn.classList.remove('visible');
+                return;
+            }
 
-            videoObserver.observe(videoSection);
+            const videoSection = document.querySelector('.video-section');
+            if (!videoSection) return;
+
+            const rect = videoSection.getBoundingClientRect();
+            const windowHeight = window.innerHeight;
+
+            // ตรวจสอบว่าเรายังอยู่ในโซนวิดีโอหรือไม่
+            // เงื่อนไข: 
+            // 1. หัว Section ต้องเริ่มเข้าจอมาบ้างแล้ว (rect.top < windowHeight * 0.8)
+            // 2. ท้าย Section ต้องยังไม่พ้นขึ้นไปจนสุด (rect.bottom > windowHeight * 0.5)
+            const inSection = (rect.top < windowHeight * 0.8) && (rect.bottom > windowHeight * 0.5);
+
+            if (!inSection) {
+                nextReviewBtn.classList.remove('visible');
+                return;
+            }
+
+            // ตรวจสอบการ์ดใบสุดท้าย
+            const lastCard = socialCards[socialCards.length - 1];
+            const lastCardRect = lastCard.getBoundingClientRect();
+
+            // ถ้าการ์ดใบสุดท้าย "เริ่มโผล่มาเกินครึ่ง" หรือ "หัวการ์ดอยู่เกือบกลางจอ" แปลว่าลูกค้าเห็นแล้ว
+            // ให้ซ่อนปุ่ม
+            if (lastCardRect.top < windowHeight * 0.6) {
+                 nextReviewBtn.classList.remove('visible');
+            } else {
+                // ถ้ายังไม่ถึงใบสุดท้าย ให้โชว์ปุ่ม
+                 nextReviewBtn.classList.add('visible');
+            }
         }
+
+        // Click Event: Scroll to next card
+        if (nextReviewBtn) {
+            nextReviewBtn.addEventListener('click', () => {
+                for (const card of socialCards) {
+                    const rect = card.getBoundingClientRect();
+                    // หาการ์ดใบถัดไป (คือใบที่หัวยังอยู่ต่ำกว่ากลางจอ)
+                    if (rect.top > window.innerHeight / 2) {
+                        // เลื่อนลงไปหา
+                        window.scrollBy({
+                            top: rect.top - 100, // เว้นระยะหัวนิดนึง
+                            behavior: 'smooth'
+                        });
+                        break;
+                    }
+                }
+            });
+        }
+
+        window.addEventListener('scroll', checkVideoSectionNav);
+        
+        // --- End New Feature ---
+
     </script>
 </body>
 </html>
