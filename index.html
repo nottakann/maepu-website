@@ -876,9 +876,13 @@
         // Logic for Product Nudge (Specific for Mobile)
         const productCards = document.querySelectorAll('.product-card');
         const nudgedIndices = new Set(); 
+        const initTime = Date.now(); // Safety guard: เก็บเวลาเริ่มโหลด
 
         window.addEventListener('scroll', () => {
             if (window.innerWidth > 768) return; 
+
+            // Safety guard: ถ้าเพิ่งเข้าเว็บมาไม่ถึง 3 วินาที ห้ามเลื่อนเองเด็ดขาด
+            if (Date.now() - initTime < 3000) return;
 
             for (let i = 0; i < 2; i++) {
                 const card = productCards[i];
@@ -889,7 +893,7 @@
                     nudgedIndices.add(i); 
                     setTimeout(() => {
                         window.scrollBy({ top: card.offsetHeight + 30, behavior: 'smooth' });
-                    }, 2000);
+                    }, 3000); // ปรับเป็น 3 วินาทีตามที่ขอ
                 }
             }
         });
@@ -915,10 +919,10 @@
                                     // เลื่อนลงไปประมาณความสูงการ์ด+Header (ประมาณ 380px)
                                     window.scrollBy({ top: 380, behavior: 'smooth' }); 
                                 }
-                            }, 4500); // รอ 4.5 วินาที
+                            }, 3500); // ปรับหน่วงเวลาเป็น 3.5 วินาที (ให้คนดูคลิปแป๊บนึง)
                         }
                     } else {
-                        // ถ้าเลื่อนออกก่อน 5 วิ ให้ยกเลิกการนับ
+                        // ถ้าเลื่อนออกก่อน 3.5 วิ ให้ยกเลิกการนับ
                         if (videoTimer) clearTimeout(videoTimer);
                     }
                 });
