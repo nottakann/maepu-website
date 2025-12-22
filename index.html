@@ -293,16 +293,17 @@
             background: linear-gradient(to bottom, #fff, #fdfbf7);
         }
         .video-grid {
-            display: flex; /* ใช้ Flex เพื่อจัดกลางได้ดีกว่าในบางเคส หรือ Grid ก็ได้ */
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 40px;
+            /* แก้ไข: ใช้ Grid เพื่อบังคับ 3 คอลัมน์ในแถวเดียว */
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 20px; /* ลดช่องว่างลงนิดนึงเพื่อให้พอดี */
             max-width: 1200px;
             margin: 40px auto;
+            align-items: start; /* ให้เริ่มจากบนสุดเสมอ */
         }
         
         .social-card {
-            width: 340px; /* ฟิกความกว้างให้เหมือนจอมือถือ */
+            width: 100%; /* แก้ไข: ให้เต็มช่อง Grid ของตัวเอง */
             background: #fff;
             border-radius: 30px; /* โค้งเยอะๆ แบบ Modern UI */
             box-shadow: 0 15px 40px rgba(0,0,0,0.1);
@@ -346,11 +347,15 @@
         /* ส่วนเนื้อหาวิดีโอ */
         .social-body {
             background: #000;
-            /* สำคัญ: กำหนดความสูงเพื่อให้เท่ากันทุกการ์ด */
-            height: 600px; 
+            /* แก้ไข: ปลดล็อกความสูง เพื่อให้ TikTok ยืดได้เต็มที่ ไม่ต้อง scroll */
+            min-height: 600px; 
+            height: auto; 
             width: 100%;
-            overflow: hidden; /* ซ่อนส่วนเกิน */
+            overflow: hidden;
             position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         /* ปรับ Iframe ให้เต็มพื้นที่ */
         .social-body iframe, 
@@ -485,7 +490,10 @@
 
         .credit-text { font-size: 0.9rem; color: #aaa; margin-top: 40px; font-weight: 300; }
 
-        @media (max-width: 768px) {
+        @media (max-width: 992px) { /* เพิ่ม Breakpoint สำหรับ Tablet ให้เรียงลงมา */
+            .video-grid {
+                grid-template-columns: 1fr; /* บนมือถือ/แท็บเล็ต ให้เรียงตั้งเหมือนเดิม */
+            }
             .hero h1 { font-size: 2.5rem; }
             .grid-container, .signature-container { flex-direction: column; grid-template-columns: 1fr; }
             nav { padding: 15px; }
@@ -500,7 +508,7 @@
             .about-section { padding: 60px 20px; }
             
             /* ปรับ Video Card ในมือถือให้เต็มจอ */
-            .social-card { width: 100%; max-width: 380px; }
+            .social-card { width: 100%; max-width: 380px; margin: 0 auto; }
         }
     </style>
 </head>
@@ -688,13 +696,11 @@
                     </div>
                 </div>
                 <div class="social-body">
-                    <!-- TikTok Embed (Wrap in div to control overflow) -->
-                    <div style="height: 100%; overflow-y: scroll; scrollbar-width: none;">
-                        <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@tastymommychilisauce/video/7586625210330139924" data-video-id="7586625210330139924" style="max-width: 605px;min-width: 325px; margin: 0;"> 
-                            <section> <a target="_blank" title="@tastymommychilisauce" href="https://www.tiktok.com/@tastymommychilisauce?refer=embed">@tastymommychilisauce</a> ... </section> 
-                        </blockquote> 
-                        <script async src="https://www.tiktok.com/embed.js"></script>
-                    </div>
+                    <!-- TikTok Embed (Removed Scroll, Allowed Auto Height) -->
+                    <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@tastymommychilisauce/video/7586625210330139924" data-video-id="7586625210330139924" style="max-width: 605px;min-width: 325px; margin: 0;"> 
+                        <section> <a target="_blank" title="@tastymommychilisauce" href="https://www.tiktok.com/@tastymommychilisauce?refer=embed">@tastymommychilisauce</a> ... </section> 
+                    </blockquote> 
+                    <script async src="https://www.tiktok.com/embed.js"></script>
                 </div>
                 <div class="social-footer">
                     "ขอบคุณสำหรับการรีวิวที่น่ารักมากๆๆเลยครับ"
@@ -711,12 +717,10 @@
                     </div>
                 </div>
                 <div class="social-body">
-                    <!-- Instagram Embed -->
-                    <div style="height: 100%; overflow-y: scroll; scrollbar-width: none;">
-                        <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DIC7qSBSaNN/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:none; margin: 0; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);">
-                        </blockquote>
-                        <script async src="//www.instagram.com/embed.js"></script>
-                    </div>
+                    <!-- Instagram Embed (Removed Scroll) -->
+                    <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DIC7qSBSaNN/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:none; margin: 0; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);">
+                    </blockquote>
+                    <script async src="//www.instagram.com/embed.js"></script>
                 </div>
                 <div class="social-footer">
                     "อีกหนึ่งเสียงยืนยันความอร่อยจากลูกค้าทาง IG ครับ"
