@@ -286,32 +286,92 @@
         .customer-name { font-weight: bold; color: var(--accent-color); font-family: 'Charmonman'; font-size: 1.1rem; display: block; margin-top: 10px; }
         .customer-type { font-size: 0.8rem; color: #999; }
 
-        /* --- VIDEO REVIEWS --- */
-        .video-section { padding: 80px 20px 40px; text-align: center; background-color: #fff; }
+        /* --- REDESIGNED VIDEO REVIEWS (SOCIAL CARDS) --- */
+        .video-section { 
+            padding: 80px 20px 60px; 
+            text-align: center; 
+            background: linear-gradient(to bottom, #fff, #fdfbf7);
+        }
         .video-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            max-width: 1100px;
+            display: flex; /* ใช้ Flex เพื่อจัดกลางได้ดีกว่าในบางเคส หรือ Grid ก็ได้ */
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            max-width: 1200px;
             margin: 40px auto;
         }
-        .video-card {
-            border-radius: 15px;
+        
+        .social-card {
+            width: 340px; /* ฟิกความกว้างให้เหมือนจอมือถือ */
+            background: #fff;
+            border-radius: 30px; /* โค้งเยอะๆ แบบ Modern UI */
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
             overflow: hidden;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+        }
+        .social-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+        }
+
+        /* ส่วนหัวการ์ด */
+        .social-header {
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #fff;
+            border-bottom: 1px solid #f0f0f0;
+            z-index: 10;
+        }
+        .social-icon-box {
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-size: 1.2rem;
+        }
+        .social-info { text-align: left; }
+        .social-name { font-weight: bold; font-size: 0.95rem; color: #333; display: block; }
+        .social-sub { font-size: 0.75rem; color: #888; display: block; }
+
+        /* สีเฉพาะของแต่ละ Platform */
+        .sc-yt .social-icon-box { background: #FF0000; }
+        .sc-tt .social-icon-box { background: #000000; }
+        .sc-ig .social-icon-box { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); }
+
+        /* ส่วนเนื้อหาวิดีโอ */
+        .social-body {
             background: #000;
-            aspect-ratio: 9/16;
+            /* สำคัญ: กำหนดความสูงเพื่อให้เท่ากันทุกการ์ด */
+            height: 600px; 
+            width: 100%;
+            overflow: hidden; /* ซ่อนส่วนเกิน */
             position: relative;
         }
-        /* ลบ padding สำหรับการ์ดที่มี embed */
-        .video-card iframe, .video-card blockquote {
-            margin: 0 !important;
+        /* ปรับ Iframe ให้เต็มพื้นที่ */
+        .social-body iframe, 
+        .social-body blockquote {
             width: 100% !important;
+            height: 100% !important;
+            margin: 0 !important;
+            border: none;
+            min-width: 100% !important; 
         }
-        .video-placeholder {
-            width: 100%; height: 100%; display: flex;
-            align-items: center; justify-content: center;
-            color: white; flex-direction: column;
+
+        /* Quote ด้านล่างการ์ด (ถ้ามี) */
+        .social-footer {
+            padding: 15px 20px;
+            background: #fff;
+            font-size: 0.9rem;
+            color: #555;
+            font-style: italic;
+            border-top: 1px solid #f0f0f0;
+            min-height: 60px; /* กันไว้ให้สูงเท่าๆกัน */
+            display: flex; align-items: center; justify-content: center;
         }
 
         /* --- SIGNATURE SECTION --- */
@@ -438,6 +498,9 @@
             .grand-banner, .phone-box, .signature-img { transform: rotate(0deg) !important; }
             /* ลดขนาด Padding บนมือถือ */
             .about-section { padding: 60px 20px; }
+            
+            /* ปรับ Video Card ในมือถือให้เต็มจอ */
+            .social-card { width: 100%; max-width: 380px; }
         }
     </style>
 </head>
@@ -588,33 +651,78 @@
         </div>
     </section>
 
-    <!-- 3. INFLUENCER VIDEO SECTION -->
+    <!-- 3. INFLUENCER VIDEO SECTION (REDESIGNED) -->
     <section class="video-section">
         <div data-aos="fade-up">
             <h2>รีวิวจาก Influencer</h2>
-            <p>ใครได้ชิมเป็นต้องติดใจ!</p>
+            <p>ใครได้ชิมเป็นต้องติดใจ! ดูได้เลยไม่ต้องโหลดแอป</p>
         </div>
 
         <div class="video-grid">
-            <div class="video-card" data-aos="zoom-in">
-                <div class="video-placeholder">
-                    <i class="fab fa-youtube" style="font-size: 3rem; color: red;"></i>
-                    <p style="margin-top: 10px;"><iframe width="356" height="634" src="https://www.youtube.com/embed/nGHr0UdKJUI" title="ขอบพระคุณพี่แพรมากๆๆนะครับสำหรับรีวิว เลิฟพี่แพรมากๆนะครับ #น้ำพริกแม่ปู #น้ำพริกปลาสลิด #น้ำพริก" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></p>
+            
+            <!-- 1. YouTube Shorts Card -->
+            <div class="social-card sc-yt" data-aos="fade-up">
+                <div class="social-header">
+                    <div class="social-icon-box"><i class="fab fa-youtube"></i></div>
+                    <div class="social-info">
+                        <span class="social-name">พี่แพรพาชิม</span>
+                        <span class="social-sub">YouTube Shorts</span>
+                    </div>
+                </div>
+                <div class="social-body">
+                    <!-- YouTube Embed -->
+                    <iframe width="100%" height="100%" src="https://www.youtube.com/embed/nGHr0UdKJUI" title="Review" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+                <div class="social-footer">
+                    "ขอบพระคุณพี่แพรมากๆๆนะครับสำหรับรีวิว... เลิฟพี่แพรมากๆนะครับ"
                 </div>
             </div>
-            <div class="video-card" data-aos="zoom-in" data-aos-delay="100">
-                <div class="video-placeholder">
-                    <i class="fab fa-tiktok" style="font-size: 3rem;"></i>
-                    <p style="margin-top: 10px;"><blockquote class="tiktok-embed" cite="https://www.tiktok.com/@tastymommychilisauce/video/7586625210330139924" data-video-id="7586625210330139924" style="max-width: 605px;min-width: 325px;" > <section> <a target="_blank" title="@tastymommychilisauce" href="https://www.tiktok.com/@tastymommychilisauce?refer=embed">@tastymommychilisauce</a> ขอบคุณสำหรับการรีวิวที่น่ารักมากๆๆเลยครับ @3dot1415926535897 <a title="แม่ปูรีวิว" target="_blank" href="https://www.tiktok.com/tag/%E0%B9%81%E0%B8%A1%E0%B9%88%E0%B8%9B%E0%B8%B9%E0%B8%A3%E0%B8%B5%E0%B8%A7%E0%B8%B4%E0%B8%A7?refer=embed">#แม่ปูรีวิว</a> <a title="น้ำพริกแม่ปู" target="_blank" href="https://www.tiktok.com/tag/%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B8%9E%E0%B8%A3%E0%B8%B4%E0%B8%81%E0%B9%81%E0%B8%A1%E0%B9%88%E0%B8%9B%E0%B8%B9?refer=embed">#น้ำพริกแม่ปู</a> <a title="น้ำพริกปลาสลิด" target="_blank" href="https://www.tiktok.com/tag/%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B8%9E%E0%B8%A3%E0%B8%B4%E0%B8%81%E0%B8%9B%E0%B8%A5%E0%B8%B2%E0%B8%AA%E0%B8%A5%E0%B8%B4%E0%B8%94?refer=embed">#น้ำพริกปลาสลิด</a> <a title="น้ำพริก" target="_blank" href="https://www.tiktok.com/tag/%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B8%9E%E0%B8%A3%E0%B8%B4%E0%B8%81?refer=embed">#น้ำพริก</a> <a target="_blank" title="♬ original sound  - น้ำพริกแม่ปู" href="https://www.tiktok.com/music/original-sound-น้ำพริกแม่ปู-7586625233700948743?refer=embed">♬ original sound  - น้ำพริกแม่ปู</a> </section> </blockquote> <script async src="https://www.tiktok.com/embed.js"></script></p>
+
+            <!-- 2. TikTok Card -->
+            <div class="social-card sc-tt" data-aos="fade-up" data-aos-delay="100">
+                <div class="social-header">
+                    <div class="social-icon-box"><i class="fab fa-tiktok"></i></div>
+                    <div class="social-info">
+                        <span class="social-name">@tastymommy</span>
+                        <span class="social-sub">TikTok Video</span>
+                    </div>
+                </div>
+                <div class="social-body">
+                    <!-- TikTok Embed (Wrap in div to control overflow) -->
+                    <div style="height: 100%; overflow-y: scroll; scrollbar-width: none;">
+                        <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@tastymommychilisauce/video/7586625210330139924" data-video-id="7586625210330139924" style="max-width: 605px;min-width: 325px; margin: 0;"> 
+                            <section> <a target="_blank" title="@tastymommychilisauce" href="https://www.tiktok.com/@tastymommychilisauce?refer=embed">@tastymommychilisauce</a> ... </section> 
+                        </blockquote> 
+                        <script async src="https://www.tiktok.com/embed.js"></script>
+                    </div>
+                </div>
+                <div class="social-footer">
+                    "ขอบคุณสำหรับการรีวิวที่น่ารักมากๆๆเลยครับ"
                 </div>
             </div>
-            <div class="video-card" data-aos="zoom-in" data-aos-delay="200">
-                <!-- Updated Instagram Embed -->
-                <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DIC7qSBSaNN/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);">
-                    <!-- Content inside blockquote handled by Instagram script -->
-                </blockquote>
-                <script async src="//www.instagram.com/embed.js"></script>
+
+            <!-- 3. Instagram Card -->
+            <div class="social-card sc-ig" data-aos="fade-up" data-aos-delay="200">
+                <div class="social-header">
+                    <div class="social-icon-box"><i class="fab fa-instagram"></i></div>
+                    <div class="social-info">
+                        <span class="social-name">Customer Review</span>
+                        <span class="social-sub">Instagram Reels</span>
+                    </div>
+                </div>
+                <div class="social-body">
+                    <!-- Instagram Embed -->
+                    <div style="height: 100%; overflow-y: scroll; scrollbar-width: none;">
+                        <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DIC7qSBSaNN/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:none; margin: 0; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);">
+                        </blockquote>
+                        <script async src="//www.instagram.com/embed.js"></script>
+                    </div>
+                </div>
+                <div class="social-footer">
+                    "อีกหนึ่งเสียงยืนยันความอร่อยจากลูกค้าทาง IG ครับ"
+                </div>
             </div>
+
         </div>
 
         <!-- Scroll Hint -->
