@@ -293,20 +293,23 @@
             background: linear-gradient(to bottom, #fff, #fdfbf7);
         }
         .video-grid {
-            /* แก้ไข: ใช้ Grid เพื่อบังคับ 3 คอลัมน์ในแถวเดียว */
-            display: grid;
-            grid-template-columns: repeat(3, 1fr); 
-            gap: 20px; /* ลดช่องว่างลงนิดนึงเพื่อให้พอดี */
+            /* กลับมาใช้ Flexbox เพื่อให้มันจัดสัดส่วนเองตามความกว้างของการ์ด ไม่ยืดมั่ว */
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 25px; 
             max-width: 1200px;
             margin: 40px auto;
-            align-items: start; /* ให้เริ่มจากบนสุดเสมอ */
+            align-items: flex-start; /* จัดให้หัวเท่ากัน */
         }
         
         .social-card {
-            width: 100%; /* แก้ไข: ให้เต็มช่อง Grid ของตัวเอง */
+            /* สำคัญ: ล็อกความกว้างเท่ามือถือ เพื่อให้ Embed แสดงผลสวยสุด */
+            width: 340px; 
+            max-width: 100%; /* กันล้นในจอมือถือเล็ก */
             background: #fff;
-            border-radius: 30px; /* โค้งเยอะๆ แบบ Modern UI */
-            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            border-radius: 25px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             overflow: hidden;
             position: relative;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -315,29 +318,29 @@
             flex-direction: column;
         }
         .social-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
         }
 
         /* ส่วนหัวการ์ด */
         .social-header {
-            padding: 15px 20px;
+            padding: 12px 15px;
             display: flex;
             align-items: center;
             gap: 10px;
             background: #fff;
-            border-bottom: 1px solid #f0f0f0;
+            border-bottom: 1px solid #f5f5f5;
             z-index: 10;
         }
         .social-icon-box {
-            width: 40px; height: 40px;
+            width: 35px; height: 35px;
             border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            color: white; font-size: 1.2rem;
+            color: white; font-size: 1rem;
         }
         .social-info { text-align: left; }
-        .social-name { font-weight: bold; font-size: 0.95rem; color: #333; display: block; }
-        .social-sub { font-size: 0.75rem; color: #888; display: block; }
+        .social-name { font-weight: bold; font-size: 0.9rem; color: #333; display: block; }
+        .social-sub { font-size: 0.7rem; color: #888; display: block; }
 
         /* สีเฉพาะของแต่ละ Platform */
         .sc-yt .social-icon-box { background: #FF0000; }
@@ -347,36 +350,48 @@
         /* ส่วนเนื้อหาวิดีโอ */
         .social-body {
             background: #000;
-            /* แก้ไข: ปลดล็อกความสูง เพื่อให้ TikTok ยืดได้เต็มที่ ไม่ต้อง scroll */
-            min-height: 600px; 
-            height: auto; 
             width: 100%;
-            overflow: hidden;
+            /* เอา height: auto เพื่อให้ยืดตาม TikTok ได้เลย */
+            height: auto; 
             position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        /* ปรับ Iframe ให้เต็มพื้นที่ */
-        .social-body iframe, 
-        .social-body blockquote {
-            width: 100% !important;
-            height: 100% !important;
-            margin: 0 !important;
-            border: none;
-            min-width: 100% !important; 
+            display: block; /* แก้เป็น Block เพื่อให้ flow ปกติ */
         }
 
-        /* Quote ด้านล่างการ์ด (ถ้ามี) */
+        /* YouTube Container Hack เพื่อบังคับสัดส่วน 9:16 (เหมือนมือถือแนวตั้ง) */
+        .youtube-shorts-wrapper {
+            position: relative;
+            width: 100%;
+            padding-bottom: 177.77%; /* 16:9 inverted = 9:16 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+        }
+        .youtube-shorts-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* TikTok & IG Adjustments */
+        .tiktok-embed, .instagram-media {
+            margin: 0 !important;
+            min-width: 100% !important;
+            border-radius: 0 !important;
+            box-shadow: none !important;
+        }
+
+        /* Quote ด้านล่างการ์ด */
         .social-footer {
-            padding: 15px 20px;
+            padding: 15px;
             background: #fff;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: #555;
             font-style: italic;
-            border-top: 1px solid #f0f0f0;
-            min-height: 60px; /* กันไว้ให้สูงเท่าๆกัน */
-            display: flex; align-items: center; justify-content: center;
+            border-top: 1px solid #f5f5f5;
+            text-align: center;
+            line-height: 1.4;
         }
 
         /* --- SIGNATURE SECTION --- */
@@ -491,9 +506,7 @@
         .credit-text { font-size: 0.9rem; color: #aaa; margin-top: 40px; font-weight: 300; }
 
         @media (max-width: 992px) { /* เพิ่ม Breakpoint สำหรับ Tablet ให้เรียงลงมา */
-            .video-grid {
-                grid-template-columns: 1fr; /* บนมือถือ/แท็บเล็ต ให้เรียงตั้งเหมือนเดิม */
-            }
+            /* .video-grid { ... เอาออกเพราะ Flexbox จะจัดการเอง ... } */
             .hero h1 { font-size: 2.5rem; }
             .grid-container, .signature-container { flex-direction: column; grid-template-columns: 1fr; }
             nav { padding: 15px; }
@@ -508,7 +521,7 @@
             .about-section { padding: 60px 20px; }
             
             /* ปรับ Video Card ในมือถือให้เต็มจอ */
-            .social-card { width: 100%; max-width: 380px; margin: 0 auto; }
+            .social-card { width: 100%; max-width: 360px; margin: 0 auto; }
         }
     </style>
 </head>
@@ -678,8 +691,10 @@
                     </div>
                 </div>
                 <div class="social-body">
-                    <!-- YouTube Embed -->
-                    <iframe width="100%" height="100%" src="https://www.youtube.com/embed/nGHr0UdKJUI" title="Review" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    <!-- YouTube Embed Wrapper for 9:16 Ratio -->
+                    <div class="youtube-shorts-wrapper">
+                        <iframe src="https://www.youtube.com/embed/nGHr0UdKJUI" title="Review" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    </div>
                 </div>
                 <div class="social-footer">
                     "ขอบพระคุณพี่แพรมากๆๆนะครับสำหรับรีวิว... เลิฟพี่แพรมากๆนะครับ"
@@ -696,7 +711,7 @@
                     </div>
                 </div>
                 <div class="social-body">
-                    <!-- TikTok Embed (Removed Scroll, Allowed Auto Height) -->
+                    <!-- TikTok Embed -->
                     <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@tastymommychilisauce/video/7586625210330139924" data-video-id="7586625210330139924" style="max-width: 605px;min-width: 325px; margin: 0;"> 
                         <section> <a target="_blank" title="@tastymommychilisauce" href="https://www.tiktok.com/@tastymommychilisauce?refer=embed">@tastymommychilisauce</a> ... </section> 
                     </blockquote> 
@@ -717,7 +732,7 @@
                     </div>
                 </div>
                 <div class="social-body">
-                    <!-- Instagram Embed (Removed Scroll) -->
+                    <!-- Instagram Embed -->
                     <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DIC7qSBSaNN/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:none; margin: 0; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);">
                     </blockquote>
                     <script async src="//www.instagram.com/embed.js"></script>
