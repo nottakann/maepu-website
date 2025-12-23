@@ -657,6 +657,7 @@
             flex-direction: column;
             align-items: center;
             transition: transform 0.3s;
+            text-decoration: none; /* For link */
         }
         .special-thanks-box:hover { transform: translateY(-5px); background: rgba(255, 255, 255, 0.8); }
         
@@ -683,7 +684,7 @@
         }
         
         .branch-name { font-size: 0.85rem; font-weight: bold; color: var(--accent-color); margin-bottom: 5px; }
-        .branch-desc { font-size: 0.7rem; font-weight: 300; opacity: 0.8; line-height: 1.4; }
+        .branch-desc { font-size: 0.7rem; font-weight: 300; opacity: 0.8; line-height: 1.4; color: var(--text-color); }
 
         @media (max-width: 992px) { /* เพิ่ม Breakpoint สำหรับ Tablet ให้เรียงลงมา */
             /* .video-grid { ... เอาออกเพราะ Flexbox จะจัดการเอง ... } */
@@ -1075,15 +1076,15 @@
             
             <!-- Social Icons -->
             <div class="social-large">
-                <a href="#" class="social-item">
+                <a href="https://www.instagram.com/tastymomychilisauce?igsh=Z3Z4aHRtaDIyazhl" class="social-item" target="_blank">
                     <i class="fab fa-instagram" style="color: #E1306C;"></i>
                     <span>Instagram</span>
                 </a>
-                <a href="#" class="social-item">
+                <a href="https://line.me/ti/p/E5qDfwRtZL" class="social-item" target="_blank">
                     <i class="fab fa-line" style="color: #06C755;"></i>
                     <span>Line OA</span>
                 </a>
-                <a href="#" class="social-item">
+                <a href="https://www.instagram.com/tastymomychilisauce?igsh=Z3Z4aHRtaDIyazhl" class="social-item" target="_blank">
                     <i class="fab fa-tiktok" style="color: #000;"></i>
                     <span>TikTok</span>
                 </a>
@@ -1106,17 +1107,17 @@
                 <h3 style="color: var(--text-color); margin-bottom: 20px;">Special Thanks <i class="fas fa-heart" style="color: #ff5252;"></i></h3>
                 <div class="special-thanks-container">
                     <!-- Branch 1 -->
-                    <div class="special-thanks-box">
+                    <a href="https://www.facebook.com/profile.php?id=100069254547319" class="special-thanks-box" target="_blank">
                         <img src="images/logo-chob-pochana-1.jpg" alt="สาขาจันทบุรี" class="special-thanks-img">
                         <p class="branch-name">สาขาจันทบุรี</p>
                         <p class="branch-desc">พี่สาวและพี่ชาย ที่เป็นยิ่งกว่าพี่ ผู้สนับสนุนผมเสมอมา</p>
-                    </div>
+                    </a>
                     <!-- Branch 2 -->
-                    <div class="special-thanks-box">
+                    <a href="https://www.facebook.com/profile.php?id=61562884358666" class="special-thanks-box" target="_blank">
                         <img src="images/logo-chob-pochana-2.jpg" alt="สาขาระยอง" class="special-thanks-img">
                         <p class="branch-name">สาขาระยอง</p>
                         <p class="branch-desc">ร้านและพนักงานทุกคนที่ให้โอกาส</p>
-                    </div>
+                    </a>
                 </div>
             </div>
 
