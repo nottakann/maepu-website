@@ -966,13 +966,14 @@
         <div class="signature-container">
             <div class="signature-img-box" data-aos="fade-right">
                 <div class="stack-container" onclick="shuffleCards()">
-                    <!-- Stack Order: DOM order means the last element is VISUALLY ON TOP by default with absolute positioning -->
-                    <!-- We want order: Sig -> C1 -> C2 -> C3. So Sig must be Last Child initially. -->
+                    <!-- Stack Order: Bottom to Top -->
+                    <!-- We want order: Sig -> C1 -> C2 -> C3 -> Sig -->
+                    <!-- So Bottom card must be C1 (to be moved to top first) -->
                     
                     <!-- Bottom Cards -->
-                    <img src="images/customer-collage-3.jpg" class="card" alt="Customer Review 3">
-                    <img src="images/customer-collage-2.jpg" class="card" alt="Customer Review 2">
                     <img src="images/customer-collage-1.jpg" class="card" alt="Customer Review 1">
+                    <img src="images/customer-collage-2.jpg" class="card" alt="Customer Review 2">
+                    <img src="images/customer-collage-3.jpg" class="card" alt="Customer Review 3">
                     
                     <!-- Top Card (Visible initially) -->
                     <img src="images/signature-น้ำพริกปลาสลิด.jpg" class="card" alt="น้ำพริกปลาสลิด">
