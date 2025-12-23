@@ -489,7 +489,7 @@
         .stack-container {
             position: relative;
             width: 100%;
-            padding-bottom: 120%; /* Vertical rectangle aspect */
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
             margin: 0 auto;
             cursor: pointer;
         }
@@ -705,6 +705,28 @@
 
             /* Show Continue Button Only on Mobile */
             .mobile-story-hint { display: flex !important; }
+        }
+
+        /* Mobile specific for Special Thanks layout */
+        @media (max-width: 600px) {
+            .special-thanks-container {
+                flex-wrap: nowrap;
+                justify-content: center;
+                gap: 10px;
+                max-width: 100%;
+                overflow-x: auto; /* Just in case */
+            }
+            .special-thanks-box {
+                width: 48%; /* Force them to share the row */
+                min-width: 140px;
+                padding: 15px 10px;
+            }
+            .special-thanks-img {
+                width: 60px;
+                height: 60px;
+            }
+            .branch-name { font-size: 0.8rem; }
+            .branch-desc { font-size: 0.65rem; }
         }
     </style>
 </head>
