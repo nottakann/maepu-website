@@ -574,22 +574,37 @@
 
         .credit-text { font-size: 0.9rem; color: #aaa; margin-top: 40px; font-weight: 300; }
 
-        /* --- SPECIAL THANKS --- */
-        .special-thanks-box {
+        /* --- SPECIAL THANKS (Updated for 2 Branches) --- */
+        .special-thanks-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
             margin: 40px auto 20px;
-            text-align: center;
-            max-width: 300px;
+            max-width: 600px;
+        }
+        .special-thanks-box {
             background: rgba(255, 255, 255, 0.5);
             padding: 20px;
             border-radius: 15px;
             border: 1px dashed var(--accent-color);
+            text-align: center;
+            width: 220px; /* Fixed width for consistency */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 0.3s;
         }
-        .special-thanks-box p {
+        .special-thanks-box:hover { transform: translateY(-5px); background: rgba(255, 255, 255, 0.8); }
+        
+        .special-thanks-header {
             font-size: 0.9rem;
             color: var(--text-color);
             margin-bottom: 10px;
             font-weight: 600;
+            width: 100%;
         }
+        
         .special-thanks-img {
             width: 80px;
             height: 80px;
@@ -597,12 +612,15 @@
             border-radius: 50%;
             border: 3px solid var(--secondary-color);
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            margin-bottom: 5px;
+            margin-bottom: 10px;
             transition: transform 0.3s;
         }
-        .special-thanks-img:hover {
+        .special-thanks-box:hover .special-thanks-img {
             transform: scale(1.1) rotate(5deg);
         }
+        
+        .branch-name { font-size: 0.85rem; font-weight: bold; color: var(--accent-color); margin-bottom: 5px; }
+        .branch-desc { font-size: 0.7rem; font-weight: 300; opacity: 0.8; line-height: 1.4; }
 
         @media (max-width: 992px) { /* เพิ่ม Breakpoint สำหรับ Tablet ให้เรียงลงมา */
             /* .video-grid { ... เอาออกเพราะ Flexbox จะจัดการเอง ... } */
@@ -977,12 +995,23 @@
                 <img src="images/grand-banner.jpg" alt="⚠️ ไม่พบรูป 'grand-banner.jpg' กรุณาเช็คชื่อไฟล์">
             </div>
 
-            <!-- Special Thanks -->
-            <div class="special-thanks-box">
-                <p>Special Thanks <i class="fas fa-heart" style="color: #ff5252;"></i></p>
-                <img src="images/logo-chob-pochana.jpg" alt="ร้านชอบโภชนา" class="special-thanks-img">
-                <p style="font-size: 0.8rem; margin-top: 5px;">ร้านชอบโภชนา</p>
-                <p style="font-size: 0.7rem; font-weight: 300; opacity: 0.8;">พี่สาวและพี่ชาย ผู้สนับสนุนผมเสมอมา</p>
+            <!-- Special Thanks Wrapper -->
+            <div style="margin: 40px auto 20px; max-width: 600px;">
+                <h3 style="color: var(--text-color); margin-bottom: 20px;">Special Thanks <i class="fas fa-heart" style="color: #ff5252;"></i></h3>
+                <div class="special-thanks-container">
+                    <!-- Branch 1 -->
+                    <div class="special-thanks-box">
+                        <img src="images/logo-chob-pochana-1.jpg" alt="สาขาจันทบุรี" class="special-thanks-img">
+                        <p class="branch-name">สาขาจันทบุรี</p>
+                        <p class="branch-desc">พี่สาวและพี่ชาย ผู้สนับสนุนผมเสมอมา</p>
+                    </div>
+                    <!-- Branch 2 -->
+                    <div class="special-thanks-box">
+                        <img src="images/logo-chob-pochana-2.jpg" alt="ชอบโภชนา สาขาจันทบุรี" class="special-thanks-img">
+                        <p class="branch-name">ชอบโภชนา สาขาจันทบุรี</p>
+                        <p class="branch-desc">อีกหนึ่งกำลังใจสำคัญ</p>
+                    </div>
+                </div>
             </div>
 
             <!-- Credit -->
