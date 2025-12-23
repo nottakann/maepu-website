@@ -579,14 +579,160 @@
         .about-img { width: 100%; border-radius: 20px 0 20px 0; box-shadow: 15px 15px 0px var(--secondary-color); }
         .about-text h2 { font-size: 3rem; color: var(--accent-color); margin-bottom: 20px; }
 
-        .timeline-section { background-color: #fff; padding: 80px 20px; text-align: center; }
-        .timeline-container { max-width: 800px; margin: auto; text-align: left; border-left: 2px solid var(--secondary-color); padding-left: 30px; }
-        .timeline-item { margin-bottom: 40px; position: relative; }
-        .timeline-item::before {
-            content: ''; width: 15px; height: 15px; background: var(--accent-color);
-            border-radius: 50%; position: absolute; left: -38.5px; top: 5px;
+        /* --- NEW TIMELINE DESIGN --- */
+        .milestone-section {
+            background-color: #fff;
+            padding: 80px 20px;
+            position: relative;
         }
-        .year { font-weight: bold; color: var(--accent-color); font-size: 1.2rem; }
+        .milestone-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        .milestone-header h2 {
+            font-size: 3rem;
+            color: var(--accent-color);
+        }
+        
+        .timeline-wrapper {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        /* Vertical Line */
+        .timeline-wrapper::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background-color: var(--secondary-color);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+            border-radius: 2px;
+        }
+
+        .milestone-container {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+            box-sizing: border-box;
+        }
+        
+        /* Left and Right containers */
+        .milestone-container.left { left: 0; text-align: right; }
+        .milestone-container.right { left: 50%; text-align: left; }
+
+        /* Circle on the line */
+        .milestone-container::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            right: -10px; /* Adjust for left containers */
+            background-color: white;
+            border: 4px solid var(--accent-color);
+            top: 25px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        .milestone-container.right::after {
+            left: -10px; /* Adjust for right containers */
+        }
+
+        .milestone-content {
+            padding: 20px;
+            background-color: white;
+            position: relative;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            border: 1px solid #eee;
+            transition: transform 0.3s;
+        }
+        .milestone-content:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        
+        .milestone-date {
+            display: inline-block;
+            background: var(--accent-color);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .milestone-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--text-color);
+            margin-bottom: 10px;
+            font-family: 'Charmonman';
+        }
+        .milestone-desc {
+            font-size: 1rem;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        .milestone-img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-top: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            max-height: 250px;
+            object-fit: cover;
+        }
+
+        /* Special Card for Reality Check */
+        .milestone-special {
+            background: linear-gradient(135deg, #fff3e0 0%, #ffffff 100%);
+            border-left: 5px solid var(--accent-color);
+        }
+        .problem-box {
+            text-align: left;
+            background: rgba(255,255,255,0.8);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 10px;
+            border: 1px solid #eee;
+        }
+        .problem-title { font-weight: bold; color: #d32f2f; display: block; margin-bottom: 5px; }
+        .solution-title { font-weight: bold; color: #388e3c; display: block; margin-top: 10px; margin-bottom: 5px; }
+
+        /* Goal List */
+        .goal-list { list-style: none; text-align: left; padding: 0; }
+        .goal-list li { margin-bottom: 10px; position: relative; padding-left: 20px; }
+        .goal-list li::before { content: '🎯'; position: absolute; left: 0; top: 2px; font-size: 0.9rem; }
+
+        .quote-box {
+            text-align: center;
+            margin: 60px auto 20px;
+            font-size: 1.8rem;
+            font-family: 'Charmonman';
+            color: var(--text-color);
+            opacity: 0.8;
+            max-width: 800px;
+        }
+        .quote-author {
+            display: block;
+            font-size: 1rem;
+            font-family: 'Sarabun';
+            margin-top: 10px;
+            color: #888;
+            font-style: italic;
+        }
+
+        /* Media Queries for Timeline */
+        @media screen and (max-width: 768px) {
+            .timeline-wrapper::after { left: 30px; }
+            .milestone-container { width: 100%; padding-left: 70px; padding-right: 25px; }
+            .milestone-container.left, .milestone-container.right { left: 0; text-align: left; }
+            .milestone-container::after { left: 21px; } /* Adjust circle pos */
+            .milestone-title { font-size: 1.3rem; }
+        }
+
 
         /* --- GRAND FOOTER --- */
         .grand-footer {
@@ -1048,25 +1194,119 @@
         </div>
     </section>
 
-    <!-- 6. TIMELINE -->
-    <section class="timeline-section">
-        <h2 style="color: var(--accent-color);">เส้นทางของเรา</h2>
-        <div class="timeline-container">
-            <div class="timeline-item" data-aos="fade-up">
-                <span class="year">2021</span>
-                <h3>จุดเริ่มต้น & การเรียนรู้</h3>
-                <p>เริ่มต้นจากการเป็น Streamer และเรียนรู้วิธีการทำเว็บ ได้เรียนรู้ Logic การคิดจากเพื่อนๆ โปรแกรมเมอร์</p>
+    <!-- 6. NEW MILESTONE TIMELINE -->
+    <section class="milestone-section">
+        <div class="milestone-header" data-aos="fade-down">
+            <h2>เส้นทางและความฝัน</h2>
+            <p>จากจุดเริ่มต้นเล็กๆ สู่เป้าหมายที่ยิ่งใหญ่</p>
+        </div>
+        
+        <div class="timeline-wrapper">
+            <!-- 1. Start -->
+            <div class="milestone-container left">
+                <div class="milestone-content" data-aos="fade-right">
+                    <span class="milestone-date">17/02/68</span>
+                    <div class="milestone-title">จุดเริ่มต้น & Order แรก</div>
+                    <div class="milestone-desc">
+                        เริ่มต้นทำน้ำพริกด้วยใจรัก และได้รับ Order แรกที่เป็นจุดประกายความหวัง
+                    </div>
+                    <img src="images/milestone-start.jpg" alt="Order แรก" class="milestone-img">
+                </div>
             </div>
-            <div class="timeline-item" data-aos="fade-up">
-                <span class="year">2022-2023</span>
-                <h3>ล้ม ลุก คลุกคลาน</h3>
-                <p>เปิดร้านข้าวขาหมูแต่เจอปัญหาต้นทุน ผันตัวไปเป็นไกด์และพนักงานบริการ เพื่อเรียนรู้ศาสตร์ของ "คน"</p>
+
+            <!-- 2. Tour Leader -->
+            <div class="milestone-container right">
+                <div class="milestone-content" data-aos="fade-left">
+                    <span class="milestone-date">16/06/68</span>
+                    <div class="milestone-title">ขยายตลาด Tour Leader</div>
+                    <div class="milestone-desc">
+                        ก้าวสู่ตลาดใหม่ แนะนำความอร่อยให้กับกลุ่มนักท่องเที่ยวผ่าน Tour Leader
+                    </div>
+                    <img src="images/milestone-tour.jpg" alt="Tour Leader Market" class="milestone-img">
+                </div>
             </div>
-            <div class="timeline-item" data-aos="fade-up">
-                <span class="year">NOW</span>
-                <h3>น้ำพริกแม่ปู The Beginning</h3>
-                <p>All-in ขยายกำลังการผลิต เพื่อส่งมอบรสชาติฝีมือแม่ให้ทุกคนได้ชิม</p>
+
+            <!-- 3. Consignment Shop -->
+            <div class="milestone-container left">
+                <div class="milestone-content" data-aos="fade-right">
+                    <span class="milestone-date">18/08/68</span>
+                    <div class="milestone-title">มีร้านค้าฝากขายประจำ</div>
+                    <div class="milestone-desc">
+                        สร้างฐานที่มั่นคง มีหน้าร้านประจำที่ลูกค้าสามารถตามหาความอร่อยได้เสมอ
+                    </div>
+                    <img src="images/milestone-shop.jpg" alt="Consignment Shop" class="milestone-img">
+                </div>
             </div>
+
+            <!-- 4. Booth & Reality Check (Highlight) -->
+            <div class="milestone-container right">
+                <div class="milestone-content milestone-special" data-aos="fade-left">
+                    <span class="milestone-date">13/09/68</span>
+                    <div class="milestone-title">ออกบูธ & ความฝันแม่ปู</div>
+                    <div class="milestone-desc">
+                        ออกบูธครั้งสำคัญ พร้อมกับความฝันอยากขยายแฟรนไชส์ แต่ก็ได้พบกับบทเรียนและความท้าทายใหม่
+                    </div>
+                    <img src="images/milestone-booth.jpg" alt="Booth" class="milestone-img" style="margin-bottom: 15px;">
+                    
+                    <!-- Problem & Solution Analysis -->
+                    <div class="problem-box">
+                        <span class="problem-title"><i class="fas fa-exclamation-circle"></i> ปัญหาที่พบ (Reality Check)</span>
+                        <p style="font-size: 0.9rem; margin-bottom: 10px;">
+                            1. ราคาค่อนข้างสูงเมื่อเทียบกับรายได้ประชากร แม้คุณภาพจะคุ้มค่า
+                        </p>
+                        <span class="solution-title"><i class="fas fa-lightbulb"></i> ทางออก</span>
+                        <p style="font-size: 0.9rem; margin-bottom: 15px;">
+                             👉 <strong>ผลิตแบบซอง</strong> เพื่อให้เข้าถึงง่ายขึ้น
+                        </p>
+                        <hr style="border: 0; border-top: 1px dashed #ccc; margin: 10px 0;">
+                        <p style="font-size: 0.9rem; margin-bottom: 10px;">
+                            2. แบรนด์ใหม่ ลูกค้ายังไม่กล้าเปิดใจลอง
+                        </p>
+                        <span class="solution-title"><i class="fas fa-users"></i> ทางออก</span>
+                        <p style="font-size: 0.9rem;">
+                             👉 สร้างเครือข่าย รีวิว และช่วยเหลือรีวิวร้านอาหารอื่นๆ เพื่อสร้างพันธมิตร
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. NOW -->
+            <div class="milestone-container left">
+                <div class="milestone-content" data-aos="fade-right">
+                    <span class="milestone-date">NOW</span>
+                    <div class="milestone-title">ตัวตนบนโลกออนไลน์</div>
+                    <div class="milestone-desc">
+                        เปิดตัวเว็บไซต์นี้ เปรียบเสมือนนามบัตรดิจิทัล ให้ทุกคนรู้ว่า "เราคือใคร" และ "ตั้งใจแค่ไหน"
+                    </div>
+                    <img src="images/milestone-now.jpg" alt="Website Launch" class="milestone-img">
+                </div>
+            </div>
+
+            <!-- 6. Future Goals -->
+            <div class="milestone-container right">
+                <div class="milestone-content" data-aos="fade-left" style="background-color: #e8f5e9; border-color: #c8e6c9;">
+                    <span class="milestone-date" style="background-color: #2e7d32;">เป้าหมายภายใน 06/06/69</span>
+                    <div class="milestone-title">Next Chapter</div>
+                    <ul class="goal-list" style="margin-top: 10px;">
+                        <li>
+                            <strong>ทำรูปแบบซองให้สำเร็จ</strong><br>
+                            <span style="font-size: 0.9rem; color: #555;">ระดมทุน 3 แสนบาท จากน้ำพักน้ำแรง (ยอดขาย + งานเสริม) เท่านั้น!</span>
+                        </li>
+                        <li style="margin-top: 15px;">
+                            <strong>ครองใจคนระยอง</strong><br>
+                            <span style="font-size: 0.9rem; color: #555;">ทำให้คนพื้นที่รู้จักให้มากที่สุด โดยใช้เงินให้น้อยที่สุด (เน้นไอเดียและความจริงใจ)</span>
+                        </li>
+                    </ul>
+                    <img src="images/milestone-future.jpg" alt="Future Goals" class="milestone-img">
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Steve Jobs Quote -->
+        <div class="quote-box" data-aos="zoom-in">
+            "Stay Hungry, Stay Foolish"
+            <span class="quote-author">- Steve Jobs -</span>
         </div>
     </section>
 
