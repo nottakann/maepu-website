@@ -506,12 +506,12 @@
             transition: transform 0.5s ease;
         }
         
-        /* Stack Layout: Last Child is Top */
+        /* Stack Layout: nth-child(4) is visually ON TOP (Signature) */
         /* Rotate others slightly to look like a messy pile */
         .card:nth-child(1) { transform: rotate(-3deg) translateX(-5px); z-index: 1; }
         .card:nth-child(2) { transform: rotate(2deg) translateX(5px); z-index: 2; }
         .card:nth-child(3) { transform: rotate(-1deg) translateY(3px); z-index: 3; }
-        .card:last-child { transform: rotate(0deg); z-index: 10; box-shadow: 0 15px 30px rgba(0,0,0,0.2); }
+        .card:nth-child(4) { transform: rotate(0deg); z-index: 10; box-shadow: 0 15px 30px rgba(0,0,0,0.2); }
 
         /* Animation Class for "Dealing from Bottom" */
         .card.dealing {
@@ -708,18 +708,19 @@
         }
 
         /* Mobile specific for Special Thanks layout */
-        @media (max-width: 600px) {
+        @media (max-width: 768px) { /* Increased breakpoint to catch more phones/tablets */
             .special-thanks-container {
-                flex-wrap: nowrap;
+                flex-wrap: nowrap; /* Force single line */
                 justify-content: center;
                 gap: 10px;
                 max-width: 100%;
-                overflow-x: auto; /* Just in case */
+                overflow-x: auto; /* Allow scroll if too small */
             }
             .special-thanks-box {
-                width: 48%; /* Force them to share the row */
-                min-width: 140px;
+                width: 48%; /* Almost half */
+                min-width: 140px; /* Minimum width constraint */
                 padding: 15px 10px;
+                flex-shrink: 0; /* Prevent squishing too much */
             }
             .special-thanks-img {
                 width: 60px;
