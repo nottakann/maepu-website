@@ -782,26 +782,29 @@
         }
 
         /* Mobile specific for Special Thanks layout */
-        @media (max-width: 768px) { /* Increased breakpoint to catch more phones/tablets */
+        @media (max-width: 768px) {
             .special-thanks-container {
-                flex-wrap: nowrap; /* Force single line */
-                justify-content: center;
+                /* Change flex-wrap to nowrap for horizontal scrolling? No, user asked for "same line" */
+                /* But user also said "size distorted". Let's use Grid to force 2 columns nicely */
+                display: grid;
+                grid-template-columns: 1fr 1fr;
                 gap: 10px;
                 max-width: 100%;
-                overflow-x: auto; /* Allow scroll if too small */
+                overflow-x: visible; /* No scroll needed for grid */
             }
             .special-thanks-box {
-                width: 48%; /* Almost half */
-                min-width: 140px; /* Minimum width constraint */
-                padding: 15px 10px;
-                flex-shrink: 0; /* Prevent squishing too much */
+                width: 100%; /* Fill the grid cell */
+                min-width: 0; /* Allow shrinking if needed */
+                padding: 10px 5px;
+                margin: 0;
             }
             .special-thanks-img {
-                width: 60px;
-                height: 60px;
+                width: 50px; /* Smaller image to fit */
+                height: 50px;
             }
-            .branch-name { font-size: 0.8rem; }
-            .branch-desc { font-size: 0.65rem; }
+            .branch-name { font-size: 0.75rem; }
+            .branch-desc { font-size: 0.6rem; }
+            .special-thanks-header { font-size: 0.85rem; }
         }
     </style>
 </head>
