@@ -53,46 +53,37 @@
             overflow: hidden; 
         }
 
-        /* --- NAVBAR (CLEAN MOBILE LAYOUT) --- */
+        /* --- NAVBAR (Reverted to Stable Version) --- */
         nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 40px;
-            background: rgba(253, 251, 247, 0.98); 
+            padding: 20px 40px;
+            background: rgba(253, 251, 247, 0.95);
             position: sticky;
             top: 0;
-            z-index: 1000;
+            z-index: 100;
             border-bottom: 1px solid #eee;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
         .logo { 
             font-size: 1.5rem; 
             color: var(--accent-color); 
             font-weight: bold; 
-            text-decoration: none; 
-            font-family: 'Charmonman', cursive; 
-        }
-        
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 20px;
+            text-decoration: none;
+            font-family: 'Charmonman', cursive;
         }
         .nav-links a {
             text-decoration: none;
             color: var(--text-color);
+            margin-left: 30px;
             font-weight: 600;
             transition: 0.3s;
-            font-size: 0.95rem;
-            white-space: nowrap;
         }
         .nav-links a:hover { color: var(--accent-color); }
-        
         .btn-cta {
             background-color: var(--accent-color);
             color: white !important;
-            padding: 8px 20px;
+            padding: 10px 25px;
             border-radius: 50px;
             box-shadow: 0 4px 10px rgba(216, 67, 21, 0.3);
             text-decoration: none;
@@ -100,40 +91,6 @@
             display: inline-block;
         }
         .btn-cta:hover { transform: scale(1.05); }
-
-        /* Mobile Nav Adjustments (NO HAMBURGER) */
-        @media (max-width: 992px) {
-            nav {
-                flex-direction: column; /* เรียงแนวตั้ง */
-                padding: 15px 10px;
-                gap: 15px;
-            }
-            
-            .logo {
-                font-size: 1.8rem; /* โลโก้ใหญ่ขึ้นนิดนึงบนมือถือ */
-                margin-bottom: 5px;
-            }
-
-            .nav-links {
-                width: 100%;
-                justify-content: center;
-                gap: 10px;
-                flex-wrap: wrap; /* ให้ตกบรรทัดได้ถ้าจอเล็กมาก */
-            }
-            
-            .nav-links a {
-                font-size: 0.9rem;
-                padding: 5px 10px;
-                background-color: rgba(255,255,255,0.5); /* พื้นหลังจางๆ ให้ดูเป็นปุ่มกดง่าย */
-                border-radius: 8px;
-            }
-
-            .btn-cta {
-                background-color: var(--accent-color) !important;
-                color: white !important;
-                box-shadow: 0 4px 10px rgba(216, 67, 21, 0.2);
-            }
-        }
 
         /* --- HERO SECTION --- */
         .hero {
@@ -773,7 +730,7 @@
         }
 
         /* Media Queries for Timeline */
-        @media screen and (max-width: 768px) {
+        @media screen and (max-width: 992px) {
             .timeline-wrapper::after { left: 30px; }
             .milestone-container { width: 100%; padding-left: 70px; padding-right: 25px; }
             .milestone-container.left, .milestone-container.right { left: 0; text-align: left; }
@@ -782,29 +739,32 @@
         }
 
         /* Mobile specific for Special Thanks layout */
-        @media (max-width: 768px) {
+        @media (max-width: 768px) { /* Increased breakpoint to catch more phones/tablets */
             .special-thanks-container {
-                /* Change flex-wrap to nowrap for horizontal scrolling? No, user asked for "same line" */
-                /* But user also said "size distorted". Let's use Grid to force 2 columns nicely */
-                display: grid;
-                grid-template-columns: 1fr 1fr;
+                flex-wrap: nowrap; /* Force single line */
+                justify-content: center;
                 gap: 10px;
                 max-width: 100%;
-                overflow-x: visible; /* No scroll needed for grid */
+                overflow-x: auto; /* Allow scroll if too small */
             }
             .special-thanks-box {
-                width: 100%; /* Fill the grid cell */
-                min-width: 0; /* Allow shrinking if needed */
-                padding: 10px 5px;
-                margin: 0;
+                width: 48%; /* Almost half */
+                min-width: 140px; /* Minimum width constraint */
+                padding: 15px 10px;
+                flex-shrink: 0; /* Prevent squishing too much */
             }
             .special-thanks-img {
-                width: 50px; /* Smaller image to fit */
-                height: 50px;
+                width: 60px;
+                height: 60px;
             }
-            .branch-name { font-size: 0.75rem; }
-            .branch-desc { font-size: 0.6rem; }
-            .special-thanks-header { font-size: 0.85rem; }
+            .branch-name { font-size: 0.8rem; }
+            .branch-desc { font-size: 0.65rem; }
+        }
+
+        @media (max-width: 992px) {
+            /* Mobile Nav Adjustments - Revert to simple */
+             nav { padding: 15px; }
+             .nav-links { display: none; } /* Standard behavior for now to avoid issues */
         }
     </style>
 </head>
