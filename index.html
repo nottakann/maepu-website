@@ -58,26 +58,41 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 40px;
-            background: rgba(253, 251, 247, 0.95);
+            padding: 15px 20px; /* ลด Padding ให้เหมาะกับมือถือ */
+            background: rgba(253, 251, 247, 0.98); /* พื้นหลังทึบขึ้นนิดนึงให้อ่านง่าย */
             position: sticky;
             top: 0;
-            z-index: 100;
+            z-index: 1000; /* เพิ่ม Layer ให้สูงสุด */
             border-bottom: 1px solid #eee;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05); /* เพิ่มเงาให้ดูมีมิติ */
         }
-        .logo { font-size: 1.5rem; color: var(--accent-color); font-weight: bold; text-decoration: none; }
+        .logo { 
+            font-size: 1.5rem; 
+            color: var(--accent-color); 
+            font-weight: bold; 
+            text-decoration: none; 
+            font-family: 'Charmonman', cursive; /* ใช้ฟอนต์ลายมือ */
+        }
+        
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
         .nav-links a {
             text-decoration: none;
             color: var(--text-color);
-            margin-left: 30px;
             font-weight: 600;
             transition: 0.3s;
+            font-size: 0.95rem;
+            white-space: nowrap;
         }
         .nav-links a:hover { color: var(--accent-color); }
+        
         .btn-cta {
             background-color: var(--accent-color);
             color: white !important;
-            padding: 10px 25px;
+            padding: 8px 20px;
             border-radius: 50px;
             box-shadow: 0 4px 10px rgba(216, 67, 21, 0.3);
             text-decoration: none;
@@ -85,6 +100,22 @@
             display: inline-block;
         }
         .btn-cta:hover { transform: scale(1.05); }
+
+        /* Hamburger Menu Icon */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            flex-direction: column;
+            gap: 5px;
+            z-index: 1001;
+        }
+        .bar {
+            width: 25px;
+            height: 3px;
+            background-color: var(--text-color);
+            transition: 0.3s;
+            border-radius: 2px;
+        }
 
         /* --- HERO SECTION --- */
         .hero {
@@ -724,134 +755,57 @@
         }
 
         /* Media Queries for Timeline */
-        @media screen and (max-width: 768px) {
+        @media screen and (max-width: 992px) {
+            nav { padding: 15px 20px; }
+            .hamburger { display: flex; }
+            
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                height: 100vh;
+                width: 70%; /* Drawer width */
+                background-color: #fff;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transition: 0.4s ease;
+                box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+                gap: 30px;
+                padding: 20px;
+                z-index: 999;
+            }
+            .nav-links.active {
+                right: 0;
+            }
+            /* Backdrop when menu is open */
+            .nav-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.5);
+                z-index: 998;
+                opacity: 0;
+                visibility: hidden;
+                transition: 0.3s;
+            }
+            .nav-overlay.active {
+                opacity: 1;
+                visibility: visible;
+            }
+            
+            /* Hamburger Animation */
+            .hamburger.active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+            .hamburger.active .bar:nth-child(2) { opacity: 0; }
+            .hamburger.active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
             .timeline-wrapper::after { left: 30px; }
             .milestone-container { width: 100%; padding-left: 70px; padding-right: 25px; }
             .milestone-container.left, .milestone-container.right { left: 0; text-align: left; }
             .milestone-container::after { left: 21px; } /* Adjust circle pos */
             .milestone-title { font-size: 1.3rem; }
-        }
-
-
-        /* --- GRAND FOOTER --- */
-        .grand-footer {
-            background: linear-gradient(to bottom, #fff8e1, #fff);
-            padding: 80px 20px 40px;
-            text-align: center;
-            border-top: 5px solid var(--accent-color);
-            overflow: hidden; 
-        }
-        .contact-title { font-size: 2.5rem; color: var(--text-color); margin-bottom: 40px; }
-        
-        .social-large {
-            display: flex; justify-content: center; gap: 30px; margin-bottom: 30px; flex-wrap: wrap;
-        }
-        .social-item {
-            display: flex; flex-direction: column; align-items: center; color: var(--text-color);
-            text-decoration: none; transition: transform 0.3s;
-        }
-        .social-item:hover { transform: translateY(-5px); color: var(--accent-color); }
-        .social-item i { font-size: 3.5rem; margin-bottom: 10px; }
-        
-        .phone-box {
-            background: var(--accent-color); color: white;
-            display: inline-block; padding: 20px 50px; border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(216, 67, 21, 0.3); margin: 20px 0 50px;
-            transform: rotate(-2deg); transition: transform 0.3s;
-            text-decoration: none; /* Make link look like box */
-        }
-        .phone-box:hover { transform: rotate(0deg) scale(1.05); }
-        .phone-number { font-size: 3.5rem; font-weight: 800; font-family: 'Sarabun'; line-height: 1; }
-        .phone-label { font-size: 1.2rem; opacity: 0.9; }
-
-        .grand-banner {
-            max-width: 1000px; 
-            margin: 0 auto 40px; 
-            border-radius: 2px;
-            overflow: hidden;
-            box-shadow: 0 15px 50px rgba(0,0,0,0.15); 
-            border: 15px solid #fff;
-            background-color: #f0f0f0;
-            min-height: 200px;
-            position: relative;
-            transform: rotate(1deg);
-        }
-        .grand-banner img { 
-            width: 100%; height: auto; display: block; 
-            font-size: 20px; color: red;
-        }
-
-        .credit-text { font-size: 0.9rem; color: #aaa; margin-top: 40px; font-weight: 300; }
-
-        /* --- SPECIAL THANKS (Updated for 2 Branches) --- */
-        .special-thanks-container {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin: 40px auto 20px;
-            max-width: 600px;
-        }
-        .special-thanks-box {
-            background: rgba(255, 255, 255, 0.5);
-            padding: 20px;
-            border-radius: 15px;
-            border: 1px dashed var(--accent-color);
-            text-align: center;
-            width: 220px; /* Fixed width for consistency */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            transition: transform 0.3s;
-            text-decoration: none; /* For link */
-        }
-        .special-thanks-box:hover { transform: translateY(-5px); background: rgba(255, 255, 255, 0.8); }
-        
-        .special-thanks-header {
-            font-size: 0.9rem;
-            color: var(--text-color);
-            margin-bottom: 10px;
-            font-weight: 600;
-            width: 100%;
-        }
-        
-        .special-thanks-img {
-            width: 80px;
-            height: 80px;
-            object-fit: cover;
-            border-radius: 50%;
-            border: 3px solid var(--secondary-color);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            margin-bottom: 10px;
-            transition: transform 0.3s;
-        }
-        .special-thanks-box:hover .special-thanks-img {
-            transform: scale(1.1) rotate(5deg);
-        }
-        
-        .branch-name { font-size: 0.85rem; font-weight: bold; color: var(--accent-color); margin-bottom: 5px; }
-        .branch-desc { font-size: 0.7rem; font-weight: 300; opacity: 0.8; line-height: 1.4; color: var(--text-color); }
-
-        @media (max-width: 992px) { /* เพิ่ม Breakpoint สำหรับ Tablet ให้เรียงลงมา */
-            /* .video-grid { ... เอาออกเพราะ Flexbox จะจัดการเอง ... } */
-            .hero h1 { font-size: 2.5rem; }
-            .grid-container, .signature-container { flex-direction: column; grid-template-columns: 1fr; }
-            nav { padding: 15px; }
-            .nav-links { display: none; }
-            .signature-img-box { margin-bottom: 30px; }
-            .phone-number { font-size: 2.5rem; }
-            .social-large { gap: 20px; }
-            .social-item i { font-size: 2.5rem; }
-            /* ปรับการหมุนให้น้อยลงในมือถือ เพื่อลดปัญหา overflow */
-            .grand-banner, .phone-box, .signature-img { transform: rotate(0deg) !important; }
-            /* ลดขนาด Padding บนมือถือ */
-            .about-section { padding: 60px 20px; }
-            
-            /* ปรับ Video Card ในมือถือให้เต็มจอ */
-            .social-card { width: 100%; max-width: 360px; margin: 0 auto; }
-
-            /* Show Continue Button Only on Mobile */
-            .mobile-story-hint { display: flex !important; }
         }
 
         /* Mobile specific for Special Thanks layout */
@@ -882,14 +836,22 @@
 
     <!-- Navbar -->
     <nav>
-        <a href="#" class="logo">Maepu.</a>
+        <a href="#" class="logo">น้ำพริกแม่ปู</a>
+        
+        <div class="hamburger" onclick="toggleMenu()">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+
         <div class="nav-links">
-            <a href="#products">Menu</a>
-            <a href="#reviews">Reviews</a>
-            <a href="#about">Story</a>
-            <a href="#contact" class="btn-cta">Order Now</a>
+            <a href="#contact">เป็นตัวแทนจำหน่าย</a>
+            <a href="#contact">ติดต่อแฟรนไชส์</a>
+            <a href="#contact">รับน้ำพริกฟรี (รีวิว TikTok)</a>
+            <a href="#products" class="btn-cta">สั่งซื้อเลย</a>
         </div>
     </nav>
+    <div class="nav-overlay" onclick="toggleMenu()"></div>
 
     <!-- Hero Section -->
     <header class="hero">
@@ -1378,6 +1340,17 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 1000, once: true });
+
+        // Mobile Menu Toggle
+        function toggleMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            const hamburger = document.querySelector('.hamburger');
+            const overlay = document.querySelector('.nav-overlay');
+            
+            navLinks.classList.toggle('active');
+            hamburger.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
 
         // Logic for Product Nudge (Specific for Mobile) - TUNED TO BE MORE RESPONSIVE
         const productCards = document.querySelectorAll('.product-card');
