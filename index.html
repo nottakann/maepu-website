@@ -30,50 +30,48 @@
             padding: 0;
         }
 
-        /* --- แก้ไขเรื่อง Scroll ติดนิ้ว --- */
         html {
             scroll-behavior: smooth;
         }
 
         body {
             width: 100%;
-            /* ย้าย overflow-x มาที่ body แทน */
             overflow-x: hidden; 
             position: relative;
             font-family: 'Sarabun', sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
-            -webkit-overflow-scrolling: touch; /* เพิ่มความลื่นบน iOS */
+            -webkit-overflow-scrolling: touch;
         }
 
         h1, h2, h3 { font-family: 'Charmonman', cursive; font-weight: 700; }
 
-        /* --- แก้ปัญหา Animation ล้นจอ --- */
         section {
             overflow: hidden; 
         }
 
-        /* --- NAVBAR (Simple & Clean for Mobile) --- */
+        /* --- NAVBAR (Clean & Simple) --- */
         nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 15px 40px;
-            background: rgba(253, 251, 247, 0.98);
+            background: rgba(253, 251, 247, 0.98); 
             position: sticky;
             top: 0;
             z-index: 1000;
             border-bottom: 1px solid #eee;
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            transition: all 0.3s ease;
+            transition: all 0.3s;
         }
         .logo { 
             font-size: 1.5rem; 
             color: var(--accent-color); 
             font-weight: bold; 
-            text-decoration: none;
-            font-family: 'Charmonman', cursive;
+            text-decoration: none; 
+            font-family: 'Charmonman', cursive; 
         }
+        
         .nav-links {
             display: flex;
             align-items: center;
@@ -88,6 +86,7 @@
             white-space: nowrap;
         }
         .nav-links a:hover { color: var(--accent-color); }
+        
         .btn-cta {
             background-color: var(--accent-color);
             color: white !important;
@@ -99,6 +98,37 @@
             display: inline-block;
         }
         .btn-cta:hover { transform: scale(1.05); }
+
+        /* Mobile Nav Layout (Fixed: Show Links Stacked) */
+        @media (max-width: 992px) {
+            nav {
+                flex-direction: column;
+                padding: 15px 10px;
+                gap: 15px;
+            }
+            .logo {
+                margin-bottom: 5px;
+                font-size: 1.8rem;
+            }
+            .nav-links {
+                display: flex; /* Force Show */
+                flex-direction: column; /* Stack Vertically */
+                gap: 12px;
+                width: 100%;
+                text-align: center;
+            }
+            .nav-links a {
+                display: block;
+                font-size: 0.95rem;
+                padding: 5px;
+            }
+            /* Make CTA Button stand out */
+            .btn-cta {
+                display: inline-block;
+                width: auto;
+                margin-top: 5px;
+            }
+        }
 
         /* --- HERO SECTION --- */
         .hero {
@@ -129,7 +159,7 @@
         .hero h1 { font-size: 4rem; margin-bottom: 10px; color: #fff; }
         .hero p { font-size: 1.5rem; font-family: 'Sarabun'; font-weight: 300; }
 
-        /* --- SCROLL INDICATOR (HERO) --- */
+        /* --- SCROLL INDICATOR --- */
         .scroll-indicator {
             position: absolute;
             bottom: 30px;
@@ -140,9 +170,7 @@
             z-index: 3;
             cursor: pointer;
             opacity: 0.9;
-            transition: opacity 0.3s;
         }
-        .scroll-indicator:hover { opacity: 1; }
         .scroll-text {
             display: block;
             font-size: 1rem;
@@ -150,50 +178,47 @@
             font-weight: 300;
             text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
         }
-        .scroll-arrow {
-            font-size: 2rem;
-            animation: bounce 2s infinite;
-        }
+        .scroll-arrow { font-size: 2rem; animation: bounce 2s infinite; }
 
-        /* --- NEW: FLOATING SCROLL HINT FOR PRODUCTS --- */
+        /* --- FLOATING HINT --- */
         .product-floating-hint {
             position: fixed;
             bottom: 30px;
             left: 50%;
-            transform: translateX(-50%) translateY(20px); /* ซ่อนลงไปนิดนึงก่อน */
-            background-color: rgba(216, 67, 21, 0.95); /* สีส้มแบรนด์ */
+            transform: translateX(-50%) translateY(20px);
+            background-color: rgba(216, 67, 21, 0.95);
             color: white;
             padding: 12px 25px;
             border-radius: 50px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-            z-index: 900; /* อยู่ต่ำกว่าเมนูและปุ่มติดต่อ */
+            z-index: 900;
             display: flex;
             flex-direction: column;
             align-items: center;
             cursor: pointer;
-            opacity: 0; /* ซ่อนไว้ก่อน */
+            opacity: 0;
             visibility: hidden;
             transition: all 0.5s ease;
-            pointer-events: none; /* กดไม่ได้ตอนซ่อน */
+            pointer-events: none;
             width: max-content;
         }
         .product-floating-hint.visible {
             opacity: 1;
             visibility: visible;
-            transform: translateX(-50%) translateY(0); /* เด้งขึ้นมา */
+            transform: translateX(-50%) translateY(0);
             pointer-events: auto;
         }
         .product-floating-hint p { margin: 0; font-size: 0.9rem; font-weight: 600; }
         .product-floating-hint i { margin-top: 5px; font-size: 1.2rem; animation: bounce 2s infinite; }
 
-        /* --- NEW: NEXT REVIEW BUTTON (POP UP) --- */
+        /* --- NEXT REVIEW BUTTON --- */
         .next-review-btn {
             position: fixed;
-            bottom: 40px; /* สูงจากขอบล่างนิดหน่อย */
+            bottom: 40px;
             left: 50%;
             transform: translateX(-50%) translateY(20px);
-            background: rgba(30, 30, 30, 0.65); /* สีดำจางๆ โปร่งแสง */
-            backdrop-filter: blur(5px); /* เบลอฉากหลังให้ดูแพง */
+            background: rgba(30, 30, 30, 0.65);
+            backdrop-filter: blur(5px);
             color: white;
             padding: 10px 25px;
             border-radius: 50px;
@@ -216,22 +241,16 @@
             visibility: visible;
             transform: translateX(-50%) translateY(0);
         }
-        .next-review-btn:hover {
-            background: rgba(30, 30, 30, 0.85);
-            transform: translateX(-50%) scale(1.05);
-        }
-        .next-review-btn i {
-            animation: bounce 2s infinite;
-        }
+        .next-review-btn i { animation: bounce 2s infinite; }
 
-        /* --- NEW: MOBILE STORY HINT BUTTON (FLOATING & TRANSLUCENT) --- */
+        /* --- MOBILE STORY HINT BUTTON --- */
         .mobile-story-hint {
-            display: none; /* Hide on PC */
+            display: none;
             position: fixed;
             bottom: 30px;
             left: 50%;
             transform: translateX(-50%) translateY(20px);
-            background: rgba(0, 0, 0, 0.6); /* Translucent black like review btn */
+            background: rgba(0, 0, 0, 0.6);
             backdrop-filter: blur(5px);
             color: white;
             padding: 10px 25px;
@@ -255,20 +274,6 @@
         .mobile-story-hint p { margin: 0; font-size: 0.9rem; font-weight: 500; color: white; }
         .mobile-story-hint i { font-size: 1rem; animation: bounce 2s infinite; }
 
-        /* --- SCROLL HINT (STATIC) --- */
-        .scroll-hint {
-            text-align: center;
-            margin-top: 50px;
-            color: var(--accent-color);
-            opacity: 0.7;
-            cursor: pointer;
-            transition: all 0.3s;
-            padding-bottom: 20px;
-        }
-        .scroll-hint:hover { opacity: 1; transform: translateY(5px); }
-        .scroll-hint p { margin: 0 0 5px 0; font-size: 0.9rem; font-weight: 600; }
-        .scroll-hint i { font-size: 1.5rem; animation: bounce 2s infinite; }
-
         @keyframes bounce {
             0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
             40% {transform: translateY(-10px);}
@@ -288,509 +293,204 @@
         .marquee-content { display: inline-block; animation: scroll 20s linear infinite; }
         @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-        /* --- PRODUCT SHOWCASE (UPDATED: FIT IMAGE) --- */
-        .product-section { padding: 80px 20px 40px; text-align: center; }
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            max-width: 1000px;
-            margin: 40px auto;
+        /* --- SECTIONS --- */
+        .product-section, .reviews-section, .video-section, .about-section { 
+            padding: 80px 20px 40px; text-align: center; 
         }
-        .product-card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-            transition: transform 0.3s;
-            border: 1px solid #eee;
-        }
-        .product-card:hover { transform: translateY(-10px); }
-        
-        /* แก้ไขส่วนรูปภาพสินค้าให้พอดี ไม่โดนตัด */
-        .product-img-box { 
-            width: 100%;
-            height: 280px; /* เพิ่มความสูงอีกนิด */
-            background: #fff; /* พื้นหลังขาวสะอาด */
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 10px; /* เว้นขอบนิดหน่อย */
-        }
-        .product-img-box img { 
-            width: 100%; 
-            height: 100%; 
-            object-fit: contain; /* สำคัญ: โชว์ภาพเต็มไม่ตัด */
-            filter: sepia(0.1) contrast(1.1);
-            transition: filter 0.3s;
-        }
-        .product-card:hover .product-img-box img { filter: sepia(0) contrast(1.1) saturate(1.2); }
-        
-        .product-info { padding: 20px; }
-        .price { font-size: 1.5rem; color: var(--accent-color); font-weight: bold; }
+        .reviews-section { background-color: #fff3e0; }
+        .about-section { background: var(--bg-color); }
+        .video-section { background: linear-gradient(to bottom, #fff, #fdfbf7); }
 
-        /* --- REVIEWS SECTION --- */
-        .reviews-section {
-            background-color: #fff3e0;
-            padding: 80px 20px 40px;
-            text-align: center;
-        }
-        .review-grid {
+        /* Grids */
+        .product-grid, .review-grid, .video-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
-            max-width: 1100px;
-            margin: 40px auto;
-            align-items: start;
-        }
-        .review-card {
-            background: white;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-            border: 1px solid #fff;
-            transition: transform 0.3s;
-            overflow: hidden;
-            text-align: left;
-        }
-        .review-card:hover { transform: translateY(-5px); border-color: var(--secondary-color); }
-        .review-img {
-            width: 100%; height: auto; border-radius: 10px; object-fit: contain;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin-bottom: 20px;
-            background-color: #f9f9f9; border: 1px solid #eee; transition: transform 0.5s;
-        }
-        .review-card:hover .review-img { transform: scale(1.02); }
-        .stars { color: #ffb300; margin-bottom: 10px; font-size: 1rem; }
-        .review-text { 
-            font-style: italic; color: #555; margin-bottom: 15px; 
-            line-height: 1.6; font-size: 0.95rem; background: #fafafa; padding: 10px; border-radius: 8px;
-        }
-        .customer-name { font-weight: bold; color: var(--accent-color); font-family: 'Charmonman'; font-size: 1.1rem; display: block; margin-top: 10px; }
-        .customer-type { font-size: 0.8rem; color: #999; }
-
-        /* --- REDESIGNED VIDEO REVIEWS (SOCIAL CARDS) --- */
-        .video-section { 
-            padding: 80px 20px 60px; 
-            text-align: center; 
-            background: linear-gradient(to bottom, #fff, #fdfbf7);
-        }
-        .video-grid {
-            /* กลับมาใช้ Flexbox เพื่อให้มันจัดสัดส่วนเองตามความกว้างของการ์ด ไม่ยืดมั่ว */
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 25px; 
             max-width: 1200px;
             margin: 40px auto;
-            align-items: flex-start; /* จัดให้หัวเท่ากัน */
         }
-        
-        .social-card {
-            /* สำคัญ: ล็อกความกว้างเท่ามือถือ เพื่อให้ Embed แสดงผลสวยสุด */
-            width: 340px; 
-            max-width: 100%; /* กันล้นในจอมือถือเล็ก */
-            background: #fff;
-            border-radius: 25px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        .product-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+        .review-grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+        .video-grid { 
+            display: flex; 
+            flex-wrap: wrap; 
+            justify-content: center; 
+            align-items: flex-start; 
+        }
+
+        /* Cards Style */
+        .product-card, .review-card, .social-card {
+            background: white;
+            border-radius: 15px;
             overflow: hidden;
-            position: relative;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.3s;
+        }
+        .review-card { padding: 20px; text-align: left; box-shadow: 0 5px 15px rgba(0,0,0,0.08); border: 1px solid #fff; }
+        .product-card { box-shadow: 0 10px 20px rgba(0,0,0,0.05); border: 1px solid #eee; }
+        .social-card {
+            width: 340px; 
+            max-width: 100%; 
+            border-radius: 25px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
             border: 1px solid rgba(0,0,0,0.05);
             display: flex;
             flex-direction: column;
         }
-        .social-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
-        }
 
-        /* ส่วนหัวการ์ด */
-        .social-header {
-            padding: 12px 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background: #fff;
-            border-bottom: 1px solid #f5f5f5;
-            z-index: 10;
-        }
-        .social-icon-box {
-            width: 35px; height: 35px;
-            border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            color: white; font-size: 1rem;
-        }
-        .social-info { text-align: left; }
-        .social-name { font-weight: bold; font-size: 0.9rem; color: #333; display: block; }
-        .social-sub { font-size: 0.7rem; color: #888; display: block; }
-
-        /* สีเฉพาะของแต่ละ Platform */
+        /* Image Helpers */
+        .product-img-box { width: 100%; height: 280px; background: #fff; display: flex; align-items: center; justify-content: center; padding: 10px; }
+        .product-img-box img { width: 100%; height: 100%; object-fit: contain; filter: sepia(0.1) contrast(1.1); transition: filter 0.3s; }
+        
+        .review-img { width: 100%; height: auto; border-radius: 10px; object-fit: contain; box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin-bottom: 20px; }
+        
+        /* Social Card Header/Body */
+        .social-header { padding: 12px 15px; display: flex; align-items: center; gap: 10px; background: #fff; border-bottom: 1px solid #f5f5f5; }
+        .social-icon-box { width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1rem; }
         .sc-yt .social-icon-box { background: #FF0000; }
         .sc-tt .social-icon-box { background: #000000; }
         .sc-ig .social-icon-box { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); }
+        .social-body { background: #000; width: 100%; height: auto; position: relative; }
+        .social-footer { padding: 15px; background: #fff; font-size: 0.85rem; color: #555; font-style: italic; border-top: 1px solid #f5f5f5; text-align: center; }
 
-        /* ส่วนเนื้อหาวิดีโอ */
-        .social-body {
-            background: #000;
-            width: 100%;
-            /* เอา height: auto เพื่อให้ยืดตาม TikTok ได้เลย */
-            height: auto; 
-            position: relative;
-            display: block; /* แก้เป็น Block เพื่อให้ flow ปกติ */
-        }
+        /* Helpers */
+        .stars { color: #ffb300; margin-bottom: 10px; }
+        .review-text { font-style: italic; color: #555; margin-bottom: 15px; line-height: 1.6; background: #fafafa; padding: 10px; border-radius: 8px; }
+        .customer-name { font-weight: bold; color: var(--accent-color); font-family: 'Charmonman'; font-size: 1.1rem; display: block; margin-top: 10px; }
+        .price { font-size: 1.5rem; color: var(--accent-color); font-weight: bold; }
 
-        /* YouTube Container Hack เพื่อบังคับสัดส่วน 9:16 (เหมือนมือถือแนวตั้ง) */
-        .youtube-shorts-wrapper {
-            position: relative;
-            width: 100%;
-            padding-bottom: 177.77%; /* 16:9 inverted = 9:16 Aspect Ratio */
-            height: 0;
-            overflow: hidden;
-        }
-        .youtube-shorts-wrapper iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
-
-        /* TikTok & IG Adjustments */
-        .tiktok-embed, .instagram-media {
-            margin: 0 !important;
-            min-width: 100% !important;
-            border-radius: 0 !important;
-            box-shadow: none !important;
-        }
-
-        /* Quote ด้านล่างการ์ด */
-        .social-footer {
-            padding: 15px;
-            background: #fff;
-            font-size: 0.85rem;
-            color: #555;
-            font-style: italic;
-            border-top: 1px solid #f5f5f5;
-            text-align: center;
-            line-height: 1.4;
-        }
-
-        /* --- SIGNATURE SECTION (SHUFFLING CARDS) --- */
-        .signature-section {
-            background: var(--text-color);
-            color: white;
-            padding: 80px 20px 40px;
-            overflow: hidden; 
-            position: relative;
-        }
-        .signature-container {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: center;
-            max-width: 1100px;
-            margin: auto;
-            gap: 50px;
-        }
-        .signature-img-box { 
-            flex: 1; 
-            min-width: 300px; 
-            position: relative; 
-        }
+        /* --- SIGNATURE SECTION --- */
+        .signature-section { background: var(--text-color); color: white; padding: 80px 20px 40px; overflow: hidden; position: relative; }
+        .signature-container { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; max-width: 1100px; margin: auto; gap: 50px; }
+        .signature-img-box { flex: 1; min-width: 300px; position: relative; }
         
-        .stack-container {
-            position: relative;
-            width: 100%;
-            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-            margin: 0 auto;
-            cursor: pointer;
-        }
-        .card {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            border-radius: 20px;
-            background-color: #fff;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
+        .stack-container { position: relative; width: 100%; padding-bottom: 56.25%; margin: 0 auto; cursor: pointer; }
+        .card { position: absolute; width: 100%; height: 100%; top: 0; left: 0; border-radius: 20px; background-color: #fff; box-shadow: 0 10px 20px rgba(0,0,0,0.15); object-fit: cover; transition: transform 0.5s ease; }
         
-        /* Stack Layout: nth-child(4) is visually ON TOP (Signature) */
-        /* Rotate others slightly to look like a messy pile */
+        /* Stack Layout Fix: Signature on Top (nth-child 4) */
         .card:nth-child(1) { transform: rotate(-3deg) translateX(-5px); z-index: 1; }
         .card:nth-child(2) { transform: rotate(2deg) translateX(5px); z-index: 2; }
         .card:nth-child(3) { transform: rotate(-1deg) translateY(3px); z-index: 3; }
         .card:nth-child(4) { transform: rotate(0deg); z-index: 10; box-shadow: 0 15px 30px rgba(0,0,0,0.2); }
 
-        /* Animation Class for "Dealing from Bottom" */
-        .card.dealing {
-            animation: deal-from-bottom 0.6s forwards;
-            z-index: 100; /* Bring to very top during anim */
-        }
-
+        .card.dealing { animation: deal-from-bottom 0.6s forwards; z-index: 100; }
         @keyframes deal-from-bottom {
             0% { transform: translateX(0) translateY(0) scale(0.9); z-index: 1; }
             50% { transform: translateX(120%) translateY(10%) rotate(15deg) scale(1.1); z-index: 100; }
             100% { transform: translateX(0) translateY(0) rotate(0deg) scale(1); z-index: 100; }
         }
 
-        /* Tap Hint Badge */
-        .tap-hint {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0, 0, 0, 0.6);
-            color: white;
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            animation: pulse 2s infinite;
-            backdrop-filter: blur(3px);
-            z-index: 200;
-            pointer-events: none;
-            white-space: nowrap;
-        }
-        @keyframes pulse {
-            0% { transform: translateX(-50%) scale(1); }
-            50% { transform: translateX(-50%) scale(1.05); }
-            100% { transform: translateX(-50%) scale(1); }
-        }
-
         .signature-text { flex: 1; min-width: 300px; }
-        .badge {
-            background: var(--accent-color); color: white; padding: 5px 15px;
-            border-radius: 50px; font-weight: bold; font-size: 0.9rem;
-            text-transform: uppercase; letter-spacing: 1px; display: inline-block; margin-bottom: 15px;
-        }
+        .badge { background: var(--accent-color); color: white; padding: 5px 15px; border-radius: 50px; font-weight: bold; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; display: inline-block; margin-bottom: 15px; }
         .sig-price { font-size: 2.5rem; font-weight: bold; color: var(--secondary-color); margin: 20px 0; }
         .feature-list { list-style: none; padding: 0; margin: 20px 0; }
         .feature-list li { margin-bottom: 10px; font-size: 1.1rem; }
         .feature-list li i { color: var(--accent-color); margin-right: 10px; }
 
-        /* --- ABOUT & TIMELINE --- */
-        .about-section { 
-            padding: 80px 40px; 
-            background: var(--bg-color);
-            overflow: hidden; 
-        }
-        .grid-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
-            max-width: 1100px;
-            margin: auto;
-        }
-        .about-img { width: 100%; border-radius: 20px 0 20px 0; box-shadow: 15px 15px 0px var(--secondary-color); }
+        /* --- ABOUT (Grid) --- */
+        .grid-container { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; max-width: 1100px; margin: auto; }
         .about-text h2 { font-size: 3rem; color: var(--accent-color); margin-bottom: 20px; }
 
-        /* --- NEW TIMELINE DESIGN --- */
-        .milestone-section {
-            background-color: #fff;
-            padding: 80px 20px;
-            position: relative;
-        }
-        .milestone-header {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-        .milestone-header h2 {
-            font-size: 3rem;
-            color: var(--accent-color);
-        }
+        /* --- MILESTONE TIMELINE (Fixes) --- */
+        .milestone-section { background-color: #fff; padding: 80px 20px; position: relative; }
+        .milestone-header { text-align: center; margin-bottom: 60px; }
+        .milestone-header h2 { font-size: 3rem; color: var(--accent-color); }
         
-        .timeline-wrapper {
-            position: relative;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-        /* Vertical Line */
+        .timeline-wrapper { position: relative; max-width: 1000px; margin: 0 auto; }
         .timeline-wrapper::after {
-            content: '';
-            position: absolute;
-            width: 4px;
-            background-color: var(--secondary-color);
-            top: 0;
-            bottom: 0;
-            left: 50%;
-            margin-left: -2px;
-            border-radius: 2px;
+            content: ''; position: absolute; width: 4px; background-color: var(--secondary-color); top: 0; bottom: 0; left: 50%; margin-left: -2px; border-radius: 2px;
         }
 
-        .milestone-container {
-            padding: 10px 40px;
-            position: relative;
-            background-color: inherit;
-            width: 50%;
-            box-sizing: border-box;
-        }
-        
-        /* Left and Right containers */
+        .milestone-container { padding: 10px 40px; position: relative; background-color: inherit; width: 50%; box-sizing: border-box; }
         .milestone-container.left { left: 0; text-align: right; }
         .milestone-container.right { left: 50%; text-align: left; }
-
-        /* Circle on the line */
-        .milestone-container::after {
-            content: '';
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            right: -10px; /* Adjust for left containers */
-            background-color: white;
-            border: 4px solid var(--accent-color);
-            top: 25px;
-            border-radius: 50%;
-            z-index: 1;
-        }
-        .milestone-container.right::after {
-            left: -10px; /* Adjust for right containers */
-        }
-
-        .milestone-content {
-            padding: 20px;
-            background-color: white;
-            position: relative;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-            border: 1px solid #eee;
-            transition: transform 0.3s;
-        }
-        .milestone-content:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
         
-        .milestone-date {
-            display: inline-block;
-            background: var(--accent-color);
-            color: white;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: bold;
-            margin-bottom: 10px;
+        .milestone-container::after {
+            content: ''; position: absolute; width: 20px; height: 20px; right: -10px; background-color: white; border: 4px solid var(--accent-color); top: 25px; border-radius: 50%; z-index: 1;
         }
-        .milestone-title {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--text-color);
-            margin-bottom: 10px;
-            font-family: 'Charmonman';
-        }
-        .milestone-desc {
-            font-size: 1rem;
-            color: #555;
-            line-height: 1.6;
-            margin-bottom: 15px;
-        }
-        .milestone-img {
-            width: 100%;
-            height: auto;
-            border-radius: 10px;
-            margin-top: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            max-height: 250px;
-            object-fit: cover;
-        }
+        .milestone-container.right::after { left: -10px; }
 
-        /* Special Card for Reality Check */
-        .milestone-special {
-            background: linear-gradient(135deg, #fff3e0 0%, #ffffff 100%);
-            border-left: 5px solid var(--accent-color);
-        }
-        .problem-box {
-            text-align: left;
-            background: rgba(255,255,255,0.8);
-            padding: 15px;
-            border-radius: 10px;
-            margin-top: 10px;
-            border: 1px solid #eee;
-        }
+        .milestone-content { padding: 20px; background-color: white; position: relative; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.08); border: 1px solid #eee; transition: transform 0.3s; }
+        .milestone-date { display: inline-block; background: var(--accent-color); color: white; padding: 5px 15px; border-radius: 20px; font-size: 0.9rem; font-weight: bold; margin-bottom: 10px; }
+        .milestone-title { font-size: 1.5rem; font-weight: bold; color: var(--text-color); margin-bottom: 10px; font-family: 'Charmonman'; }
+        .milestone-desc { font-size: 1rem; color: #555; line-height: 1.6; margin-bottom: 15px; }
+        .milestone-img { width: 100%; height: auto; border-radius: 10px; margin-top: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); max-height: 250px; object-fit: cover; }
+        .milestone-special { background: linear-gradient(135deg, #fff3e0 0%, #ffffff 100%); border-left: 5px solid var(--accent-color); }
+        
+        .problem-box { text-align: left; background: rgba(255,255,255,0.8); padding: 15px; border-radius: 10px; margin-top: 10px; border: 1px solid #eee; }
         .problem-title { font-weight: bold; color: #d32f2f; display: block; margin-bottom: 5px; }
         .solution-title { font-weight: bold; color: #388e3c; display: block; margin-top: 10px; margin-bottom: 5px; }
-
-        /* Goal List */
+        
         .goal-list { list-style: none; text-align: left; padding: 0; }
         .goal-list li { margin-bottom: 10px; position: relative; padding-left: 20px; }
         .goal-list li::before { content: '🎯'; position: absolute; left: 0; top: 2px; font-size: 0.9rem; }
+        
+        .quote-box { text-align: right; margin: 40px auto 0; font-size: 1rem; font-family: 'Sarabun'; color: #999; max-width: 1000px; padding-right: 50px; }
+        .quote-author { display: block; font-size: 0.8rem; font-family: 'Sarabun'; margin-top: 5px; color: #aaa; }
 
-        .quote-box {
-            text-align: right;
-            margin: 40px auto 0;
-            font-size: 1rem; 
-            font-family: 'Sarabun'; 
-            color: #999;
-            max-width: 1000px;
-            padding-right: 50px;
-        }
-        .quote-author {
-            display: block;
-            font-size: 0.8rem;
-            font-family: 'Sarabun';
-            margin-top: 5px;
-            color: #aaa;
-        }
+        /* --- GRAND FOOTER --- */
+        .grand-footer { background: linear-gradient(to bottom, #fff8e1, #fff); padding: 80px 20px 40px; text-align: center; border-top: 5px solid var(--accent-color); overflow: hidden; }
+        .contact-title { font-size: 2.5rem; color: var(--text-color); margin-bottom: 40px; }
+        
+        .social-large { display: flex; justify-content: center; gap: 30px; margin-bottom: 30px; flex-wrap: wrap; }
+        .social-item { display: flex; flex-direction: column; align-items: center; color: var(--text-color); text-decoration: none; transition: transform 0.3s; }
+        .social-item:hover { transform: translateY(-5px); color: var(--accent-color); }
+        .social-item i { font-size: 3.5rem; margin-bottom: 10px; }
+        
+        .phone-box { background: var(--accent-color); color: white; display: inline-block; padding: 20px 50px; border-radius: 15px; box-shadow: 0 10px 25px rgba(216, 67, 21, 0.3); margin: 20px 0 50px; transform: rotate(-2deg); transition: transform 0.3s; text-decoration: none; }
+        .phone-box:hover { transform: rotate(0deg) scale(1.05); }
+        .phone-number { font-size: 3.5rem; font-weight: 800; font-family: 'Sarabun'; line-height: 1; }
+        .phone-label { font-size: 1.2rem; opacity: 0.9; }
 
-        /* Media Queries for Timeline */
-        @media screen and (max-width: 768px) {
+        .grand-banner { max-width: 1000px; margin: 0 auto 40px; border-radius: 2px; overflow: hidden; box-shadow: 0 15px 50px rgba(0,0,0,0.15); border: 15px solid #fff; background-color: #f0f0f0; min-height: 200px; position: relative; transform: rotate(1deg); }
+        .grand-banner img { width: 100%; height: auto; display: block; font-size: 20px; color: red; }
+        .credit-text { font-size: 0.9rem; color: #aaa; margin-top: 40px; font-weight: 300; }
+
+        /* --- SPECIAL THANKS (FIXED) --- */
+        .special-thanks-container { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin: 40px auto 20px; max-width: 600px; }
+        .special-thanks-box { background: rgba(255, 255, 255, 0.5); padding: 20px; border-radius: 15px; border: 1px dashed var(--accent-color); text-align: center; width: 220px; display: flex; flex-direction: column; align-items: center; transition: transform 0.3s; text-decoration: none; }
+        .special-thanks-box:hover { transform: translateY(-5px); background: rgba(255, 255, 255, 0.8); }
+        .special-thanks-img { width: 80px; height: 80px; object-fit: cover; border-radius: 50%; border: 3px solid var(--secondary-color); box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin-bottom: 10px; }
+        .branch-name { font-size: 0.85rem; font-weight: bold; color: var(--accent-color); margin-bottom: 5px; }
+        .branch-desc { font-size: 0.7rem; font-weight: 300; opacity: 0.8; line-height: 1.4; color: var(--text-color); }
+
+        /* --- MOBILE ADJUSTMENTS (FIXED BREAKAGE) --- */
+        @media (max-width: 992px) {
+            .hero h1 { font-size: 2.5rem; }
+            .grid-container, .signature-container { flex-direction: column; grid-template-columns: 1fr; }
+            nav { padding: 15px; }
+            .signature-img-box { margin-bottom: 30px; }
+            .phone-number { font-size: 2.5rem; }
+            .social-large { gap: 20px; }
+            .social-item i { font-size: 2.5rem; }
+            .grand-banner, .phone-box, .signature-img { transform: rotate(0deg) !important; }
+            .about-section { padding: 60px 20px; }
+            .social-card { width: 100%; max-width: 360px; margin: 0 auto; }
+            .mobile-story-hint { display: flex !important; }
+
+            /* Timeline Mobile Fix */
             .timeline-wrapper::after { left: 30px; }
             .milestone-container { width: 100%; padding-left: 70px; padding-right: 25px; }
             .milestone-container.left, .milestone-container.right { left: 0; text-align: left; }
-            .milestone-container::after { left: 21px; } /* Adjust circle pos */
+            .milestone-container::after { left: 21px; }
             .milestone-title { font-size: 1.3rem; }
         }
 
-        /* Mobile specific for Special Thanks layout */
-        @media (max-width: 768px) { /* Increased breakpoint to catch more phones/tablets */
+        /* Special Thanks Mobile Layout (FIXED GRID) */
+        @media (max-width: 768px) {
             .special-thanks-container {
                 display: grid;
-                grid-template-columns: 1fr 1fr;
+                grid-template-columns: 1fr 1fr; /* Force 2 columns */
                 gap: 10px;
                 max-width: 100%;
-                overflow-x: visible;
+                padding: 0 10px;
             }
             .special-thanks-box {
                 width: 100%; 
                 min-width: 0;
-                padding: 10px 5px;
-                margin: 0;
+                padding: 15px 5px;
             }
-            .special-thanks-img {
-                width: 50px;
-                height: 50px;
-            }
+            .special-thanks-img { width: 50px; height: 50px; }
             .branch-name { font-size: 0.75rem; }
-            .branch-desc { font-size: 0.6rem; }
-            .special-thanks-header { font-size: 0.85rem; }
-        }
-
-        @media (max-width: 992px) {
-            /* Mobile Nav Adjustments - Ensure visibility and stack */
-             nav { 
-                 padding: 15px; 
-                 flex-direction: column;
-                 gap: 15px;
-             }
-             .nav-links { 
-                 display: flex;
-                 flex-direction: column;
-                 gap: 15px;
-                 width: 100%;
-                 text-align: center;
-             }
-             .logo {
-                 margin-bottom: 5px;
-             }
-             .btn-cta {
-                width: fit-content;
-                margin: 0 auto;
-             }
+            .branch-desc { font-size: 0.65rem; }
         }
     </style>
 </head>
@@ -799,7 +499,6 @@
     <!-- Navbar -->
     <nav>
         <a href="#" class="logo">น้ำพริกแม่ปู</a>
-
         <div class="nav-links">
             <a href="#contact">รับน้ำพริกฟรี (รีวิวให้เรา)</a>
             <a href="#contact">ติดต่อแฟรนไชส์</a>
@@ -819,7 +518,7 @@
             </div>
         </div>
 
-        <!-- Scroll Down Indicator (Hero) -->
+        <!-- Scroll Down Indicator -->
         <div class="scroll-indicator" onclick="document.getElementById('products').scrollIntoView();">
             <span class="scroll-text">เลื่อนเพื่อดูสินค้า</span>
             <i class="fas fa-chevron-down scroll-arrow"></i>
@@ -846,36 +545,24 @@
         </div>
         
         <div class="product-grid">
-            <!-- First Product Card (Target for auto-scroll) -->
             <div class="product-card" data-aos="zoom-in">
-                <div class="product-img-box">
-                    <img src="images/product-ปลาสลิด.png" alt="น้ำพริกปลาสลิด">
-                </div>
+                <div class="product-img-box"><img src="images/product-ปลาสลิด.png" alt="น้ำพริกปลาสลิด"></div>
                 <div class="product-info">
                     <h3>น้ำพริกปลาสลิด</h3>
                     <p>เนื้อปลาชิ้นโต กรอบถึงใจ</p>
                     <div class="price">180.-</div>
                 </div>
             </div>
-
-            <!-- Second Product Card (Target for second nudge) -->
             <div class="product-card" data-aos="zoom-in" data-aos-delay="100">
-                <div class="product-img-box">
-                    <!-- แก้ไขนามสกุลไฟล์ที่นี่ -->
-                    <img src="images/product-ปลาซิวแก้ว.jpg" alt="น้ำพริกปลาซิวแก้ว">
-                </div>
+                <div class="product-img-box"><img src="images/product-ปลาซิวแก้ว.jpg" alt="น้ำพริกปลาซิวแก้ว"></div>
                 <div class="product-info">
                     <h3>น้ำพริกปลาซิวแก้ว</h3>
                     <p>ปลาทั้งตัว แคลเซียมเน้นๆ</p>
                     <div class="price">100.-</div>
                 </div>
             </div>
-
-            <!-- Third Product Card -->
             <div class="product-card" data-aos="zoom-in" data-aos-delay="200">
-                <div class="product-img-box">
-                    <img src="images/product-ยำถั่วลิสงปลาสลิด.png" alt="ยำถั่วลิสงปลาสลิด">
-                </div>
+                <div class="product-img-box"><img src="images/product-ยำถั่วลิสงปลาสลิด.png" alt="ยำถั่วลิสงปลาสลิด"></div>
                 <div class="product-info">
                     <h3>ยำถั่วลิสงปลาสลิด</h3>
                     <p>มันส์ๆ กรอบๆ เข้ากันสุดๆ</p>
@@ -884,7 +571,6 @@
             </div>
         </div>
 
-        <!-- Scroll Hint (Static - Keep for backup) -->
         <div class="scroll-hint" onclick="document.getElementById('reviews').scrollIntoView();">
             <p>ดูรีวิวจากลูกค้าตัวจริง</p>
             <i class="fas fa-chevron-down"></i>
@@ -901,47 +587,31 @@
         <div class="review-grid">
             <div class="review-card" data-aos="fade-up">
                 <img src="images/review-1.jpg" alt="Capture รีวิวลูกค้า" class="review-img">
-                <div class="stars">
-                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                </div>
+                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
                 <p class="review-text">"อร่อยมากค่ะ จุดเด่นอยู่ที่ชิ้นปลาใหญ่มาก รสชาติถึงเครื่องมากๆ"</p>
-                <div>
-                    <span class="customer-name">คุณส้ม</span>
-                    <span class="customer-type">ลูกค้าประจำ (จาก Line)</span>
-                </div>
+                <div><span class="customer-name">คุณส้ม</span><span class="customer-type">ลูกค้าประจำ (จาก Line)</span></div>
             </div>
             <div class="review-card" data-aos="fade-up" data-aos-delay="100">
                 <img src="images/review-2.jpg" alt="Capture รีวิวลูกค้า" class="review-img">
-                <div class="stars">
-                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                </div>
+                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
                 <p class="review-text">"กินกับข้าวสวยร้อนๆ เนื้อปลากรอบมาก และ ให้เยอะมากๆ"</p>
-                <div>
-                    <span class="customer-name">พี่โดโด้</span>
-                    <span class="customer-type">ลูกค้าประจำ (จาก Facebook)</span>
-                </div>
+                <div><span class="customer-name">พี่โดโด้</span><span class="customer-type">ลูกค้าประจำ (จาก Facebook)</span></div>
             </div>
             <div class="review-card" data-aos="fade-up" data-aos-delay="200">
                 <img src="images/review-3.jpg" alt="Capture รีวิวลูกค้า" class="review-img">
-                <div class="stars">
-                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                </div>
+                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
                 <p class="review-text">"ชอบที่แม่ค้าใส่ใจ สะอาด รู้เลยว่าใช้ของมีคุณภาพ เป็นกำลังใจให้แบรนด์แม่ปูนะคะ"</p>
-                <div>
-                    <span class="customer-name"></span>
-                    <span class="customer-type">ลูกค้าใหม่</span>
-                </div>
+                <div><span class="customer-name"></span><span class="customer-type">ลูกค้าใหม่</span></div>
             </div>
         </div>
 
-        <!-- Scroll Hint -->
         <div class="scroll-hint" onclick="document.querySelector('.video-section').scrollIntoView();">
             <p>ดูรีวิวจาก Influencer</p>
             <i class="fas fa-chevron-down"></i>
         </div>
     </section>
 
-    <!-- 3. INFLUENCER VIDEO SECTION (REDESIGNED) -->
+    <!-- 3. INFLUENCER VIDEO SECTION -->
     <section class="video-section">
         <div data-aos="fade-up">
             <h2>รีวิวจาก Influencer</h2>
@@ -949,71 +619,23 @@
         </div>
 
         <div class="video-grid">
-            
-            <!-- 1. YouTube Shorts Card -->
             <div class="social-card sc-yt" data-aos="fade-up">
-                <div class="social-header">
-                    <div class="social-icon-box"><i class="fab fa-youtube"></i></div>
-                    <div class="social-info">
-                        <span class="social-name">พี่แพรพาชิม</span>
-                        <span class="social-sub">YouTube Shorts</span>
-                    </div>
-                </div>
-                <div class="social-body">
-                    <!-- YouTube Embed Wrapper for 9:16 Ratio -->
-                    <div class="youtube-shorts-wrapper">
-                        <iframe src="https://www.youtube.com/embed/nGHr0UdKJUI" title="Review" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                    </div>
-                </div>
-                <div class="social-footer">
-                    "ขอบพระคุณพี่แพรมากๆๆนะครับสำหรับรีวิว... เลิฟพี่แพรมากๆนะครับ"
-                </div>
+                <div class="social-header"><div class="social-icon-box"><i class="fab fa-youtube"></i></div><div class="social-info"><span class="social-name">พี่แพรพาชิม</span><span class="social-sub">YouTube Shorts</span></div></div>
+                <div class="social-body"><div class="youtube-shorts-wrapper"><iframe src="https://www.youtube.com/embed/nGHr0UdKJUI" title="Review" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></div>
+                <div class="social-footer">"ขอบพระคุณพี่แพรมากๆๆนะครับสำหรับรีวิว... เลิฟพี่แพรมากๆนะครับ"</div>
             </div>
-
-            <!-- 2. TikTok Card -->
             <div class="social-card sc-tt" data-aos="fade-up" data-aos-delay="100">
-                <div class="social-header">
-                    <div class="social-icon-box"><i class="fab fa-tiktok"></i></div>
-                    <div class="social-info">
-                        <span class="social-name">@tastymommy</span>
-                        <span class="social-sub">TikTok Video</span>
-                    </div>
-                </div>
-                <div class="social-body">
-                    <!-- TikTok Embed -->
-                    <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@tastymommychilisauce/video/7586625210330139924" data-video-id="7586625210330139924" style="max-width: 605px;min-width: 325px; margin: 0;"> 
-                        <section> <a target="_blank" title="@tastymommychilisauce" href="https://www.tiktok.com/@tastymommychilisauce?refer=embed">@tastymommychilisauce</a> ... </section> 
-                    </blockquote> 
-                    <script async src="https://www.tiktok.com/embed.js"></script>
-                </div>
-                <div class="social-footer">
-                    "ขอบคุณสำหรับการรีวิวที่น่ารักมากๆๆเลยครับ"
-                </div>
+                <div class="social-header"><div class="social-icon-box"><i class="fab fa-tiktok"></i></div><div class="social-info"><span class="social-name">@tastymommy</span><span class="social-sub">TikTok Video</span></div></div>
+                <div class="social-body"><blockquote class="tiktok-embed" cite="https://www.tiktok.com/@tastymommychilisauce/video/7586625210330139924" data-video-id="7586625210330139924" style="max-width: 605px;min-width: 325px; margin: 0;"><section> <a target="_blank" title="@tastymommychilisauce" href="https://www.tiktok.com/@tastymommychilisauce?refer=embed">@tastymommychilisauce</a> ... </section></blockquote><script async src="https://www.tiktok.com/embed.js"></script></div>
+                <div class="social-footer">"ขอบคุณสำหรับการรีวิวที่น่ารักมากๆๆเลยครับ"</div>
             </div>
-
-            <!-- 3. Instagram Card -->
             <div class="social-card sc-ig" data-aos="fade-up" data-aos-delay="200">
-                <div class="social-header">
-                    <div class="social-icon-box"><i class="fab fa-instagram"></i></div>
-                    <div class="social-info">
-                        <span class="social-name">Customer Review</span>
-                        <span class="social-sub">Instagram Reels</span>
-                    </div>
-                </div>
-                <div class="social-body">
-                    <!-- Instagram Embed -->
-                    <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DIC7qSBSaNN/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:none; margin: 0; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);">
-                    </blockquote>
-                    <script async src="//www.instagram.com/embed.js"></script>
-                </div>
-                <div class="social-footer">
-                    "อีกหนึ่งเสียงยืนยันความอร่อยจากลูกค้าทาง IG ครับ"
-                </div>
+                <div class="social-header"><div class="social-icon-box"><i class="fab fa-instagram"></i></div><div class="social-info"><span class="social-name">Customer Review</span><span class="social-sub">Instagram Reels</span></div></div>
+                <div class="social-body"><blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DIC7qSBSaNN/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:none; margin: 0; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"></blockquote><script async src="//www.instagram.com/embed.js"></script></div>
+                <div class="social-footer">"อีกหนึ่งเสียงยืนยันความอร่อยจากลูกค้าทาง IG ครับ"</div>
             </div>
-
         </div>
 
-        <!-- Scroll Hint -->
         <div class="scroll-hint" onclick="document.querySelector('.signature-section').scrollIntoView();">
             <p>ดูเมนู Signature ของเรา</p>
             <i class="fas fa-chevron-down"></i>
@@ -1025,23 +647,15 @@
         ดูรีวิวถัดไป <i class="fas fa-chevron-down"></i>
     </div>
 
-    <!-- 4. SIGNATURE SECTION (WITH MAGIC DECK SHUFFLE) -->
+    <!-- 4. SIGNATURE SECTION -->
     <section class="signature-section">
         <div class="signature-container">
             <div class="signature-img-box" data-aos="fade-right">
                 <div class="stack-container" onclick="shuffleCards()">
-                    <!-- Stack Order: Bottom to Top -->
-                    <!-- We want order: Sig -> C1 -> C2 -> C3 -> Sig -->
-                    <!-- So Bottom card must be C1 (to be moved to top first) -->
-                    
-                    <!-- Bottom Cards -->
                     <img src="images/customer-collage-1.jpg" class="card" alt="Customer Review 1">
                     <img src="images/customer-collage-2.jpg" class="card" alt="Customer Review 2">
                     <img src="images/customer-collage-3.jpg" class="card" alt="Customer Review 3">
-                    
-                    <!-- Top Card (Visible initially) -->
                     <img src="images/signature-น้ำพริกปลาสลิด.jpg" class="card" alt="น้ำพริกปลาสลิด">
-                    
                     <div class="tap-hint"><i class="fas fa-hand-pointer"></i> แตะเพื่อดูรูปถัดไป</div>
                 </div>
             </div>
@@ -1055,22 +669,15 @@
                     ส่วนท้องเรานำมาแกะก้างหมดและทอดให้กรอบฟู ส่วนปลายลำตัวเรานำมาป่นเพื่อนำไปคลุกกับน้ำพริก จะได้รสชาติอร่อยเข้มข้นจากปลาสลิด 
                     หอมกลิ่นสมุนไพรเครื่องเทศ ทานกับข้าวสวยร้อนๆ ไข่ดาว ไข่เจียว คือที่สุดของความอร่อย
                 </p>
-                
                 <ul class="feature-list">
                     <li><i class="fas fa-check-circle"></i> เนื้อปลาสลิดเน้นๆ เต็มคำ</li>
                     <li><i class="fas fa-check-circle"></i> ไม่ใส่วัตถุกันเสีย ไม่ใส่ผงชูรส</li>
                     <li><i class="fas fa-check-circle"></i> เก็บได้นาน 3 เดือน</li>
                 </ul>
-
                 <div class="sig-price">180 บาท</div>
-                
-                <a href="#contact" class="btn-cta" style="padding: 15px 50px; font-size: 1.2rem; box-shadow: 0 4px 15px rgba(216, 67, 21, 0.5);">
-                    สั่งเลย! <i class="fas fa-shopping-basket"></i>
-                </a>
+                <a href="#contact" class="btn-cta" style="padding: 15px 50px; font-size: 1.2rem; box-shadow: 0 4px 15px rgba(216, 67, 21, 0.5);">สั่งเลย! <i class="fas fa-shopping-basket"></i></a>
             </div>
         </div>
-
-        <!-- Scroll Hint -->
         <div class="scroll-hint" style="color: white; margin-top: 30px;" onclick="document.getElementById('about').scrollIntoView();">
             <p>อ่านเรื่องราวของแม่ปู</p>
             <i class="fas fa-chevron-down"></i>
@@ -1086,24 +693,19 @@
     <!-- 5. STORY SECTION -->
     <section id="about" class="about-section">
         <div class="grid-container">
-            <!-- REPLACED IMAGE WITH INSTAGRAM EMBED AND ADDED BUTTON -->
             <div data-aos="fade-right" style="display: flex; flex-direction: column; align-items: center;">
-                <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DOiYRY1kdg9/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"> <a href="https://www.instagram.com/reel/DOiYRY1kdg9/?utm_source=ig_embed&amp;utm_campaign=loading" style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"> <div style=" display: flex; flex-direction: row; align-items: center;"> <div style="background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 40px; margin-right: 14px; width: 40px;"></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 100px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 60px;"></div></div></div><div style="padding: 19% 0;"></div> <div style="display:block; height:50px; margin:0 auto 12px; width:50px;"><svg width="50px" height="50px" viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g transform="translate(-511.000000, -20.000000)" fill="#000000"><g><path d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.114,60.657 530.342,55.887 530.342,50 C530.342,44.114 535.114,39.342 541,39.342 C546.887,39.342 551.658,44.114 551.658,50 C551.658,55.887 546.887,60.657 541,60.657 M541,33.886 C532.1,33.886 524.886,41.1 524.886,50 C524.886,58.899 532.1,66.113 541,66.113 C549.9,66.113 557.115,58.899 557.115,50 C557.115,41.1 549.9,33.886 541,33.886 M565.378,62.101 C565.244,65.022 564.756,66.606 564.346,67.663 C563.803,69.06 563.154,70.057 562.106,71.106 C561.058,72.155 560.06,72.803 558.662,73.347 C557.607,73.757 556.021,74.244 553.102,74.378 C549.944,74.521 548.997,74.552 541,74.552 C533.003,74.552 532.056,74.521 528.898,74.378 C525.979,74.244 524.393,73.757 523.338,73.347 C521.94,72.803 520.942,72.155 519.894,71.106 C518.846,70.057 518.197,69.06 517.654,67.663 C517.244,66.606 516.755,65.022 516.623,62.101 C516.479,58.943 516.448,57.996 516.448,50 C516.448,42.003 516.479,41.056 516.623,37.899 C516.755,34.978 517.244,33.391 517.654,32.338 C518.197,30.938 518.846,29.942 519.894,28.894 C520.942,27.846 521.94,27.196 523.338,26.654 C524.393,26.244 525.979,25.756 528.898,25.623 C532.057,25.479 533.004,25.448 541,25.448 C548.997,25.448 549.943,25.479 553.102,25.623 C556.021,25.756 557.607,26.244 558.662,26.654 C560.06,27.196 561.058,27.846 562.106,28.894 C563.154,29.942 563.803,30.938 564.346,32.338 C564.756,33.391 565.244,34.978 565.378,37.899 C565.522,41.056 565.552,42.003 565.552,50 C565.552,57.996 565.522,58.943 565.378,62.101 M570.82,37.631 C570.674,34.438 570.167,32.258 569.425,30.349 C568.659,28.377 567.633,26.702 565.965,25.035 C564.297,23.368 562.623,22.342 560.652,21.575 C558.743,20.834 556.562,20.326 553.369,20.18 C550.169,20.033 549.148,20 541,20 C532.853,20 531.831,20.033 528.631,20.18 C525.438,20.326 523.257,20.834 521.349,21.575 C519.376,22.342 517.703,23.368 516.035,25.035 C514.368,26.702 513.342,28.377 512.574,30.349 C511.834,32.258 511.326,34.438 511.181,37.631 C511.035,40.831 511,41.851 511,50 C511,58.147 511.035,59.17 511.181,62.369 C511.326,65.562 511.834,67.743 512.574,69.651 C513.342,71.625 514.368,73.296 516.035,74.965 C517.703,76.634 519.376,77.658 521.349,78.425 C523.257,79.167 525.438,79.673 528.631,79.82 C531.831,79.965 532.853,80.001 541,80.001 C549.148,80.001 550.169,79.965 553.369,79.82 C556.562,79.673 558.743,79.167 560.652,78.425 C562.623,77.658 564.297,76.634 565.965,74.965 C567.633,73.296 568.659,71.625 569.425,69.651 C570.167,67.743 570.674,65.562 570.82,62.369 C570.966,59.17 571,58.147 571,50 C571,41.851 570.966,40.831 570.82,37.631"></path></g></g></g></svg></div><div style="padding-top: 8px;"> <div style=" color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">View this post on Instagram</div></div><div style="padding: 12.5% 0;"></div> <div style="display: flex; flex-direction: row; margin-bottom: 14px; align-items: center;"><div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(0px) translateY(7px);"></div> <div style="background-color: #F4F4F4; height: 12.5px; transform: rotate(-45deg) translateX(3px) translateY(1px); width: 12.5px; flex-grow: 0; margin-right: 14px; margin-left: 2px;"></div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(9px) translateY(-18px);"></div></div><div style="margin-left: 8px;"> <div style=" background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 20px; width: 20px;"></div> <div style=" width: 0; height: 0; border-top: 2px solid transparent; border-left: 6px solid #f4f4f4; border-bottom: 2px solid transparent; transform: translateX(16px) translateY(-4px) rotate(30deg)"></div></div><div style="margin-left: auto;"> <div style=" width: 0px; border-top: 8px solid #F4F4F4; border-right: 8px solid transparent; transform: translateY(16px);"></div> <div style=" background-color: #F4F4F4; flex-grow: 0; height: 12px; width: 16px; transform: translateY(-4px);"></div> <div style=" width: 0; height: 0; border-top: 8px solid #F4F4F4; border-left: 8px solid transparent; transform: translateY(-4px) translateX(8px);"></div></div></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center; margin-bottom: 24px;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 224px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 144px;"></div></div></a><p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/reel/DOiYRY1kdg9/?utm_source=ig_embed&amp;utm_campaign=loading" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_blank">A post shared by Nothakarn Kaewmanee (@nottakan)</a></p></div></blockquote> <script async src="//www.instagram.com/embed.js"></script>
-                
-                <!-- NEW BUTTON: Continue Reading Story -->
+                <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DOiYRY1kdg9/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"></blockquote> <script async src="//www.instagram.com/embed.js"></script>
                 <div class="mobile-story-hint" onclick="document.querySelector('.about-text').scrollIntoView({behavior: 'smooth'});">
                     <p>อ่านเรื่องราวต่อ</p>
                     <i class="fas fa-chevron-down"></i>
                 </div>
             </div>
-            
             <div class="about-text" data-aos="fade-left">
                 <h2>Connecting the DOTs</h2>
                 <p><strong>จากรสมือแม่...สู่ความตั้งใจของลูกชาย</strong></p>
                 <p>3 ปีแห่งการลองผิดลองถูก ตั้งแต่สตรีมเมอร์ พนักงานเสิร์ฟ จนถึงผู้จัดการร้านอาหาร ทุกจุด (DOTs) หล่อหลอมให้ผมเข้าใจคุณค่าของ "ความอร่อย" และ "การบริการ"</p>
                 <p>วันนี้ผมอยากตะโกนบอกโลกว่า <strong>"แม่ผมทำอาหารอร่อยมาก!"</strong> และนี่คือจุดเริ่มต้นของน้ำพริกแม่ปู</p>
                 <br>
-                <!-- Moved pi-card here and made it larger -->
                 <img src="images/pi-card.jpg" alt="About Maepu" style="width: 100%; border-radius: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); margin-top: 10px;">
             </div>
         </div>
@@ -1122,9 +724,7 @@
                 <div class="milestone-content" data-aos="fade-right">
                     <span class="milestone-date">17/02/68</span>
                     <div class="milestone-title">จุดเริ่มต้น & Order แรก</div>
-                    <div class="milestone-desc">
-                        เริ่มต้นทำน้ำพริกด้วยใจรัก และได้รับ Order แรกที่เป็นจุดประกายความหวัง
-                    </div>
+                    <div class="milestone-desc">เริ่มต้นทำน้ำพริกด้วยใจรัก และได้รับ Order แรกที่เป็นจุดประกายความหวัง</div>
                     <img src="images/milestone-start.jpg" alt="Order แรก" class="milestone-img">
                 </div>
             </div>
@@ -1134,9 +734,7 @@
                 <div class="milestone-content" data-aos="fade-left">
                     <span class="milestone-date">16/06/68</span>
                     <div class="milestone-title">ขยายตลาด Tour Leader</div>
-                    <div class="milestone-desc">
-                        ก้าวสู่ตลาดใหม่ แนะนำความอร่อยให้กับกลุ่มนักท่องเที่ยวผ่าน Tour Leader
-                    </div>
+                    <div class="milestone-desc">ก้าวสู่ตลาดใหม่ แนะนำความอร่อยให้กับกลุ่มนักท่องเที่ยวผ่าน Tour Leader</div>
                     <img src="images/milestone-tour.jpg" alt="Tour Leader Market" class="milestone-img">
                 </div>
             </div>
@@ -1146,9 +744,7 @@
                 <div class="milestone-content" data-aos="fade-right">
                     <span class="milestone-date">18/08/68</span>
                     <div class="milestone-title">มีร้านค้าฝากขายประจำ</div>
-                    <div class="milestone-desc">
-                        สร้างฐานที่มั่นคง มีหน้าร้านประจำที่ลูกค้าสามารถตามหาความอร่อยได้เสมอ
-                    </div>
+                    <div class="milestone-desc">สร้างฐานที่มั่นคง มีหน้าร้านประจำที่ลูกค้าสามารถตามหาความอร่อยได้เสมอ</div>
                     <img src="images/milestone-shop.jpg" alt="Consignment Shop" class="milestone-img">
                 </div>
             </div>
@@ -1158,29 +754,17 @@
                 <div class="milestone-content milestone-special" data-aos="fade-left">
                     <span class="milestone-date">13/09/68</span>
                     <div class="milestone-title">ออกบูธ & ความฝันแม่ปู</div>
-                    <div class="milestone-desc">
-                        ออกบูธครั้งสำคัญ พร้อมกับความฝันอยากขยายแฟรนไชส์ แต่ก็ได้พบกับบทเรียนและความท้าทายใหม่
-                    </div>
+                    <div class="milestone-desc">ออกบูธครั้งสำคัญ พร้อมกับความฝันอยากขยายแฟรนไชส์ แต่ก็ได้พบกับบทเรียนและความท้าทายใหม่</div>
                     <img src="images/milestone-booth.png" alt="Booth" class="milestone-img" style="margin-bottom: 15px;">
-                    
-                    <!-- Problem & Solution Analysis -->
                     <div class="problem-box">
                         <span class="problem-title"><i class="fas fa-exclamation-circle"></i> ปัญหาที่พบ (Reality Check)</span>
-                        <p style="font-size: 0.9rem; margin-bottom: 10px;">
-                            1. ราคาค่อนข้างสูงเมื่อเทียบกับรายได้ประชากร แม้คุณภาพจะคุ้มค่า
-                        </p>
+                        <p style="font-size: 0.9rem; margin-bottom: 10px;">1. ราคาค่อนข้างสูงเมื่อเทียบกับรายได้ประชากร แม้คุณภาพจะคุ้มค่า</p>
                         <span class="solution-title"><i class="fas fa-lightbulb"></i> ทางออก</span>
-                        <p style="font-size: 0.9rem; margin-bottom: 15px;">
-                             👉 <strong>ผลิตแบบซอง</strong> เพื่อให้เข้าถึงง่ายขึ้น
-                        </p>
+                        <p style="font-size: 0.9rem; margin-bottom: 15px;">👉 <strong>ผลิตแบบซอง</strong> เพื่อให้เข้าถึงง่ายขึ้น</p>
                         <hr style="border: 0; border-top: 1px dashed #ccc; margin: 10px 0;">
-                        <p style="font-size: 0.9rem; margin-bottom: 10px;">
-                            2. แบรนด์ใหม่ ลูกค้ายังไม่กล้าเปิดใจลอง
-                        </p>
+                        <p style="font-size: 0.9rem; margin-bottom: 10px;">2. แบรนด์ใหม่ ลูกค้ายังไม่กล้าเปิดใจลอง</p>
                         <span class="solution-title"><i class="fas fa-users"></i> ทางออก</span>
-                        <p style="font-size: 0.9rem;">
-                             👉 สร้างเครือข่าย รีวิว และช่วยเหลือรีวิวร้านอาหารอื่นๆ เพื่อสร้างพันธมิตร
-                        </p>
+                        <p style="font-size: 0.9rem;">👉 สร้างเครือข่าย รีวิว และช่วยเหลือรีวิวร้านอาหารอื่นๆ เพื่อสร้างพันธมิตร</p>
                     </div>
                 </div>
             </div>
@@ -1190,9 +774,7 @@
                 <div class="milestone-content" data-aos="fade-right">
                     <span class="milestone-date">NOW</span>
                     <div class="milestone-title">ตัวตนบนโลกออนไลน์</div>
-                    <div class="milestone-desc">
-                        เปิดตัวเว็บไซต์นี้ เปรียบเสมือนนามบัตรดิจิทัล ให้ทุกคนรู้ว่า "เราคือใคร" และ "ตั้งใจแค่ไหน"
-                    </div>
+                    <div class="milestone-desc">เปิดตัวเว็บไซต์นี้ เปรียบเสมือนนามบัตรดิจิทัล ให้ทุกคนรู้ว่า "เราคือใคร" และ "ตั้งใจแค่ไหน"</div>
                     <img src="images/milestone-now.jpg" alt="Website Launch" class="milestone-img">
                 </div>
             </div>
@@ -1203,77 +785,40 @@
                     <span class="milestone-date" style="background-color: #2e7d32;">เป้าหมายภายใน 06/06/69</span>
                     <div class="milestone-title">Next Chapter</div>
                     <ul class="goal-list" style="margin-top: 10px;">
-                        <li>
-                            <strong>ภารกิจ: ผลิตรูปแบบซอง</strong><br>
-                            <span style="font-size: 0.9rem; color: #555; display: block; margin-top: 5px;">
-                                🎯 <strong>เป้าหมาย:</strong> หาเงินทุน 3 แสนบาท จาก (ยอดขาย + งานเสริม) เท่านั่น
-                            </span>
-                            <span style="font-size: 0.9rem; color: #388e3c; display: block; margin-top: 5px; font-weight: 500;">
-                                🥣 <strong>Update:</strong> ผมเริ่มขาย "บัวลอย" เพื่อหาทุนเพิ่มแล้วนะครับ! แวะมาอุดหนุนได้ที่ <em>ชอบโภชนา สาขาระยอง</em> กำไรทุกบาทจะนำไปสานฝันเรื่องซองครับ
-                            </span>
-                        </li>
-                        <li style="margin-top: 15px;">
-                            <strong>ครองใจคนระยอง</strong><br>
-                            <span style="font-size: 0.9rem; color: #555;">ทำให้คนพื้นที่รู้จักให้มากที่สุด โดยใช้เงินให้น้อยที่สุด (เน้นไอเดียและความจริงใจ)</span>
-                        </li>
+                        <li><strong>ภารกิจ: ผลิตรูปแบบซอง</strong><br><span style="font-size: 0.9rem; color: #555; display: block; margin-top: 5px;">🎯 <strong>เป้าหมาย:</strong> หาเงินทุน 3 แสนบาท จาก (ยอดขาย + งานเสริม) เท่านั่น</span><span style="font-size: 0.9rem; color: #388e3c; display: block; margin-top: 5px; font-weight: 500;">🥣 <strong>Update:</strong> ผมเริ่มขาย "บัวลอย" เพื่อหาทุนเพิ่มแล้วนะครับ! แวะมาอุดหนุนได้ที่ <em>ชอบโภชนา สาขาระยอง</em> กำไรทุกบาทจะนำไปสานฝันเรื่องซองครับ</span></li>
+                        <li style="margin-top: 15px;"><strong>ครองใจคนระยอง</strong><br><span style="font-size: 0.9rem; color: #555;">ทำให้คนพื้นที่รู้จักให้มากที่สุด โดยใช้เงินให้น้อยที่สุด (เน้นไอเดียและความจริงใจ)</span></li>
                     </ul>
                     <img src="images/milestone-future.png" alt="Future Goals" class="milestone-img">
                 </div>
             </div>
-
         </div>
 
-        <!-- Steve Jobs Quote -->
-        <div class="quote-box">
-            "Stay Hungry, Stay Foolish"
-            <span class="quote-author">- Steve Jobs -</span>
-        </div>
+        <div class="quote-box">"Stay Hungry, Stay Foolish"<span class="quote-author">- Steve Jobs -</span></div>
     </section>
 
     <!-- 7. GRAND FOOTER & CONTACT -->
     <footer id="contact" class="grand-footer">
         <div data-aos="fade-up">
             <h2 class="contact-title">หากสนใจสามารถติดต่อได้</h2>
-            
-            <!-- Social Icons -->
             <div class="social-large">
-                <a href="https://www.instagram.com/tastymomychilisauce?igsh=Z3Z4aHRtaDIyazhl" class="social-item" target="_blank">
-                    <i class="fab fa-instagram" style="color: #E1306C;"></i>
-                    <span>Instagram</span>
-                </a>
-                <a href="https://line.me/ti/p/E5qDfwRtZL" class="social-item" target="_blank">
-                    <i class="fab fa-line" style="color: #06C755;"></i>
-                    <span>Line OA</span>
-                </a>
-                <a href="https://www.tiktok.com/@tastymommychilisauce?_r=1&_t=ZS-92SZxfN9dg5" class="social-item" target="_blank">
-                    <i class="fab fa-tiktok" style="color: #000;"></i>
-                    <span>TikTok</span>
-                </a>
+                <a href="https://www.instagram.com/tastymomychilisauce?igsh=Z3Z4aHRtaDIyazhl" class="social-item" target="_blank"><i class="fab fa-instagram" style="color: #E1306C;"></i><span>Instagram</span></a>
+                <a href="https://line.me/ti/p/E5qDfwRtZL" class="social-item" target="_blank"><i class="fab fa-line" style="color: #06C755;"></i><span>Line OA</span></a>
+                <a href="https://www.tiktok.com/@tastymommychilisauce?_r=1&_t=ZS-92SZxfN9dg5" class="social-item" target="_blank"><i class="fab fa-tiktok" style="color: #000;"></i><span>TikTok</span></a>
             </div>
-
-            <!-- Big Phone Number (Clickable) -->
             <a href="tel:0955343310" class="phone-box">
                 <div class="phone-label">โทรสั่งความอร่อย กดเลยตรงนี้</div>
                 <div class="phone-number">095-534-3310</div>
             </a>
-
-            <!-- Grand Image Banner -->
-            <div class="grand-banner">
-                <!-- ผมเปลี่ยนชื่อเป็น banner.jpg ให้สั้นลงจะได้ไม่พิมพ์ผิดครับ -->
-                <img src="images/grand-banner.jpg" alt="⚠️ ไม่พบรูป 'grand-banner.jpg' กรุณาเช็คชื่อไฟล์">
-            </div>
-
-            <!-- Special Thanks Wrapper -->
+            <div class="grand-banner"><img src="images/grand-banner.jpg" alt="⚠️ ไม่พบรูป 'grand-banner.jpg' กรุณาเช็คชื่อไฟล์"></div>
+            
             <div style="margin: 40px auto 20px; max-width: 600px;">
                 <h3 style="color: var(--text-color); margin-bottom: 20px;">Special Thanks <i class="fas fa-heart" style="color: #ff5252;"></i></h3>
                 <div class="special-thanks-container">
-                    <!-- Branch 1 -->
                     <a href="https://www.facebook.com/profile.php?id=100069254547319" class="special-thanks-box" target="_blank">
                         <img src="images/logo-chob-pochana-1.jpg" alt="สาขาจันทบุรี" class="special-thanks-img">
                         <p class="branch-name">สาขาจันทบุรี</p>
                         <p class="branch-desc">พี่สาวและพี่ชาย ที่เป็นยิ่งกว่าพี่ ผู้สนับสนุนผมเสมอมา</p>
                     </a>
-                    <!-- Branch 2 -->
                     <a href="https://www.facebook.com/profile.php?id=61562884358666" class="special-thanks-box" target="_blank">
                         <img src="images/logo-chob-pochana-2.jpg" alt="สาขาระยอง" class="special-thanks-img">
                         <p class="branch-name">สาขาระยอง</p>
@@ -1282,7 +827,6 @@
                 </div>
             </div>
 
-            <!-- Credit -->
             <div class="credit-text">
                 <p>ขอบพระคุณ คุณ riko สำหรับที่ปรึกษาทำเว็ปไซต์</p>
                 <p style="font-size: 0.8rem; margin-top: 10px;">&copy; 2024 Maepu Homemade. All rights reserved.</p>
@@ -1295,25 +839,18 @@
     <script>
         AOS.init({ duration: 1000, once: true });
 
-        // Logic for Product Nudge (Specific for Mobile) - TUNED TO BE MORE RESPONSIVE
         const productCards = document.querySelectorAll('.product-card');
         const nudgedIndices = new Set(); 
 
-        // เพิ่มระยะการทำงานให้กว้างขึ้นเผื่อ Tablet
         if (window.innerWidth < 1024) { 
              const productObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         const index = Array.from(productCards).indexOf(entry.target);
-                        // สนใจเฉพาะการ์ด 2 ใบแรก และยังไม่เคยเลื่อน
                         if (index !== -1 && index < 2 && !nudgedIndices.has(index)) {
                             nudgedIndices.add(index);
-                            
-                            // หน่วงเวลา 2.5 วินาที แล้วเลื่อนลง
                             setTimeout(() => {
-                                // เช็คอีกทีว่ายังอยู่ในจอไหม (เผื่อคนเลื่อนหนีไปแล้ว)
                                 const rect = entry.target.getBoundingClientRect();
-                                // ปรับเงื่อนไขให้ยืดหยุ่นขึ้น
                                 if (rect.top < window.innerHeight && rect.bottom > 0) {
                                      window.scrollBy({ top: entry.target.offsetHeight + 30, behavior: 'smooth' });
                                 }
@@ -1321,44 +858,32 @@
                         }
                     }
                 });
-            }, { threshold: 0.6 }); // ปรับเกณฑ์ลงเหลือ 60% ให้ติดง่ายขึ้นบนจอมือถือ
-
-            // เริ่ม Observe เฉพาะ 2 ใบแรก
+            }, { threshold: 0.6 }); 
             if(productCards.length > 0) productObserver.observe(productCards[0]);
             if(productCards.length > 1) productObserver.observe(productCards[1]);
         }
 
-
-        // --- NEW: Next Review Button Feature ---
         const nextReviewBtn = document.getElementById('next-review-btn');
         const socialCards = document.querySelectorAll('.social-card');
 
         function checkVideoSectionNav() {
-            // Hide on Desktop
             if (window.innerWidth > 992) {
                 nextReviewBtn.classList.remove('visible');
                 return;
             }
-
             const videoSection = document.querySelector('.video-section');
             if (!videoSection) return;
-
             const rect = videoSection.getBoundingClientRect();
             const windowHeight = window.innerHeight;
-
-            // ตรวจสอบว่าเรายังอยู่ในโซนวิดีโอหรือไม่
             const inSection = (rect.top < windowHeight * 0.8) && (rect.bottom > windowHeight * 0.5);
 
             if (!inSection) {
                 nextReviewBtn.classList.remove('visible');
                 return;
             }
-
-            // ตรวจสอบการ์ดใบสุดท้าย
             const lastCard = socialCards[socialCards.length - 1];
             if (lastCard) {
                 const lastCardRect = lastCard.getBoundingClientRect();
-                // ถ้าการ์ดใบสุดท้าย "เริ่มโผล่มาเกินครึ่ง" ให้ซ่อนปุ่ม
                 if (lastCardRect.top < windowHeight * 0.6) {
                      nextReviewBtn.classList.remove('visible');
                 } else {
@@ -1367,27 +892,19 @@
             }
         }
 
-        // Click Event: Scroll to next card
         if (nextReviewBtn) {
             nextReviewBtn.addEventListener('click', () => {
                 for (const card of socialCards) {
                     const rect = card.getBoundingClientRect();
-                    // หาการ์ดใบถัดไป (คือใบที่หัวยังอยู่ต่ำกว่ากลางจอ)
                     if (rect.top > window.innerHeight / 2) {
-                        // เลื่อนลงไปหา
-                        window.scrollBy({
-                            top: rect.top - 100, // เว้นระยะหัวนิดนึง
-                            behavior: 'smooth'
-                        });
+                        window.scrollBy({ top: rect.top - 100, behavior: 'smooth' });
                         break;
                     }
                 }
             });
         }
-
         window.addEventListener('scroll', checkVideoSectionNav);
 
-        // --- NEW: Story Hint Button Logic ---
         const storyHintBtn = document.getElementById('story-hint-btn');
         const aboutSection = document.getElementById('about');
         const aboutText = document.querySelector('.about-text');
@@ -1397,19 +914,11 @@
                 storyHintBtn.classList.remove('visible');
                 return;
             }
-            
             if (!aboutSection || !aboutText) return;
-
             const aboutRect = aboutSection.getBoundingClientRect();
             const textRect = aboutText.getBoundingClientRect();
             const windowHeight = window.innerHeight;
-
-            // Show when About section starts entering
-            // (When top of section is well into view, but before leaving view)
             const isAboutVisible = (aboutRect.top < windowHeight * 0.8) && (aboutRect.bottom > 0);
-            
-            // Hide when text is fully prominent (user scrolled past video)
-            // If the text top is near the middle of the screen (meaning user scrolled down)
             const isTextInFocus = textRect.top < windowHeight * 0.6;
 
             if (isAboutVisible && !isTextInFocus) {
@@ -1420,34 +929,18 @@
         }
         window.addEventListener('scroll', checkStoryHint);
 
-        // --- NEW: Magic Card Shuffling Logic ---
         function shuffleCards() {
             const container = document.querySelector('.stack-container');
             const cards = container.querySelectorAll('.card');
-            
-            // The logic: 
-            // 1. Take the bottom card (first-child in DOM).
-            // 2. Animate it flying out and landing on top.
-            // 3. Move it to the end of the DOM (becoming the top card).
-            
-            const bottomCard = cards[0]; // The card at the bottom of the pile
+            const bottomCard = cards[0]; 
             if (!bottomCard) return;
-
-            // Apply animation class
             bottomCard.classList.add('dealing');
-
-            // After animation finishes (match CSS time 0.6s)
             setTimeout(() => {
                 bottomCard.classList.remove('dealing');
-                // Move to the end of the container (visually on top)
-                // We insert it before the .tap-hint div to keep structure clean, 
-                // or just appendChild if tap-hint is absolute/pointer-events-none.
                 const tapHint = container.querySelector('.tap-hint');
                 container.insertBefore(bottomCard, tapHint); 
-                // effectively moves it to the top of the card stack
             }, 550); 
         }
-        
     </script>
 </body>
 </html>
