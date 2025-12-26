@@ -5,13 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>น้ำพริกแม่ปู - Original Homemade</title>
     
-    <!-- ฟอนต์: ใช้ 2 ฟอนต์เพื่อสร้างมิติ -->
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600&family=Charmonman:wght@700&display=swap" rel="stylesheet">
     
-    <!-- ไอคอน -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-    <!-- Animation Lib -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
@@ -65,7 +62,13 @@
             z-index: 100;
             border-bottom: 1px solid #eee;
         }
-        .logo { font-size: 1.5rem; color: var(--accent-color); font-weight: bold; text-decoration: none; }
+        .logo { 
+            font-size: 1.8rem; /* ปรับให้ใหญ่ขึ้นนิดนึงเพื่อให้เด่น */
+            color: var(--accent-color); 
+            font-weight: bold; 
+            text-decoration: none;
+            font-family: 'Charmonman', cursive; /* ใช้ฟอนต์ตัวเขียนให้ดูแพง */
+        }
         .nav-links a {
             text-decoration: none;
             color: var(--text-color);
@@ -880,9 +883,8 @@
 </head>
 <body>
 
-    <!-- Navbar -->
     <nav>
-        <a href="#" class="logo">Maepu.</a>
+        <a href="#" class="logo">น้ำพริกแม่ปู</a>
         <div class="nav-links">
             <a href="#products">Menu</a>
             <a href="#reviews">Reviews</a>
@@ -891,7 +893,6 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
     <header class="hero">
         <div class="hero-overlay"></div>
         <div class="hero-content" data-aos="fade-up">
@@ -903,26 +904,21 @@
             </div>
         </div>
 
-        <!-- Scroll Down Indicator (Hero) -->
         <div class="scroll-indicator" onclick="document.getElementById('products').scrollIntoView();">
             <span class="scroll-text">เลื่อนเพื่อดูสินค้า</span>
             <i class="fas fa-chevron-down scroll-arrow"></i>
         </div>
     </header>
 
-    <!-- Marquee -->
     <div class="marquee">
         <div class="marquee-content">
             ✦ HOMEMADE ORIGINAL ✦ ไม่ใส่วัตถุกันเสีย ✦ รสชาติจัดจ้าน ✦ สูตรลับฉบับคุณแม่ ✦ HOMEMADE ORIGINAL ✦ ไม่ใส่ผงชูรส ✦ ไม่ใส่วัตถุกันเสีย ✦ รสชาติจัดจ้าน ✦ สูตรลับฉบับคุณแม่
         </div>
     </div>
 
-    <!-- NEW: FLOATING HINT FOR PRODUCTS -->
     <div id="product-hint" class="product-floating-hint" style="display: none;">
-        <!-- ลบปุ่มเดิมออก ตามที่ขอครับ -->
-    </div>
+        </div>
 
-    <!-- 1. PRODUCT SECTION -->
     <section id="products" class="product-section">
         <div data-aos="fade-up">
             <h2>สินค้าแนะนำ</h2>
@@ -930,7 +926,6 @@
         </div>
         
         <div class="product-grid">
-            <!-- First Product Card (Target for auto-scroll) -->
             <div class="product-card" data-aos="zoom-in">
                 <div class="product-img-box">
                     <img src="images/product-ปลาสลิด.png" alt="น้ำพริกปลาสลิด">
@@ -942,10 +937,8 @@
                 </div>
             </div>
 
-            <!-- Second Product Card (Target for second nudge) -->
             <div class="product-card" data-aos="zoom-in" data-aos-delay="100">
                 <div class="product-img-box">
-                    <!-- แก้ไขนามสกุลไฟล์ที่นี่ -->
                     <img src="images/product-ปลาซิวแก้ว.jpg" alt="น้ำพริกปลาซิวแก้ว">
                 </div>
                 <div class="product-info">
@@ -955,7 +948,6 @@
                 </div>
             </div>
 
-            <!-- Third Product Card -->
             <div class="product-card" data-aos="zoom-in" data-aos-delay="200">
                 <div class="product-img-box">
                     <img src="images/product-ยำถั่วลิสงปลาสลิด.png" alt="ยำถั่วลิสงปลาสลิด">
@@ -968,14 +960,12 @@
             </div>
         </div>
 
-        <!-- Scroll Hint (Static - Keep for backup) -->
         <div class="scroll-hint" onclick="document.getElementById('reviews').scrollIntoView();">
             <p>ดูรีวิวจากลูกค้าตัวจริง</p>
             <i class="fas fa-chevron-down"></i>
         </div>
     </section>
 
-    <!-- 2. REVIEWS SECTION -->
     <section id="reviews" class="reviews-section">
         <div data-aos="fade-up">
             <h2>เสียงจากลูกค้าตัวจริง</h2>
@@ -1018,14 +1008,12 @@
             </div>
         </div>
 
-        <!-- Scroll Hint -->
         <div class="scroll-hint" onclick="document.querySelector('.video-section').scrollIntoView();">
             <p>ดูรีวิวจาก Influencer</p>
             <i class="fas fa-chevron-down"></i>
         </div>
     </section>
 
-    <!-- 3. INFLUENCER VIDEO SECTION (REDESIGNED) -->
     <section class="video-section">
         <div data-aos="fade-up">
             <h2>รีวิวจาก Influencer</h2>
@@ -1034,7 +1022,6 @@
 
         <div class="video-grid">
             
-            <!-- 1. YouTube Shorts Card -->
             <div class="social-card sc-yt" data-aos="fade-up">
                 <div class="social-header">
                     <div class="social-icon-box"><i class="fab fa-youtube"></i></div>
@@ -1044,7 +1031,6 @@
                     </div>
                 </div>
                 <div class="social-body">
-                    <!-- YouTube Embed Wrapper for 9:16 Ratio -->
                     <div class="youtube-shorts-wrapper">
                         <iframe src="https://www.youtube.com/embed/nGHr0UdKJUI" title="Review" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                     </div>
@@ -1054,7 +1040,6 @@
                 </div>
             </div>
 
-            <!-- 2. TikTok Card -->
             <div class="social-card sc-tt" data-aos="fade-up" data-aos-delay="100">
                 <div class="social-header">
                     <div class="social-icon-box"><i class="fab fa-tiktok"></i></div>
@@ -1064,7 +1049,6 @@
                     </div>
                 </div>
                 <div class="social-body">
-                    <!-- TikTok Embed -->
                     <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@tastymommychilisauce/video/7586625210330139924" data-video-id="7586625210330139924" style="max-width: 605px;min-width: 325px; margin: 0;"> 
                         <section> <a target="_blank" title="@tastymommychilisauce" href="https://www.tiktok.com/@tastymommychilisauce?refer=embed">@tastymommychilisauce</a> ... </section> 
                     </blockquote> 
@@ -1075,7 +1059,6 @@
                 </div>
             </div>
 
-            <!-- 3. Instagram Card -->
             <div class="social-card sc-ig" data-aos="fade-up" data-aos-delay="200">
                 <div class="social-header">
                     <div class="social-icon-box"><i class="fab fa-instagram"></i></div>
@@ -1085,7 +1068,6 @@
                     </div>
                 </div>
                 <div class="social-body">
-                    <!-- Instagram Embed -->
                     <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DIC7qSBSaNN/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:none; margin: 0; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);">
                     </blockquote>
                     <script async src="//www.instagram.com/embed.js"></script>
@@ -1097,33 +1079,24 @@
 
         </div>
 
-        <!-- Scroll Hint -->
         <div class="scroll-hint" onclick="document.querySelector('.signature-section').scrollIntoView();">
             <p>ดูเมนู Signature ของเรา</p>
             <i class="fas fa-chevron-down"></i>
         </div>
     </section>
 
-    <!-- NEW: Pop-up Button for Next Review -->
     <div id="next-review-btn" class="next-review-btn">
         ดูรีวิวถัดไป <i class="fas fa-chevron-down"></i>
     </div>
 
-    <!-- 4. SIGNATURE SECTION (WITH MAGIC DECK SHUFFLE) -->
     <section class="signature-section">
         <div class="signature-container">
             <div class="signature-img-box" data-aos="fade-right">
                 <div class="stack-container" onclick="shuffleCards()">
-                    <!-- Stack Order: Bottom to Top -->
-                    <!-- We want order: Sig -> C1 -> C2 -> C3 -> Sig -->
-                    <!-- So Bottom card must be C1 (to be moved to top first) -->
-                    
-                    <!-- Bottom Cards -->
                     <img src="images/customer-collage-1.jpg" class="card" alt="Customer Review 1">
                     <img src="images/customer-collage-2.jpg" class="card" alt="Customer Review 2">
                     <img src="images/customer-collage-3.jpg" class="card" alt="Customer Review 3">
                     
-                    <!-- Top Card (Visible initially) -->
                     <img src="images/signature-น้ำพริกปลาสลิด.jpg" class="card" alt="น้ำพริกปลาสลิด">
                     
                     <div class="tap-hint"><i class="fas fa-hand-pointer"></i> แตะเพื่อดูรูปถัดไป</div>
@@ -1154,27 +1127,22 @@
             </div>
         </div>
 
-        <!-- Scroll Hint -->
         <div class="scroll-hint" style="color: white; margin-top: 30px;" onclick="document.getElementById('about').scrollIntoView();">
             <p>อ่านเรื่องราวของแม่ปู</p>
             <i class="fas fa-chevron-down"></i>
         </div>
     </section>
 
-    <!-- NEW: FLOATING CONTINUE STORY BUTTON -->
     <div id="story-hint-btn" class="mobile-story-hint" onclick="document.querySelector('.about-text').scrollIntoView({behavior: 'smooth'});">
         <p>อ่านเรื่องราวต่อ</p>
         <i class="fas fa-chevron-down"></i>
     </div>
 
-    <!-- 5. STORY SECTION -->
     <section id="about" class="about-section">
         <div class="grid-container">
-            <!-- REPLACED IMAGE WITH INSTAGRAM EMBED AND ADDED BUTTON -->
             <div data-aos="fade-right" style="display: flex; flex-direction: column; align-items: center;">
                 <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DOiYRY1kdg9/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"> <a href="https://www.instagram.com/reel/DOiYRY1kdg9/?utm_source=ig_embed&amp;utm_campaign=loading" style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"> <div style=" display: flex; flex-direction: row; align-items: center;"> <div style="background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 40px; margin-right: 14px; width: 40px;"></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 100px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 60px;"></div></div></div><div style="padding: 19% 0;"></div> <div style="display:block; height:50px; margin:0 auto 12px; width:50px;"><svg width="50px" height="50px" viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g transform="translate(-511.000000, -20.000000)" fill="#000000"><g><path d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.114,60.657 530.342,55.887 530.342,50 C530.342,44.114 535.114,39.342 541,39.342 C546.887,39.342 551.658,44.114 551.658,50 C551.658,55.887 546.887,60.657 541,60.657 M541,33.886 C532.1,33.886 524.886,41.1 524.886,50 C524.886,58.899 532.1,66.113 541,66.113 C549.9,66.113 557.115,58.899 557.115,50 C557.115,41.1 549.9,33.886 541,33.886 M565.378,62.101 C565.244,65.022 564.756,66.606 564.346,67.663 C563.803,69.06 563.154,70.057 562.106,71.106 C561.058,72.155 560.06,72.803 558.662,73.347 C557.607,73.757 556.021,74.244 553.102,74.378 C549.944,74.521 548.997,74.552 541,74.552 C533.003,74.552 532.056,74.521 528.898,74.378 C525.979,74.244 524.393,73.757 523.338,73.347 C521.94,72.803 520.942,72.155 519.894,71.106 C518.846,70.057 518.197,69.06 517.654,67.663 C517.244,66.606 516.755,65.022 516.623,62.101 C516.479,58.943 516.448,57.996 516.448,50 C516.448,42.003 516.479,41.056 516.623,37.899 C516.755,34.978 517.244,33.391 517.654,32.338 C518.197,30.938 518.846,29.942 519.894,28.894 C520.942,27.846 521.94,27.196 523.338,26.654 C524.393,26.244 525.979,25.756 528.898,25.623 C532.057,25.479 533.004,25.448 541,25.448 C548.997,25.448 549.943,25.479 553.102,25.623 C556.021,25.756 557.607,26.244 558.662,26.654 C560.06,27.196 561.058,27.846 562.106,28.894 C563.154,29.942 563.803,30.938 564.346,32.338 C564.756,33.391 565.244,34.978 565.378,37.899 C565.522,41.056 565.552,42.003 565.552,50 C565.552,57.996 565.522,58.943 565.378,62.101 M570.82,37.631 C570.674,34.438 570.167,32.258 569.425,30.349 C568.659,28.377 567.633,26.702 565.965,25.035 C564.297,23.368 562.623,22.342 560.652,21.575 C558.743,20.834 556.562,20.326 553.369,20.18 C550.169,20.033 549.148,20 541,20 C532.853,20 531.831,20.033 528.631,20.18 C525.438,20.326 523.257,20.834 521.349,21.575 C519.376,22.342 517.703,23.368 516.035,25.035 C514.368,26.702 513.342,28.377 512.574,30.349 C511.834,32.258 511.326,34.438 511.181,37.631 C511.035,40.831 511,41.851 511,50 C511,58.147 511.035,59.17 511.181,62.369 C511.326,65.562 511.834,67.743 512.574,69.651 C513.342,71.625 514.368,73.296 516.035,74.965 C517.703,76.634 519.376,77.658 521.349,78.425 C523.257,79.167 525.438,79.673 528.631,79.82 C531.831,79.965 532.853,80.001 541,80.001 C549.148,80.001 550.169,79.965 553.369,79.82 C556.562,79.673 558.743,79.167 560.652,78.425 C562.623,77.658 564.297,76.634 565.965,74.965 C567.633,73.296 568.659,71.625 569.425,69.651 C570.167,67.743 570.674,65.562 570.82,62.369 C570.966,59.17 571,58.147 571,50 C571,41.851 570.966,40.831 570.82,37.631"></path></g></g></g></svg></div><div style="padding-top: 8px;"> <div style=" color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">View this post on Instagram</div></div><div style="padding: 12.5% 0;"></div> <div style="display: flex; flex-direction: row; margin-bottom: 14px; align-items: center;"><div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(0px) translateY(7px);"></div> <div style="background-color: #F4F4F4; height: 12.5px; transform: rotate(-45deg) translateX(3px) translateY(1px); width: 12.5px; flex-grow: 0; margin-right: 14px; margin-left: 2px;"></div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(9px) translateY(-18px);"></div></div><div style="margin-left: 8px;"> <div style=" background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 20px; width: 20px;"></div> <div style=" width: 0; height: 0; border-top: 2px solid transparent; border-left: 6px solid #f4f4f4; border-bottom: 2px solid transparent; transform: translateX(16px) translateY(-4px) rotate(30deg)"></div></div><div style="margin-left: auto;"> <div style=" width: 0px; border-top: 8px solid #F4F4F4; border-right: 8px solid transparent; transform: translateY(16px);"></div> <div style=" background-color: #F4F4F4; flex-grow: 0; height: 12px; width: 16px; transform: translateY(-4px);"></div> <div style=" width: 0; height: 0; border-top: 8px solid #F4F4F4; border-left: 8px solid transparent; transform: translateY(-4px) translateX(8px);"></div></div></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center; margin-bottom: 24px;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 224px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 144px;"></div></div></a><p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/reel/DOiYRY1kdg9/?utm_source=ig_embed&amp;utm_campaign=loading" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_blank">A post shared by Nothakarn Kaewmanee (@nottakan)</a></p></div></blockquote> <script async src="//www.instagram.com/embed.js"></script>
                 
-                <!-- NEW BUTTON: Continue Reading Story -->
                 <div class="mobile-story-hint" onclick="document.querySelector('.about-text').scrollIntoView({behavior: 'smooth'});">
                     <p>อ่านเรื่องราวต่อ</p>
                     <i class="fas fa-chevron-down"></i>
@@ -1187,13 +1155,11 @@
                 <p>3 ปีแห่งการลองผิดลองถูก ตั้งแต่สตรีมเมอร์ พนักงานเสิร์ฟ จนถึงผู้จัดการร้านอาหาร ทุกจุด (DOTs) หล่อหลอมให้ผมเข้าใจคุณค่าของ "ความอร่อย" และ "การบริการ"</p>
                 <p>วันนี้ผมอยากตะโกนบอกโลกว่า <strong>"แม่ผมทำอาหารอร่อยมาก!"</strong> และนี่คือจุดเริ่มต้นของน้ำพริกแม่ปู</p>
                 <br>
-                <!-- Moved pi-card here and made it larger -->
                 <img src="images/pi-card.jpg" alt="About Maepu" style="width: 100%; border-radius: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); margin-top: 10px;">
             </div>
         </div>
     </section>
 
-    <!-- 6. NEW MILESTONE TIMELINE -->
     <section class="milestone-section">
         <div class="milestone-header" data-aos="fade-down">
             <h2>เส้นทางและความฝัน</h2>
@@ -1201,7 +1167,6 @@
         </div>
         
         <div class="timeline-wrapper">
-            <!-- 1. Start -->
             <div class="milestone-container left">
                 <div class="milestone-content" data-aos="fade-right">
                     <span class="milestone-date">17/02/68</span>
@@ -1213,7 +1178,6 @@
                 </div>
             </div>
 
-            <!-- 2. Tour Leader -->
             <div class="milestone-container right">
                 <div class="milestone-content" data-aos="fade-left">
                     <span class="milestone-date">16/06/68</span>
@@ -1225,7 +1189,6 @@
                 </div>
             </div>
 
-            <!-- 3. Consignment Shop -->
             <div class="milestone-container left">
                 <div class="milestone-content" data-aos="fade-right">
                     <span class="milestone-date">18/08/68</span>
@@ -1237,7 +1200,6 @@
                 </div>
             </div>
 
-            <!-- 4. Booth & Reality Check (Highlight) -->
             <div class="milestone-container right">
                 <div class="milestone-content milestone-special" data-aos="fade-left">
                     <span class="milestone-date">13/09/68</span>
@@ -1247,7 +1209,6 @@
                     </div>
                     <img src="images/milestone-booth.png" alt="Booth" class="milestone-img" style="margin-bottom: 15px;">
                     
-                    <!-- Problem & Solution Analysis -->
                     <div class="problem-box">
                         <span class="problem-title"><i class="fas fa-exclamation-circle"></i> ปัญหาที่พบ (Reality Check)</span>
                         <p style="font-size: 0.9rem; margin-bottom: 10px;">
@@ -1269,7 +1230,6 @@
                 </div>
             </div>
 
-            <!-- 5. NOW -->
             <div class="milestone-container left">
                 <div class="milestone-content" data-aos="fade-right">
                     <span class="milestone-date">NOW</span>
@@ -1281,7 +1241,6 @@
                 </div>
             </div>
 
-            <!-- 6. Future Goals -->
             <div class="milestone-container right">
                 <div class="milestone-content" data-aos="fade-left" style="background-color: #e8f5e9; border-color: #c8e6c9;">
                     <span class="milestone-date" style="background-color: #2e7d32;">เป้าหมายภายใน 06/06/69</span>
@@ -1307,19 +1266,16 @@
 
         </div>
 
-        <!-- Steve Jobs Quote -->
         <div class="quote-box">
             "Stay Hungry, Stay Foolish"
             <span class="quote-author">- Steve Jobs -</span>
         </div>
     </section>
 
-    <!-- 7. GRAND FOOTER & CONTACT -->
     <footer id="contact" class="grand-footer">
         <div data-aos="fade-up">
             <h2 class="contact-title">หากสนใจสามารถติดต่อได้</h2>
             
-            <!-- Social Icons -->
             <div class="social-large">
                 <a href="https://www.instagram.com/tastymomychilisauce?igsh=Z3Z4aHRtaDIyazhl" class="social-item" target="_blank">
                     <i class="fab fa-instagram" style="color: #E1306C;"></i>
@@ -1335,29 +1291,23 @@
                 </a>
             </div>
 
-            <!-- Big Phone Number (Clickable) -->
             <a href="tel:0955343310" class="phone-box">
                 <div class="phone-label">โทรสั่งความอร่อย กดเลยตรงนี้</div>
                 <div class="phone-number">095-534-3310</div>
             </a>
 
-            <!-- Grand Image Banner -->
             <div class="grand-banner">
-                <!-- ผมเปลี่ยนชื่อเป็น banner.jpg ให้สั้นลงจะได้ไม่พิมพ์ผิดครับ -->
                 <img src="images/grand-banner.jpg" alt="⚠️ ไม่พบรูป 'grand-banner.jpg' กรุณาเช็คชื่อไฟล์">
             </div>
 
-            <!-- Special Thanks Wrapper -->
             <div style="margin: 40px auto 20px; max-width: 600px;">
                 <h3 style="color: var(--text-color); margin-bottom: 20px;">Special Thanks <i class="fas fa-heart" style="color: #ff5252;"></i></h3>
                 <div class="special-thanks-container">
-                    <!-- Branch 1 -->
                     <a href="https://www.facebook.com/profile.php?id=100069254547319" class="special-thanks-box" target="_blank">
                         <img src="images/logo-chob-pochana-1.jpg" alt="สาขาจันทบุรี" class="special-thanks-img">
                         <p class="branch-name">สาขาจันทบุรี</p>
                         <p class="branch-desc">พี่สาวและพี่ชาย ที่เป็นยิ่งกว่าพี่ ผู้สนับสนุนผมเสมอมา</p>
                     </a>
-                    <!-- Branch 2 -->
                     <a href="https://www.facebook.com/profile.php?id=61562884358666" class="special-thanks-box" target="_blank">
                         <img src="images/logo-chob-pochana-2.jpg" alt="สาขาระยอง" class="special-thanks-img">
                         <p class="branch-name">สาขาระยอง</p>
@@ -1366,7 +1316,6 @@
                 </div>
             </div>
 
-            <!-- Credit -->
             <div class="credit-text">
                 <p>ขอบพระคุณ คุณ riko สำหรับที่ปรึกษาทำเว็ปไซต์</p>
                 <p style="font-size: 0.8rem; margin-top: 10px;">&copy; 2024 Maepu Homemade. All rights reserved.</p>
@@ -1374,7 +1323,6 @@
         </div>
     </footer>
 
-    <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 1000, once: true });
