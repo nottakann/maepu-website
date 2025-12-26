@@ -55,28 +55,38 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 40px;
-            background: rgba(253, 251, 247, 0.95);
+            padding: 15px 40px;
+            background: rgba(253, 251, 247, 0.98);
             position: sticky;
             top: 0;
-            z-index: 100;
+            z-index: 1000; /* เพิ่ม z-index ให้สูงกว่า element อื่น */
             border-bottom: 1px solid #eee;
+            min-height: 70px;
         }
         .logo { 
-            font-size: 1.8rem; /* ปรับให้ใหญ่ขึ้นนิดนึงเพื่อให้เด่น */
+            font-size: 1.8rem;
             color: var(--accent-color); 
             font-weight: bold; 
             text-decoration: none;
-            font-family: 'Charmonman', cursive; /* ใช้ฟอนต์ตัวเขียนให้ดูแพง */
+            font-family: 'Charmonman', cursive;
+            z-index: 1001;
         }
+        
+        .nav-links {
+            display: flex;
+            align-items: center;
+        }
+
         .nav-links a {
             text-decoration: none;
             color: var(--text-color);
-            margin-left: 30px;
+            margin-left: 25px;
             font-weight: 600;
             transition: 0.3s;
+            font-size: 1rem;
         }
         .nav-links a:hover { color: var(--accent-color); }
+        
         .btn-cta {
             background-color: var(--accent-color);
             color: white !important;
@@ -88,6 +98,15 @@
             display: inline-block;
         }
         .btn-cta:hover { transform: scale(1.05); }
+
+        /* --- MOBILE MENU BUTTON --- */
+        .mobile-menu-icon {
+            display: none; /* ซ่อนใน PC */
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--accent-color);
+            z-index: 1001;
+        }
 
         /* --- HERO SECTION --- */
         .hero {
@@ -365,20 +384,18 @@
             background: linear-gradient(to bottom, #fff, #fdfbf7);
         }
         .video-grid {
-            /* กลับมาใช้ Flexbox เพื่อให้มันจัดสัดส่วนเองตามความกว้างของการ์ด ไม่ยืดมั่ว */
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             gap: 25px; 
             max-width: 1200px;
             margin: 40px auto;
-            align-items: flex-start; /* จัดให้หัวเท่ากัน */
+            align-items: flex-start;
         }
         
         .social-card {
-            /* สำคัญ: ล็อกความกว้างเท่ามือถือ เพื่อให้ Embed แสดงผลสวยสุด */
             width: 340px; 
-            max-width: 100%; /* กันล้นในจอมือถือเล็ก */
+            max-width: 100%; 
             background: #fff;
             border-radius: 25px; 
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
@@ -394,7 +411,6 @@
             box-shadow: 0 15px 40px rgba(0,0,0,0.15);
         }
 
-        /* ส่วนหัวการ์ด */
         .social-header {
             padding: 12px 15px;
             display: flex;
@@ -414,26 +430,22 @@
         .social-name { font-weight: bold; font-size: 0.9rem; color: #333; display: block; }
         .social-sub { font-size: 0.7rem; color: #888; display: block; }
 
-        /* สีเฉพาะของแต่ละ Platform */
         .sc-yt .social-icon-box { background: #FF0000; }
         .sc-tt .social-icon-box { background: #000000; }
         .sc-ig .social-icon-box { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); }
 
-        /* ส่วนเนื้อหาวิดีโอ */
         .social-body {
             background: #000;
             width: 100%;
-            /* เอา height: auto เพื่อให้ยืดตาม TikTok ได้เลย */
             height: auto; 
             position: relative;
-            display: block; /* แก้เป็น Block เพื่อให้ flow ปกติ */
+            display: block; 
         }
 
-        /* YouTube Container Hack เพื่อบังคับสัดส่วน 9:16 (เหมือนมือถือแนวตั้ง) */
         .youtube-shorts-wrapper {
             position: relative;
             width: 100%;
-            padding-bottom: 177.77%; /* 16:9 inverted = 9:16 Aspect Ratio */
+            padding-bottom: 177.77%; /* 9:16 Aspect Ratio */
             height: 0;
             overflow: hidden;
         }
@@ -446,7 +458,6 @@
             border: 0;
         }
 
-        /* TikTok & IG Adjustments */
         .tiktok-embed, .instagram-media {
             margin: 0 !important;
             min-width: 100% !important;
@@ -454,7 +465,6 @@
             box-shadow: none !important;
         }
 
-        /* Quote ด้านล่างการ์ด */
         .social-footer {
             padding: 15px;
             background: #fff;
@@ -509,17 +519,14 @@
             transition: transform 0.5s ease;
         }
         
-        /* Stack Layout: nth-child(4) is visually ON TOP (Signature) */
-        /* Rotate others slightly to look like a messy pile */
         .card:nth-child(1) { transform: rotate(-3deg) translateX(-5px); z-index: 1; }
         .card:nth-child(2) { transform: rotate(2deg) translateX(5px); z-index: 2; }
         .card:nth-child(3) { transform: rotate(-1deg) translateY(3px); z-index: 3; }
         .card:nth-child(4) { transform: rotate(0deg); z-index: 10; box-shadow: 0 15px 30px rgba(0,0,0,0.2); }
 
-        /* Animation Class for "Dealing from Bottom" */
         .card.dealing {
             animation: deal-from-bottom 0.6s forwards;
-            z-index: 100; /* Bring to very top during anim */
+            z-index: 100;
         }
 
         @keyframes deal-from-bottom {
@@ -528,7 +535,6 @@
             100% { transform: translateX(0) translateY(0) rotate(0deg) scale(1); z-index: 100; }
         }
 
-        /* Tap Hint Badge */
         .tap-hint {
             position: absolute;
             bottom: 20px;
@@ -582,7 +588,7 @@
         .about-img { width: 100%; border-radius: 20px 0 20px 0; box-shadow: 15px 15px 0px var(--secondary-color); }
         .about-text h2 { font-size: 3rem; color: var(--accent-color); margin-bottom: 20px; }
 
-        /* --- NEW TIMELINE DESIGN --- */
+        /* --- TIMELINE DESIGN --- */
         .milestone-section {
             background-color: #fff;
             padding: 80px 20px;
@@ -602,7 +608,6 @@
             max-width: 1000px;
             margin: 0 auto;
         }
-        /* Vertical Line */
         .timeline-wrapper::after {
             content: '';
             position: absolute;
@@ -623,17 +628,15 @@
             box-sizing: border-box;
         }
         
-        /* Left and Right containers */
         .milestone-container.left { left: 0; text-align: right; }
         .milestone-container.right { left: 50%; text-align: left; }
 
-        /* Circle on the line */
         .milestone-container::after {
             content: '';
             position: absolute;
             width: 20px;
             height: 20px;
-            right: -10px; /* Adjust for left containers */
+            right: -10px; 
             background-color: white;
             border: 4px solid var(--accent-color);
             top: 25px;
@@ -641,7 +644,7 @@
             z-index: 1;
         }
         .milestone-container.right::after {
-            left: -10px; /* Adjust for right containers */
+            left: -10px; 
         }
 
         .milestone-content {
@@ -688,7 +691,6 @@
             object-fit: cover;
         }
 
-        /* Special Card for Reality Check */
         .milestone-special {
             background: linear-gradient(135deg, #fff3e0 0%, #ffffff 100%);
             border-left: 5px solid var(--accent-color);
@@ -704,7 +706,6 @@
         .problem-title { font-weight: bold; color: #d32f2f; display: block; margin-bottom: 5px; }
         .solution-title { font-weight: bold; color: #388e3c; display: block; margin-top: 10px; margin-bottom: 5px; }
 
-        /* Goal List */
         .goal-list { list-style: none; text-align: left; padding: 0; }
         .goal-list li { margin-bottom: 10px; position: relative; padding-left: 20px; }
         .goal-list li::before { content: '🎯'; position: absolute; left: 0; top: 2px; font-size: 0.9rem; }
@@ -725,16 +726,6 @@
             margin-top: 5px;
             color: #aaa;
         }
-
-        /* Media Queries for Timeline */
-        @media screen and (max-width: 768px) {
-            .timeline-wrapper::after { left: 30px; }
-            .milestone-container { width: 100%; padding-left: 70px; padding-right: 25px; }
-            .milestone-container.left, .milestone-container.right { left: 0; text-align: left; }
-            .milestone-container::after { left: 21px; } /* Adjust circle pos */
-            .milestone-title { font-size: 1.3rem; }
-        }
-
 
         /* --- GRAND FOOTER --- */
         .grand-footer {
@@ -761,7 +752,7 @@
             display: inline-block; padding: 20px 50px; border-radius: 15px;
             box-shadow: 0 10px 25px rgba(216, 67, 21, 0.3); margin: 20px 0 50px;
             transform: rotate(-2deg); transition: transform 0.3s;
-            text-decoration: none; /* Make link look like box */
+            text-decoration: none;
         }
         .phone-box:hover { transform: rotate(0deg) scale(1.05); }
         .phone-number { font-size: 3.5rem; font-weight: 800; font-family: 'Sarabun'; line-height: 1; }
@@ -786,7 +777,6 @@
 
         .credit-text { font-size: 0.9rem; color: #aaa; margin-top: 40px; font-weight: 300; }
 
-        /* --- SPECIAL THANKS (Updated for 2 Branches) --- */
         .special-thanks-container {
             display: flex;
             justify-content: center;
@@ -801,12 +791,12 @@
             border-radius: 15px;
             border: 1px dashed var(--accent-color);
             text-align: center;
-            width: 220px; /* Fixed width for consistency */
+            width: 220px; 
             display: flex;
             flex-direction: column;
             align-items: center;
             transition: transform 0.3s;
-            text-decoration: none; /* For link */
+            text-decoration: none; 
         }
         .special-thanks-box:hover { transform: translateY(-5px); background: rgba(255, 255, 255, 0.8); }
         
@@ -835,42 +825,78 @@
         .branch-name { font-size: 0.85rem; font-weight: bold; color: var(--accent-color); margin-bottom: 5px; }
         .branch-desc { font-size: 0.7rem; font-weight: 300; opacity: 0.8; line-height: 1.4; color: var(--text-color); }
 
-        @media (max-width: 992px) { /* เพิ่ม Breakpoint สำหรับ Tablet ให้เรียงลงมา */
-            /* .video-grid { ... เอาออกเพราะ Flexbox จะจัดการเอง ... } */
+        /* --- RESPONSIVE ADJUSTMENTS --- */
+        @media (max-width: 992px) { 
             .hero h1 { font-size: 2.5rem; }
             .grid-container, .signature-container { flex-direction: column; grid-template-columns: 1fr; }
-            nav { padding: 15px; }
-            .nav-links { display: none; }
+            nav { padding: 15px 20px; }
+            
+            /* -- MOBILE NAV MENU (HAMBURGER STYLE) -- */
+            .mobile-menu-icon { display: block; }
+            
+            .nav-links {
+                display: none; /* Hide by default */
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(255, 255, 255, 0.98);
+                flex-direction: column;
+                align-items: center;
+                padding: 30px 20px;
+                box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+                border-top: 1px solid #f0f0f0;
+                animation: slideDown 0.3s ease forwards;
+            }
+            /* Class to show menu when clicked */
+            .nav-links.active {
+                display: flex;
+            }
+            .nav-links a {
+                margin: 15px 0;
+                margin-left: 0; /* Reset left margin */
+                font-size: 1.1rem;
+            }
+            .btn-cta {
+                width: 100%;
+                text-align: center;
+                margin-top: 10px;
+            }
+
             .signature-img-box { margin-bottom: 30px; }
             .phone-number { font-size: 2.5rem; }
             .social-large { gap: 20px; }
             .social-item i { font-size: 2.5rem; }
-            /* ปรับการหมุนให้น้อยลงในมือถือ เพื่อลดปัญหา overflow */
             .grand-banner, .phone-box, .signature-img { transform: rotate(0deg) !important; }
-            /* ลดขนาด Padding บนมือถือ */
             .about-section { padding: 60px 20px; }
-            
-            /* ปรับ Video Card ในมือถือให้เต็มจอ */
             .social-card { width: 100%; max-width: 360px; margin: 0 auto; }
-
-            /* Show Continue Button Only on Mobile */
             .mobile-story-hint { display: flex !important; }
+
+            .timeline-wrapper::after { left: 30px; }
+            .milestone-container { width: 100%; padding-left: 70px; padding-right: 25px; }
+            .milestone-container.left, .milestone-container.right { left: 0; text-align: left; }
+            .milestone-container::after { left: 21px; } 
+            .milestone-title { font-size: 1.3rem; }
         }
 
-        /* Mobile specific for Special Thanks layout */
-        @media (max-width: 768px) { /* Increased breakpoint to catch more phones/tablets */
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
             .special-thanks-container {
-                flex-wrap: nowrap; /* Force single line */
+                flex-wrap: nowrap; 
                 justify-content: center;
                 gap: 10px;
                 max-width: 100%;
-                overflow-x: auto; /* Allow scroll if too small */
+                overflow-x: auto; 
             }
             .special-thanks-box {
-                width: 48%; /* Almost half */
-                min-width: 140px; /* Minimum width constraint */
+                width: 48%; 
+                min-width: 140px; 
                 padding: 15px 10px;
-                flex-shrink: 0; /* Prevent squishing too much */
+                flex-shrink: 0; 
             }
             .special-thanks-img {
                 width: 60px;
@@ -885,11 +911,17 @@
 
     <nav>
         <a href="#" class="logo">น้ำพริกแม่ปู</a>
-        <div class="nav-links">
-            <a href="#products">Menu</a>
-            <a href="#reviews">Reviews</a>
-            <a href="#about">Story</a>
-            <a href="#contact" class="btn-cta">Order Now</a>
+        
+        <!-- Hamburger Icon for Mobile -->
+        <div class="mobile-menu-icon" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i>
+        </div>
+
+        <!-- Links Container -->
+        <div class="nav-links" id="navLinks">
+            <a href="#reviews" onclick="closeMenu()">รับน้ำพริกฟรี (รีวิวให้เรา)</a>
+            <a href="#contact" onclick="closeMenu()">ติดต่อแฟรนไชส์</a>
+            <a href="#contact" class="btn-cta" onclick="closeMenu()">สั่งซื้อเลย</a>
         </div>
     </nav>
 
@@ -917,7 +949,7 @@
     </div>
 
     <div id="product-hint" class="product-floating-hint" style="display: none;">
-        </div>
+    </div>
 
     <section id="products" class="product-section">
         <div data-aos="fade-up">
@@ -1327,25 +1359,19 @@
     <script>
         AOS.init({ duration: 1000, once: true });
 
-        // Logic for Product Nudge (Specific for Mobile) - TUNED TO BE MORE RESPONSIVE
+        // Logic for Product Nudge
         const productCards = document.querySelectorAll('.product-card');
         const nudgedIndices = new Set(); 
 
-        // เพิ่มระยะการทำงานให้กว้างขึ้นเผื่อ Tablet
         if (window.innerWidth < 1024) { 
              const productObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         const index = Array.from(productCards).indexOf(entry.target);
-                        // สนใจเฉพาะการ์ด 2 ใบแรก และยังไม่เคยเลื่อน
                         if (index !== -1 && index < 2 && !nudgedIndices.has(index)) {
                             nudgedIndices.add(index);
-                            
-                            // หน่วงเวลา 2.5 วินาที แล้วเลื่อนลง
                             setTimeout(() => {
-                                // เช็คอีกทีว่ายังอยู่ในจอไหม (เผื่อคนเลื่อนหนีไปแล้ว)
                                 const rect = entry.target.getBoundingClientRect();
-                                // ปรับเงื่อนไขให้ยืดหยุ่นขึ้น
                                 if (rect.top < window.innerHeight && rect.bottom > 0) {
                                      window.scrollBy({ top: entry.target.offsetHeight + 30, behavior: 'smooth' });
                                 }
@@ -1353,20 +1379,28 @@
                         }
                     }
                 });
-            }, { threshold: 0.6 }); // ปรับเกณฑ์ลงเหลือ 60% ให้ติดง่ายขึ้นบนจอมือถือ
+            }, { threshold: 0.6 });
 
-            // เริ่ม Observe เฉพาะ 2 ใบแรก
             if(productCards.length > 0) productObserver.observe(productCards[0]);
             if(productCards.length > 1) productObserver.observe(productCards[1]);
         }
 
+        // --- MOBILE MENU LOGIC ---
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
 
-        // --- NEW: Next Review Button Feature ---
+        function closeMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.remove('active');
+        }
+
+        // --- NEXT REVIEW BUTTON ---
         const nextReviewBtn = document.getElementById('next-review-btn');
         const socialCards = document.querySelectorAll('.social-card');
 
         function checkVideoSectionNav() {
-            // Hide on Desktop
             if (window.innerWidth > 992) {
                 nextReviewBtn.classList.remove('visible');
                 return;
@@ -1378,7 +1412,6 @@
             const rect = videoSection.getBoundingClientRect();
             const windowHeight = window.innerHeight;
 
-            // ตรวจสอบว่าเรายังอยู่ในโซนวิดีโอหรือไม่
             const inSection = (rect.top < windowHeight * 0.8) && (rect.bottom > windowHeight * 0.5);
 
             if (!inSection) {
@@ -1386,11 +1419,9 @@
                 return;
             }
 
-            // ตรวจสอบการ์ดใบสุดท้าย
             const lastCard = socialCards[socialCards.length - 1];
             if (lastCard) {
                 const lastCardRect = lastCard.getBoundingClientRect();
-                // ถ้าการ์ดใบสุดท้าย "เริ่มโผล่มาเกินครึ่ง" ให้ซ่อนปุ่ม
                 if (lastCardRect.top < windowHeight * 0.6) {
                      nextReviewBtn.classList.remove('visible');
                 } else {
@@ -1399,16 +1430,13 @@
             }
         }
 
-        // Click Event: Scroll to next card
         if (nextReviewBtn) {
             nextReviewBtn.addEventListener('click', () => {
                 for (const card of socialCards) {
                     const rect = card.getBoundingClientRect();
-                    // หาการ์ดใบถัดไป (คือใบที่หัวยังอยู่ต่ำกว่ากลางจอ)
                     if (rect.top > window.innerHeight / 2) {
-                        // เลื่อนลงไปหา
                         window.scrollBy({
-                            top: rect.top - 100, // เว้นระยะหัวนิดนึง
+                            top: rect.top - 100,
                             behavior: 'smooth'
                         });
                         break;
@@ -1419,7 +1447,7 @@
 
         window.addEventListener('scroll', checkVideoSectionNav);
 
-        // --- NEW: Story Hint Button Logic ---
+        // --- STORY HINT ---
         const storyHintBtn = document.getElementById('story-hint-btn');
         const aboutSection = document.getElementById('about');
         const aboutText = document.querySelector('.about-text');
@@ -1436,12 +1464,7 @@
             const textRect = aboutText.getBoundingClientRect();
             const windowHeight = window.innerHeight;
 
-            // Show when About section starts entering
-            // (When top of section is well into view, but before leaving view)
             const isAboutVisible = (aboutRect.top < windowHeight * 0.8) && (aboutRect.bottom > 0);
-            
-            // Hide when text is fully prominent (user scrolled past video)
-            // If the text top is near the middle of the screen (meaning user scrolled down)
             const isTextInFocus = textRect.top < windowHeight * 0.6;
 
             if (isAboutVisible && !isTextInFocus) {
@@ -1452,31 +1475,20 @@
         }
         window.addEventListener('scroll', checkStoryHint);
 
-        // --- NEW: Magic Card Shuffling Logic ---
+        // --- MAGIC CARD SHUFFLE ---
         function shuffleCards() {
             const container = document.querySelector('.stack-container');
             const cards = container.querySelectorAll('.card');
             
-            // The logic: 
-            // 1. Take the bottom card (first-child in DOM).
-            // 2. Animate it flying out and landing on top.
-            // 3. Move it to the end of the DOM (becoming the top card).
-            
-            const bottomCard = cards[0]; // The card at the bottom of the pile
+            const bottomCard = cards[0]; 
             if (!bottomCard) return;
 
-            // Apply animation class
             bottomCard.classList.add('dealing');
 
-            // After animation finishes (match CSS time 0.6s)
             setTimeout(() => {
                 bottomCard.classList.remove('dealing');
-                // Move to the end of the container (visually on top)
-                // We insert it before the .tap-hint div to keep structure clean, 
-                // or just appendChild if tap-hint is absolute/pointer-events-none.
                 const tapHint = container.querySelector('.tap-hint');
                 container.insertBefore(bottomCard, tapHint); 
-                // effectively moves it to the top of the card stack
             }, 550); 
         }
         
