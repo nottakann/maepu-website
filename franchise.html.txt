@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>แฟรนไชส์ข้าวราดน้ำพริกแม่ปู - สร้างอาชีพ สร้างฝัน</title>
+    
+    <!-- ฟอนต์และไอคอน -->
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600&family=Charmonman:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        /* --- Reuse Core Styles --- */
+        :root {
+            --bg-color: #fdfbf7;
+            --text-color: #3e2723;
+            --accent-color: #d84315;
+            --secondary-color: #ffcc80;
+            --success-color: #2e7d32;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Sarabun', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        h1, h2, h3, h4 { font-family: 'Charmonman', cursive; font-weight: 700; }
+
+        /* --- Navbar --- */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+            background: rgba(253, 251, 247, 0.98);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #eee;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .logo { font-size: 1.5rem; color: var(--accent-color); font-weight: bold; text-decoration: none; font-family: 'Charmonman', cursive; }
+        .btn-back { display: inline-flex; align-items: center; gap: 5px; color: var(--text-color); text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+        .btn-back:hover { color: var(--accent-color); }
+
+        /* --- Franchise Hero --- */
+        .fran-hero {
+            /* แนะนำให้เปลี่ยนรูปนี้เป็นรูปข้าวราดน้ำพริกสวยๆ หรือรูปร้านจำลอง */
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url('images/milestone-booth.png');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 120px 20px;
+            text-align: center;
+        }
+        .fran-hero h1 { font-size: 3rem; margin-bottom: 15px; color: var(--secondary-color); text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+        .fran-hero h2 { font-size: 1.8rem; margin-bottom: 20px; font-family: 'Sarabun'; font-weight: 300; }
+        .fran-hero p { font-size: 1.1rem; max-width: 800px; margin: 0 auto; opacity: 0.9; }
+
+        /* --- Content Sections --- */
+        .section { padding: 80px 20px; max-width: 1100px; margin: auto; }
+        .bg-white { background-color: white; box-shadow: 0 5px 20px rgba(0,0,0,0.05); border-radius: 20px; margin-bottom: 40px; padding: 40px; }
+        
+        .section-header { text-align: center; margin-bottom: 40px; }
+        .section-header h2 { font-size: 2.5rem; color: var(--accent-color); }
+        
+        /* --- Business Model (Cost & Profit) --- */
+        .profit-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .profit-card {
+            border: 1px solid #eee;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            background: #fff;
+            transition: transform 0.3s;
+        }
+        .profit-card:hover { transform: translateY(-5px); border-color: var(--secondary-color); }
+        .menu-title { font-size: 1.5rem; color: var(--text-color); margin-bottom: 15px; font-weight: bold; }
+        .cost-breakdown { text-align: left; margin: 20px 0; font-size: 0.95rem; color: #555; }
+        .cost-row { display: flex; justify-content: space-between; margin-bottom: 8px; border-bottom: 1px dashed #eee; padding-bottom: 5px; }
+        .profit-highlight { background: #e8f5e9; padding: 15px; border-radius: 10px; color: var(--success-color); font-weight: bold; font-size: 1.2rem; }
+
+        /* --- Investment Package --- */
+        .investment-box {
+            background: linear-gradient(135deg, #fff3e0 0%, #ffffff 100%);
+            border: 2px solid var(--secondary-color);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .investment-price { font-size: 4rem; color: var(--accent-color); font-weight: 800; line-height: 1; font-family: 'Sarabun'; }
+        .investment-sub { font-size: 1.2rem; color: #666; margin-bottom: 30px; }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            text-align: left;
+            margin-top: 30px;
+        }
+        .feature-item { display: flex; align-items: start; gap: 10px; }
+        .feature-item i { color: var(--success-color); margin-top: 5px; }
+
+        /* --- Conditions --- */
+        .condition-list {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .condition-item {
+            background: #fafafa;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid var(--text-color);
+        }
+        .condition-item h4 { margin-bottom: 5px; color: var(--accent-color); font-family: 'Sarabun'; }
+        .condition-item p { font-size: 0.9rem; margin: 0; color: #666; }
+
+        /* --- Training & Support --- */
+        .support-box {
+            text-align: center;
+            padding: 40px 20px;
+            background-color: var(--text-color);
+            color: white;
+            border-radius: 20px;
+        }
+        .support-icon { font-size: 3rem; color: var(--secondary-color); margin-bottom: 20px; }
+
+        /* --- Call to Action --- */
+        .contact-box {
+            text-align: center;
+            margin-top: 40px;
+        }
+        .btn-apply {
+            display: inline-block; background: var(--accent-color); color: white;
+            padding: 18px 50px; border-radius: 50px; text-decoration: none;
+            font-size: 1.3rem; font-weight: bold; 
+            box-shadow: 0 4px 15px rgba(216, 67, 21, 0.4); transition: 0.3s;
+        }
+        .btn-apply:hover { transform: scale(1.05); box-shadow: 0 6px 25px rgba(216, 67, 21, 0.6); }
+
+        @media (max-width: 768px) {
+            .fran-hero h1 { font-size: 2.5rem; }
+            .fran-hero h2 { font-size: 1.4rem; }
+            .investment-price { font-size: 3rem; }
+            nav { padding: 15px; }
+            .feature-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav>
+        <a href="index.html" class="logo">น้ำพริกแม่ปู</a>
+        <a href="index.html" class="btn-back"><i class="fas fa-arrow-left"></i> กลับหน้าหลัก</a>
+    </nav>
+
+    <!-- Hero -->
+    <header class="fran-hero">
+        <div data-aos="fade-up">
+            <h1>แฟรนไชส์ข้าวราดน้ำพริกแม่ปู</h1>
+            <h2>"ขายง่าย กำไรดี คืนทุนไว สร้างอาชีพที่มั่นคง"</h2>
+            <p>ร่วมเติบโตไปกับเรา ด้วยโมเดลธุรกิจที่จริงใจ เน้นคุณภาพ และความยั่งยืน<br>เราพร้อมส่งต่อความอร่อยและประสบการณ์ทั้งหมดให้คุณ</p>
+        </div>
+    </header>
+
+    <!-- Business Concept -->
+    <section class="section">
+        <div class="section-header" data-aos="fade-up">
+            <h2>ทำไมต้อง "ข้าวราดน้ำพริก"?</h2>
+            <p>เมนูง่ายๆ ที่ใครๆ ก็ทานได้ รสชาติจัดจ้าน ถูกปากคนไทย</p>
+        </div>
+        <div class="bg-white" data-aos="fade-up">
+            <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 30px;">
+                <div style="flex: 1; min-width: 300px;">
+                    <!-- แนะนำให้ใส่รูปข้าวราดน้ำพริกจริงๆ ตรงนี้ -->
+                    <img src="images/signature-น้ำพริกปลาสลิด.jpg" alt="ข้าวราดน้ำพริก" style="width: 100%; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                </div>
+                <div style="flex: 1.5; min-width: 300px;">
+                    <h3 style="color: var(--accent-color); margin-bottom: 15px;">Concept: Simple & High Profit</h3>
+                    <p>เราขาย <strong>"ข้าวสวยร้อนๆ ราดน้ำพริกรสเด็ด"</strong> เสิร์ฟพร้อมผักสดและเครื่องเคียง เป็นเมนูที่ทานง่าย จบในจานเดียว ตอบโจทย์คนทำงานและครอบครัว</p>
+                    <ul style="margin-top: 20px; list-style: none;">
+                        <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: var(--success-color);"></i> <strong>รสชาติมาตรฐาน:</strong> น้ำพริกส่งตรงจากครัวกลาง รสชาติเหมือนแม่ทำเองทุกจาน</li>
+                        <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: var(--success-color);"></i> <strong>จัดการง่าย:</strong> ไม่ต้องปรุงหน้างาน แค่ตักราดก็เสิร์ฟได้เลย</li>
+                        <li><i class="fas fa-check-circle" style="color: var(--success-color);"></i> <strong>กำไรดี:</strong> ควบคุมต้นทุนได้แม่นยำ ของเสียน้อยมาก</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Profit Analysis -->
+    <section class="section" style="background-color: #fffbf0; border-radius: 20px;">
+        <div class="section-header" data-aos="fade-up">
+            <h2>โครงสร้างราคาและกำไร</h2>
+            <p>ตัวเลขจริงใจ ไม่มีหมกเม็ด</p>
+        </div>
+        
+        <div class="profit-grid">
+            <!-- Menu 1 -->
+            <div class="profit-card" data-aos="fade-up">
+                <div class="menu-title">ข้าวราดน้ำพริกปลาซิวแก้ว</div>
+                <div style="font-size: 2rem; color: var(--accent-color); font-weight: bold;">40 บาท</div>
+                <div class="cost-breakdown">
+                    <div class="cost-row"><span>ข้าว + ผัก + จาน</span> <span>18 บาท</span></div>
+                    <div class="cost-row"><span>น้ำพริกแม่ปู (วัตถุดิบหลัก)</span> <span>7 บาท</span></div>
+                    <div class="cost-row" style="font-weight: bold; color: #d32f2f;">รวมต้นทุนต่อจาน <span>25 บาท</span></div>
+                </div>
+                <div class="profit-highlight">
+                    กำไรต่อจาน: 15 บาท (37%)
+                </div>
+            </div>
+
+            <!-- Menu 2 -->
+            <div class="profit-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="menu-title">ข้าวราดน้ำพริกปลาสลิด</div>
+                <div style="font-size: 2rem; color: var(--accent-color); font-weight: bold;">60 บาท</div>
+                <div class="cost-breakdown">
+                    <div class="cost-row"><span>ข้าว + ผัก + จาน</span> <span>18 บาท</span></div>
+                    <div class="cost-row"><span>น้ำพริกแม่ปู (วัตถุดิบหลัก)</span> <span>7 บาท</span></div>
+                    <div class="cost-row" style="font-weight: bold; color: #d32f2f;">รวมต้นทุนต่อจาน <span>25 บาท*</span></div>
+                    <div style="font-size: 0.8rem; color: #999; text-align: right;">*(บวกค่าเนื้อปลาสลิดเพิ่มตามสัดส่วน)</div>
+                </div>
+                <div class="profit-highlight">
+                    กำไรต่อจาน: ~35 บาท (58%)
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Investment Package -->
+    <section class="section">
+        <div class="section-header" data-aos="fade-up">
+            <h2>แพ็คเกจลงทุน: แม่ปู Partner</h2>
+            <p>จ่ายครั้งเดียวจบ พร้อมเปิดร้านได้ทันที</p>
+        </div>
+
+        <div class="investment-box" data-aos="zoom-in">
+            <div class="investment-price">200,000 บาท</div>
+            <div class="investment-sub">ระยะเวลาคืนทุนโดยเฉลี่ย 1.5 ปี</div>
+            
+            <hr style="border: 0; border-top: 1px dashed #ddd; margin: 30px 0;">
+
+            <h3 style="color: var(--text-color);">สิ่งที่คุณจะได้รับ (All-in-One)</h3>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <i class="fas fa-store"></i>
+                    <div>
+                        <strong>โครงสร้างร้าน (Kiosk)</strong><br>
+                        <span style="font-size: 0.9rem; color: #666;">ออกแบบสวยงาม แข็งแรง พร้อมขาย</span>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-paint-brush"></i>
+                    <div>
+                        <strong>Artwork & ตกแต่ง</strong><br>
+                        <span style="font-size: 0.9rem; color: #666;">ป้ายเมนู โลโก้ และงานตกแต่งทั้งหมด</span>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-utensils"></i>
+                    <div>
+                        <strong>อุปกรณ์ครัวครบชุด</strong><br>
+                        <span style="font-size: 0.9rem; color: #666;">หม้อหุงข้าว, โหลใส่น้ำพริก, อุปกรณ์เตรียม</span>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    <div>
+                        <strong>Training จับมือทำ 1 สัปดาห์</strong><br>
+                        <span style="font-size: 0.9rem; color: #666;">สอนละเอียดทุกขั้นตอน จนกว่าจะเป็น</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Conditions & Requirements -->
+    <section class="section">
+        <div class="grid-container" style="grid-template-columns: 1fr 1fr; gap: 40px; align-items: start;">
+            
+            <!-- Left: Expenses -->
+            <div data-aos="fade-right">
+                <h3 style="color: var(--accent-color); margin-bottom: 20px;">ค่าใช้จ่ายรายเดือน & เงื่อนไข</h3>
+                <ul class="condition-list" style="display: block;">
+                    <li class="condition-item" style="margin-bottom: 15px;">
+                        <h4>Royalty Fee: 5%</h4>
+                        <p>จากยอดขาย เพื่อนำไปพัฒนาแบรนด์และการตลาดส่วนกลาง</p>
+                    </li>
+                    <li class="condition-item" style="margin-bottom: 15px;">
+                        <h4>POS System: 300 บาท/เดือน</h4>
+                        <p>ระบบจัดการหน้าร้าน เพื่อดูยอดขายและสต็อกแบบ Real-time</p>
+                    </li>
+                    <li class="condition-item">
+                        <h4>วัตถุดิบหลัก</h4>
+                        <p>ต้องสั่ง "น้ำพริก" จากครัวกลางแม่ปูเท่านั้น เพื่อควบคุมรสชาติ</p>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Right: Requirements -->
+            <div data-aos="fade-left">
+                <h3 style="color: var(--accent-color); margin-bottom: 20px;">สิ่งที่คุณต้องเตรียม</h3>
+                <ul class="condition-list" style="display: block;">
+                    <li class="condition-item" style="margin-bottom: 15px; border-left-color: var(--secondary-color);">
+                        <h4>พื้นที่ทำเล (Location)</h4>
+                        <p>ผู้ลงทุนเป็นผู้จัดหาพื้นที่และรับผิดชอบค่าเช่า (เราช่วยวิเคราะห์ทำเลให้ได้)</p>
+                    </li>
+                    <li class="condition-item" style="margin-bottom: 15px; border-left-color: var(--secondary-color);">
+                        <h4>พนักงาน 2 คน</h4>
+                        <p>แนะนำให้มีอย่างน้อย 2 คน เพื่อดูแลหน้าร้านและเตรียมอาหาร</p>
+                    </li>
+                    <li class="condition-item" style="border-left-color: var(--secondary-color);">
+                        <h4>หัวใจบริการ</h4>
+                        <p>สำคัญที่สุด! เรามองหาพาร์ทเนอร์ที่พร้อมดูแลลูกค้าเหมือนคนในครอบครัว</p>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Support & Vision -->
+    <section class="section" data-aos="fade-up">
+        <div class="support-box">
+            <i class="fas fa-hands-helping support-icon"></i>
+            <h2 style="margin-bottom: 20px;">เราไม่ได้ขายแค่แฟรนไชส์ แต่เราหา "ครอบครัว"</h2>
+            <p style="font-size: 1.1rem; max-width: 800px; margin: 0 auto; opacity: 0.9;">
+                ผมเข้าใจดีว่าการลงทุนคือเรื่องใหญ่ ไม่ว่าคุณจะอายุเท่าไหร่ หรือมีประสบการณ์หรือไม่<br>
+                ขอแค่มีความฝันและความตั้งใจ ผมพร้อมที่จะสอนและดูแลคุณเหมือนพี่น้อง<br>
+                เราจะเติบโตไปด้วยกันครับ
+            </p>
+        </div>
+
+        <div class="contact-box">
+            <h3 style="color: var(--text-color); margin-bottom: 20px;">สนใจร่วมธุรกิจ หรือสอบถามเพิ่มเติม</h3>
+            <a href="https://line.me/ti/p/E5qDfwRtZL" target="_blank" class="btn-apply">
+                <i class="fab fa-line"></i> ทักไลน์คุยกับผมโดยตรง
+            </a>
+            <p style="margin-top: 20px; font-size: 1.1rem;">หรือโทร: <a href="tel:0955343310" style="color: var(--accent-color); font-weight: bold; text-decoration: none;">095-534-3310</a></p>
+        </div>
+    </section>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 1000 });
+    </script>
+</body>
+</html>
