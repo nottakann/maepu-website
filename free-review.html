@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>โครงการ Influencer หน้าใหม่ - น้ำพริกแม่ปู</title>
+    
+    <!-- ฟอนต์และไอคอน -->
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600&family=Charmonman:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        /* --- Reuse Core Styles --- */
+        :root {
+            --bg-color: #fdfbf7;
+            --text-color: #3e2723;
+            --accent-color: #d84315;
+            --secondary-color: #ffcc80;
+            --gold-color: #ffd700;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        html, body {
+            width: 100%;
+            max-width: 100vw;
+            overflow-x: hidden;
+            font-family: 'Sarabun', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        h1, h2, h3, h4 { font-family: 'Charmonman', cursive; font-weight: 700; }
+        section { overflow: hidden; width: 100%; padding: 60px 20px; }
+
+        /* --- Navbar --- */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background: rgba(253, 251, 247, 0.98);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #eee;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            width: 100%;
+        }
+        .logo { font-size: 1.4rem; color: var(--accent-color); font-weight: bold; text-decoration: none; font-family: 'Charmonman', cursive; }
+        .btn-back { display: inline-flex; align-items: center; gap: 5px; color: var(--text-color); text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+        
+        /* --- Influencer Hero --- */
+        .inf-hero {
+            background: linear-gradient(135deg, #1a1a1a 0%, #3e2723 100%);
+            color: white;
+            padding: 100px 20px;
+            text-align: center;
+            position: relative;
+        }
+        .inf-hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: url('https://www.transparenttextures.com/patterns/stardust.png'); /* Pattern เล็กๆ */
+            opacity: 0.3;
+        }
+        .inf-hero-content { position: relative; z-index: 1; }
+        .inf-badge {
+            background: linear-gradient(45deg, #ffd700, #ffb300);
+            color: #3e2723;
+            padding: 5px 20px;
+            border-radius: 50px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 20px;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+            animation: glow 2s infinite alternate;
+        }
+        @keyframes glow { from { box-shadow: 0 0 10px #ffd700; } to { box-shadow: 0 0 25px #ffd700; } }
+
+        .inf-hero h1 { font-size: 2.5rem; margin-bottom: 10px; line-height: 1.3; color: #fff; }
+        .inf-hero p { font-size: 1.1rem; opacity: 0.9; max-width: 600px; margin: 0 auto; font-weight: 300; }
+
+        /* --- Cashback Concept (How it works) --- */
+        .step-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 40px auto 0;
+        }
+        .step-card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 1px solid #eee;
+            position: relative;
+        }
+        .step-num {
+            width: 40px; height: 40px;
+            background: var(--accent-color);
+            color: white;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin: 0 auto 20px;
+        }
+        .step-icon { font-size: 2.5rem; color: var(--text-color); margin-bottom: 15px; }
+
+        /* --- Hall of Fame (Embeds) --- */
+        .fame-section { background-color: #fff3e0; }
+        .video-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        /* Reuse card styles from index but simplified */
+        .social-card {
+            width: 320px; max-width: 100%;
+            background: #fff; border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .youtube-shorts-wrapper { position: relative; padding-bottom: 177.77%; height: 0; }
+        .youtube-shorts-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+
+        /* --- Why Start Here --- */
+        .why-box {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .why-list { list-style: none; padding: 0; text-align: left; }
+        .why-list li { margin-bottom: 15px; display: flex; align-items: start; gap: 15px; }
+        .why-list i { color: var(--success-color); margin-top: 5px; font-size: 1.2rem; }
+
+        /* --- CTA --- */
+        .cta-box { text-align: center; margin-top: 40px; }
+        .btn-apply {
+            background: linear-gradient(45deg, #d84315, #ff5722);
+            color: white; padding: 15px 40px; border-radius: 50px;
+            font-size: 1.2rem; font-weight: bold; text-decoration: none;
+            display: inline-block; box-shadow: 0 5px 20px rgba(216, 67, 21, 0.4);
+            transition: transform 0.2s;
+        }
+        .btn-apply:hover { transform: scale(1.05); }
+
+        @media (max-width: 768px) {
+            .inf-hero h1 { font-size: 2rem; }
+            .section { padding: 40px 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav>
+        <a href="index.html" class="logo">น้ำพริกแม่ปู</a>
+        <a href="index.html" class="btn-back"><i class="fas fa-arrow-left"></i> กลับหน้าหลัก</a>
+    </nav>
+
+    <!-- Hero -->
+    <header class="inf-hero">
+        <div class="inf-hero-content" data-aos="fade-up">
+            <span class="inf-badge"><i class="fas fa-star"></i> MAEPU CREATOR PROGRAM</span>
+            <h1>"อย่าแค่กินให้อร่อย...<br>เปลี่ยนความอร่อยให้เป็นโอกาส"</h1>
+            <p>จุดเริ่มต้นเส้นทาง Influencer ของคุณ อาจเริ่มจากน้ำพริกกระปุกนี้<br>ฝึกรีวิว สร้างพอร์ต และรับเงินคืน 100%!</p>
+        </div>
+    </header>
+
+    <!-- Concept Flow -->
+    <section class="section">
+        <div style="text-align: center; margin-bottom: 40px;" data-aos="fade-up">
+            <h2 style="font-size: 2rem; color: var(--accent-color);">ง่ายๆ แค่ 3 ขั้นตอน</h2>
+            <p>Review & Get Cashback</p>
+        </div>
+        
+        <div class="step-grid">
+            <div class="step-card" data-aos="fade-up" data-aos-delay="0">
+                <div class="step-num">1</div>
+                <i class="fas fa-shopping-basket step-icon"></i>
+                <h3>สั่งซื้อ & ชิมจริง</h3>
+                <p>เลือกสั่งน้ำพริกรสที่ชอบไปลองทาน (ชำระเงินก่อนเพื่อยืนยันความตั้งใจ)</p>
+            </div>
+            <div class="step-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="step-num">2</div>
+                <i class="fas fa-video step-icon" style="color: #E1306C;"></i>
+                <h3>สร้างสรรค์คลิป</h3>
+                <p>ทำคลิปรีวิวในสไตล์คุณ (TikTok/Reels) ความยาวไม่จำกัด เน้นความจริงใจ</p>
+            </div>
+            <div class="step-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="step-num">3</div>
+                <i class="fas fa-hand-holding-usd step-icon" style="color: var(--success-color);"></i>
+                <h3>รับเงินคืนทันที!</h3>
+                <p>ส่งลิงก์คลิปที่โพสต์แล้วมาให้เรา เราโอนค่าสินค้าคืนให้เต็มจำนวน</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Inspiration / Hall of Fame -->
+    <section class="fame-section section">
+        <div style="text-align: center; margin-bottom: 40px;" data-aos="fade-up">
+            <h2 style="color: var(--text-color);">Inspiration Hall</h2>
+            <p>ดูตัวอย่างจากรุ่นพี่ Influencer ที่ถ่ายทอดความอร่อยออกมาได้อย่างน่าทาน</p>
+        </div>
+
+        <div class="video-grid">
+            <!-- Video 1 -->
+            <div class="social-card" data-aos="zoom-in">
+                <div class="youtube-shorts-wrapper">
+                    <iframe src="https://www.youtube.com/embed/nGHr0UdKJUI" title="Review" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <div style="padding: 15px; text-align: center; font-size: 0.9rem;">
+                    <strong>พี่แพรพาชิม</strong><br>
+                    <span style="color: #777;">เล่าเรื่องสนุก เห็นภาพชัดเจน</span>
+                </div>
+            </div>
+
+            <!-- Video 2 -->
+            <div class="social-card" data-aos="zoom-in" data-aos-delay="100">
+                <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@tastymommychilisauce/video/7586625210330139924" data-video-id="7586625210330139924" style="max-width: 100%; min-width: 325px; margin: 0;"> 
+                    <section> <a target="_blank" href="https://www.tiktok.com/@tastymommychilisauce?refer=embed">@tastymommy</a> </section> 
+                </blockquote> 
+                <script async src="https://www.tiktok.com/embed.js"></script>
+                <div style="padding: 15px; text-align: center; font-size: 0.9rem;">
+                    <strong>@tastymommy</strong><br>
+                    <span style="color: #777;">รีวิวจริงจัง จริงใจ น่าเชื่อถือ</span>
+                </div>
+            </div>
+
+            <!-- Video 3 -->
+            <div class="social-card" data-aos="zoom-in" data-aos-delay="200">
+                <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DIC7qSBSaNN/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style=" background:#FFF; border:0; width:100%;"></blockquote>
+                <script async src="//www.instagram.com/embed.js"></script>
+                <div style="padding: 15px; text-align: center; font-size: 0.9rem;">
+                    <strong>Customer Review</strong><br>
+                    <span style="color: #777;">แค่ถ่ายตอนทาน ก็ดูน่ากินแล้ว</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why & CTA -->
+    <section class="section">
+        <div class="why-box" data-aos="fade-up">
+            <h3 style="text-align: center; margin-bottom: 20px;">ทำไมต้องเริ่มกับแม่ปู?</h3>
+            <ul class="why-list">
+                <li>
+                    <i class="fas fa-check-circle"></i>
+                    <div>
+                        <strong>สินค้าขายง่าย ภาพสวย:</strong> อาหารเป็นสิ่งที่คนเข้าถึงง่ายที่สุด น้ำพริกของเราสีสวย เนื้อปลาแน่น แค่ตักราดข้าวก็คอนเทนต์ปังแล้ว
+                    </div>
+                </li>
+                <li>
+                    <i class="fas fa-check-circle"></i>
+                    <div>
+                        <strong>ฝึกฝีมือในสนามจริง:</strong> คุณจะได้ฝึกสกิลการถ่าย การตัดต่อ และการเล่าเรื่อง โดยมีโจทย์สินค้าจริงๆ ให้ทำ
+                    </div>
+                </li>
+                <li>
+                    <i class="fas fa-check-circle"></i>
+                    <div>
+                        <strong>โอกาสร่วมงานระยะยาว:</strong> หากสไตล์คลิปของคุณโดนใจ เรามีงบจ้างรีวิวสินค้าตัวต่อๆ ไปแน่นอน
+                    </div>
+                </li>
+            </ul>
+
+            <div class="cta-box">
+                <p style="font-size: 1.1rem; margin-bottom: 20px;">พร้อมจะเป็นดาวรุ่งคนต่อไปหรือยัง?</p>
+                <a href="https://line.me/ti/p/E5qDfwRtZL" target="_blank" class="btn-apply">
+                    <i class="fab fa-line"></i> ทักไลน์แจ้ง "ขอรีวิว"
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 1000 });
+    </script>
+</body>
+</html>
