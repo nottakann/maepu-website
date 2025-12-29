@@ -3,515 +3,293 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>น้ำพริกแม่ปู - Original Homemade</title>
+    <title>แฟรนไชส์ข้าวราดน้ำพริกแม่ปู - สร้างอาชีพ สร้างฝัน</title>
     
-    <!-- ฟอนต์: ใช้ 2 ฟอนต์เพื่อสร้างมิติ -->
+    <!-- ฟอนต์และไอคอน -->
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600&family=Charmonman:wght@700&display=swap" rel="stylesheet">
-    
-    <!-- ไอคอน -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
-    <!-- Animation Lib -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Chart.js Library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
-        /* --- CSS Master Variables --- */
+        /* --- Reuse Core Styles --- */
         :root {
-            --bg-color: #fdfbf7; /* สีครีมกระดาษ */
-            --text-color: #3e2723; /* สีน้ำตาลเข้มเกือบดำ */
-            --accent-color: #d84315; /* สีส้มอิฐ (Retro Orange) */
-            --secondary-color: #ffcc80; /* สีส้มอ่อน */
+            --bg-color: #fdfbf7;
+            --text-color: #3e2723;
+            --accent-color: #d84315;
+            --secondary-color: #ffcc80;
+            --success-color: #2e7d32;
         }
-
+        
         /* Reset CSS */
-        * {
-            box-sizing: border-box; 
-            margin: 0;
-            padding: 0;
-        }
-
-        /* --- แก้ไขเรื่อง Scroll ติดนิ้ว & สกรอลล์ซ้อน --- */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
         html {
             scroll-behavior: smooth;
-            /* เอา overflow ออกจาก html เพื่อไม่ให้ตีกับ body */
         }
 
         body {
-            width: 100%;
-            /* ย้าย overflow-x มาที่ body ที่เดียว */
-            overflow-x: hidden; 
-            position: relative;
             font-family: 'Sarabun', sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
-            -webkit-overflow-scrolling: touch; /* เพิ่มความลื่นบน iOS */
+            line-height: 1.6;
+            
+            /* ล็อกหน้าจอไม่ให้เลื่อนซ้ายขวา */
+            width: 100%;
+            overflow-x: hidden; 
+            margin: 0;
+            padding: 0;
+            -webkit-overflow-scrolling: touch;
         }
+        
+        h1, h2, h3, h4 { font-family: 'Charmonman', cursive; font-weight: 700; }
 
-        h1, h2, h3 { font-family: 'Charmonman', cursive; font-weight: 700; }
-
+        /* ป้องกัน Animation ล้นจอ */
         section {
-            overflow: hidden; 
+            overflow: hidden;
+            width: 100%;
         }
 
-        /* --- NAVBAR (Mobile Optimized - No Hamburger) --- */
+        /* --- Navbar --- */
         nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 40px;
-            background: rgba(253, 251, 247, 0.98); 
+            padding: 15px 20px;
+            background: rgba(253, 251, 247, 0.98);
             position: sticky;
             top: 0;
             z-index: 1000;
             border-bottom: 1px solid #eee;
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            transition: all 0.3s;
+            width: 100%;
         }
-        .logo { 
-            font-size: 1.5rem; 
-            color: var(--accent-color); 
-            font-weight: bold; 
-            text-decoration: none; 
-            font-family: 'Charmonman', cursive; 
+        .logo { font-size: 1.4rem; color: var(--accent-color); font-weight: bold; text-decoration: none; font-family: 'Charmonman', cursive; }
+        .btn-back { display: inline-flex; align-items: center; gap: 5px; color: var(--text-color); text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+        .btn-back:hover { color: var(--accent-color); }
+
+        /* --- Franchise Hero --- */
+        .fran-hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url('images/milestone-booth.png');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 100px 20px;
+            text-align: center;
+            width: 100%;
         }
+        .fran-hero h1 { font-size: 2.2rem; margin-bottom: 15px; color: var(--secondary-color); text-shadow: 2px 2px 4px rgba(0,0,0,0.5); line-height: 1.3; }
+        .fran-hero h2 { font-size: 1.4rem; margin-bottom: 20px; font-family: 'Sarabun'; font-weight: 300; line-height: 1.4; }
+        .fran-hero p { font-size: 1rem; max-width: 800px; margin: 0 auto; opacity: 0.9; }
+
+        /* --- Content Sections --- */
+        .section { padding: 50px 20px; max-width: 1100px; margin: auto; width: 100%; }
+        .bg-white { background-color: white; box-shadow: 0 5px 20px rgba(0,0,0,0.05); border-radius: 20px; margin-bottom: 40px; padding: 30px 20px; width: 100%; }
         
-        .nav-links {
-            display: flex;
-            align-items: center;
+        .section-header { text-align: center; margin-bottom: 40px; }
+        .section-header h2 { font-size: 2rem; color: var(--accent-color); }
+        
+        /* --- Business Model (Cost & Profit) --- */
+        .profit-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
+            width: 100%;
         }
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-color);
-            font-weight: 600;
-            transition: 0.3s;
-            font-size: 0.95rem;
-            white-space: nowrap;
+        .profit-card {
+            border: 1px solid #eee;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            background: #fff;
+            transition: transform 0.3s;
+            width: 100%;
         }
-        .nav-links a:hover { color: var(--accent-color); }
-        
-        .btn-cta {
-            background-color: var(--accent-color);
-            color: white !important;
-            padding: 8px 20px;
-            border-radius: 50px;
-            box-shadow: 0 4px 10px rgba(216, 67, 21, 0.3);
-            text-decoration: none;
-            transition: transform 0.2s;
-            display: inline-block;
-        }
-        .btn-cta:hover { transform: scale(1.05); }
+        .profit-card:hover { transform: translateY(-5px); border-color: var(--secondary-color); }
+        .menu-title { font-size: 1.4rem; color: var(--text-color); margin-bottom: 15px; font-weight: bold; }
+        .cost-breakdown { text-align: left; margin: 20px 0; font-size: 0.9rem; color: #555; }
+        .cost-row { display: flex; justify-content: space-between; margin-bottom: 8px; border-bottom: 1px dashed #eee; padding-bottom: 5px; }
+        .profit-highlight { background: #e8f5e9; padding: 15px; border-radius: 10px; color: var(--success-color); font-weight: bold; font-size: 1.1rem; }
 
-        /* Mobile Nav Layout (เรียงแนวตั้ง กึ่งกลาง ไม่ใช้ Hamburger) */
-        @media (max-width: 992px) {
-            nav {
-                flex-direction: column; /* เรียงลงมา */
-                padding: 15px 10px;
-                gap: 12px;
-            }
-            .logo {
-                font-size: 1.8rem;
-                margin-bottom: 5px;
-            }
-            .nav-links {
-                display: flex;
-                flex-direction: column; /* เรียงลิงก์ลงมา */
-                gap: 10px;
-                width: 100%;
-                text-align: center;
-            }
-            .nav-links a {
-                display: block;
-                font-size: 0.9rem;
-                padding: 5px;
-                background-color: rgba(255,255,255,0.6); /* พื้นหลังจางๆ ให้กดง่าย */
-                width: 80%;
-                margin: 0 auto;
-                border-radius: 50px;
-            }
-            /* ปุ่มสั่งซื้อให้เด่นกว่าเพื่อน */
-            .btn-cta {
-                background-color: var(--accent-color) !important;
-                color: white !important;
-                width: auto !important;
-                padding: 8px 30px !important;
-            }
+        /* --- Chart Section & Controls --- */
+        .chart-controls {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+            text-align: center;
+            border: 1px solid #eee;
+            width: 100%;
         }
-
-        /* --- HERO SECTION --- */
-        .hero {
-            height: 90vh;
+        .slider-container {
             display: flex;
             align-items: center;
             justify-content: center;
-            text-align: center;
-            position: relative;
-            background-image: url('images/maepu-signature.png'); 
-            background-size: cover;
-            background-position: center;
-            background-color: #3e2723;
-            overflow: hidden;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 15px;
         }
-        .hero-overlay {
-            position: absolute; inset: 0;
-            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(62, 39, 35, 0.7));
+        .slider-label {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: var(--text-color);
         }
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            color: white;
-            max-width: 800px;
-            padding: 20px;
-            text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            max-width: 300px;
+            height: 10px;
+            border-radius: 5px;
+            background: #e0e0e0;
+            outline: none;
+            transition: opacity .2s;
         }
-        .hero h1 { font-size: 4rem; margin-bottom: 10px; color: #fff; }
-        .hero p { font-size: 1.5rem; font-family: 'Sarabun'; font-weight: 300; }
-
-        /* --- SCROLL INDICATOR --- */
-        .scroll-indicator {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: white;
-            text-align: center;
-            z-index: 3;
-            cursor: pointer;
-            opacity: 0.9;
-        }
-        .scroll-text {
-            display: block;
-            font-size: 1rem;
-            margin-bottom: 10px;
-            font-weight: 300;
-            text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
-        }
-        .scroll-arrow { font-size: 2rem; animation: bounce 2s infinite; }
-
-        /* --- FLOATING HINT --- */
-        .product-floating-hint {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%) translateY(20px);
-            background-color: rgba(216, 67, 21, 0.95);
-            color: white;
-            padding: 12px 25px;
-            border-radius: 50px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-            z-index: 900;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            cursor: pointer;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.5s ease;
-            pointer-events: none;
-            width: max-content;
-        }
-        .product-floating-hint.visible {
-            opacity: 1;
-            visibility: visible;
-            transform: translateX(-50%) translateY(0);
-            pointer-events: auto;
-        }
-        .product-floating-hint p { margin: 0; font-size: 0.9rem; font-weight: 600; }
-        .product-floating-hint i { margin-top: 5px; font-size: 1.2rem; animation: bounce 2s infinite; }
-
-        /* --- NEXT REVIEW BUTTON --- */
-        .next-review-btn {
-            position: fixed;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%) translateY(20px);
-            background: rgba(30, 30, 30, 0.65);
-            backdrop-filter: blur(5px);
-            color: white;
-            padding: 10px 25px;
-            border-radius: 50px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            cursor: pointer;
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.4s ease;
-            border: 1px solid rgba(255,255,255,0.1);
-            white-space: nowrap;
-        }
-        .next-review-btn.visible {
-            opacity: 1;
-            visibility: visible;
-            transform: translateX(-50%) translateY(0);
-        }
-        .next-review-btn i { animation: bounce 2s infinite; }
-
-        /* --- MOBILE STORY HINT BUTTON --- */
-        .mobile-story-hint {
-            display: none;
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%) translateY(20px);
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(5px);
-            color: white;
-            padding: 10px 25px;
-            border-radius: 50px;
-            z-index: 999;
-            align-items: center;
-            gap: 8px;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.4s ease;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-            border: 1px solid rgba(255,255,255,0.2);
-            width: max-content;
-            cursor: pointer;
-        }
-        .mobile-story-hint.visible {
-            opacity: 1;
-            visibility: visible;
-            transform: translateX(-50%) translateY(0);
-        }
-        .mobile-story-hint p { margin: 0; font-size: 0.9rem; font-weight: 500; color: white; }
-        .mobile-story-hint i { font-size: 1rem; animation: bounce 2s infinite; }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
-            40% {transform: translateY(-10px);}
-            60% {transform: translateY(-5px);}
-        }
-
-        /* --- MARQUEE --- */
-        .marquee {
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
             background: var(--accent-color);
-            color: white;
-            padding: 15px 0;
-            white-space: nowrap;
-            overflow: hidden;
-            font-family: 'Charmonman';
-            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
-        .marquee-content { display: inline-block; animation: scroll 20s linear infinite; }
-        @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-
-        /* --- SECTIONS --- */
-        .product-section, .reviews-section, .video-section, .about-section { 
-            padding: 80px 20px 40px; text-align: center; 
-        }
-        .reviews-section { background-color: #fff3e0; }
-        .about-section { background: var(--bg-color); }
-        .video-section { background: linear-gradient(to bottom, #fff, #fdfbf7); }
-
-        /* Grids */
-        .product-grid, .review-grid, .video-grid {
-            display: grid;
-            gap: 30px;
-            max-width: 1200px;
-            margin: 40px auto;
-        }
-        .product-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
-        .review-grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
-        .video-grid { 
-            display: flex; 
-            flex-wrap: wrap; 
-            justify-content: center; 
-            align-items: flex-start; 
+        .slider-value {
+            font-size: 1.4rem;
+            color: var(--accent-color);
+            font-weight: bold;
+            min-width: 60px;
         }
 
-        /* Cards Style */
-        .product-card, .review-card, .social-card {
+        .chart-container {
+            position: relative;
+            height: 400px;
+            width: 100%;
             background: white;
-            border-radius: 15px;
+            padding: 10px;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+        }
+        
+        .chart-explanation {
+            text-align: left;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid var(--accent-color);
+            font-size: 0.9rem;
+            color: #555;
+            margin-top: 20px;
+            width: 100%;
+        }
+        .chart-explanation strong { color: var(--text-color); }
+        .chart-explanation ul { padding-left: 20px; margin-top: 10px; }
+        .chart-explanation li { margin-bottom: 5px; }
+
+        /* --- Investment Package --- */
+        .investment-box {
+            background: linear-gradient(135deg, #fff3e0 0%, #ffffff 100%);
+            border: 2px solid var(--secondary-color);
+            border-radius: 20px;
+            padding: 30px 15px;
+            text-align: center;
+            position: relative;
             overflow: hidden;
-            transition: transform 0.3s;
+            width: 100%;
         }
-        .review-card { padding: 20px; text-align: left; box-shadow: 0 5px 15px rgba(0,0,0,0.08); border: 1px solid #fff; }
-        .product-card { box-shadow: 0 10px 20px rgba(0,0,0,0.05); border: 1px solid #eee; }
-        .social-card {
-            width: 340px; 
-            max-width: 100%; 
-            border-radius: 25px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
-            border: 1px solid rgba(0,0,0,0.05);
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* Image Helpers */
-        .product-img-box { width: 100%; height: 280px; background: #fff; display: flex; align-items: center; justify-content: center; padding: 10px; }
-        .product-img-box img { width: 100%; height: 100%; object-fit: contain; filter: sepia(0.1) contrast(1.1); transition: filter 0.3s; }
+        .investment-price { font-size: 3rem; color: var(--accent-color); font-weight: 800; line-height: 1; font-family: 'Sarabun'; word-wrap: break-word; }
+        .investment-sub { font-size: 1.1rem; color: #666; margin-bottom: 30px; }
         
-        .review-img { width: 100%; height: auto; border-radius: 10px; object-fit: contain; box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin-bottom: 20px; }
-        
-        /* Social Card Header/Body */
-        .social-header { padding: 12px 15px; display: flex; align-items: center; gap: 10px; background: #fff; border-bottom: 1px solid #f5f5f5; }
-        .social-icon-box { width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1rem; }
-        .sc-yt .social-icon-box { background: #FF0000; }
-        .sc-tt .social-icon-box { background: #000000; }
-        .sc-ig .social-icon-box { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); }
-        .social-body { background: #000; width: 100%; height: auto; position: relative; }
-        .social-footer { padding: 15px; background: #fff; font-size: 0.85rem; color: #555; font-style: italic; border-top: 1px solid #f5f5f5; text-align: center; }
-
-        /* Helpers */
-        .stars { color: #ffb300; margin-bottom: 10px; }
-        .review-text { font-style: italic; color: #555; margin-bottom: 15px; line-height: 1.6; background: #fafafa; padding: 10px; border-radius: 8px; }
-        .customer-name { font-weight: bold; color: var(--accent-color); font-family: 'Charmonman'; font-size: 1.1rem; display: block; margin-top: 10px; }
-        .price { font-size: 1.5rem; color: var(--accent-color); font-weight: bold; }
-
-        /* --- SIGNATURE SECTION --- */
-        .signature-section { background: var(--text-color); color: white; padding: 80px 20px 40px; overflow: hidden; position: relative; }
-        .signature-container { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; max-width: 1100px; margin: auto; gap: 50px; }
-        .signature-img-box { flex: 1; min-width: 300px; position: relative; }
-        
-        .stack-container { position: relative; width: 100%; padding-bottom: 56.25%; margin: 0 auto; cursor: pointer; }
-        .card { position: absolute; width: 100%; height: 100%; top: 0; left: 0; border-radius: 20px; background-color: #fff; box-shadow: 0 10px 20px rgba(0,0,0,0.15); object-fit: cover; transition: transform 0.5s ease; }
-        
-        /* Stack Layout Fix: Signature on Top (nth-child 4) */
-        .card:nth-child(1) { transform: rotate(-3deg) translateX(-5px); z-index: 1; }
-        .card:nth-child(2) { transform: rotate(2deg) translateX(5px); z-index: 2; }
-        .card:nth-child(3) { transform: rotate(-1deg) translateY(3px); z-index: 3; }
-        .card:nth-child(4) { transform: rotate(0deg); z-index: 10; box-shadow: 0 15px 30px rgba(0,0,0,0.2); }
-
-        .card.dealing { animation: deal-from-bottom 0.6s forwards; z-index: 100; }
-        @keyframes deal-from-bottom {
-            0% { transform: translateX(0) translateY(0) scale(0.9); z-index: 1; }
-            50% { transform: translateX(120%) translateY(10%) rotate(15deg) scale(1.1); z-index: 100; }
-            100% { transform: translateX(0) translateY(0) rotate(0deg) scale(1); z-index: 100; }
-        }
-
-        .signature-text { flex: 1; min-width: 300px; }
-        .badge { background: var(--accent-color); color: white; padding: 5px 15px; border-radius: 50px; font-weight: bold; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; display: inline-block; margin-bottom: 15px; }
-        .sig-price { font-size: 2.5rem; font-weight: bold; color: var(--secondary-color); margin: 20px 0; }
-        .feature-list { list-style: none; padding: 0; margin: 20px 0; }
-        .feature-list li { margin-bottom: 10px; font-size: 1.1rem; }
-        .feature-list li i { color: var(--accent-color); margin-right: 10px; }
-
-        /* --- ABOUT (Grid) --- */
-        .grid-container { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; max-width: 1100px; margin: auto; }
-        .about-text h2 { font-size: 3rem; color: var(--accent-color); margin-bottom: 20px; }
-
-        /* --- MILESTONE TIMELINE (Fixes) --- */
-        .milestone-section { background-color: #fff; padding: 80px 20px; position: relative; }
-        .milestone-header { text-align: center; margin-bottom: 60px; }
-        .milestone-header h2 { font-size: 3rem; color: var(--accent-color); }
-        
-        .timeline-wrapper { position: relative; max-width: 1000px; margin: 0 auto; }
-        .timeline-wrapper::after {
-            content: ''; position: absolute; width: 4px; background-color: var(--secondary-color); top: 0; bottom: 0; left: 50%; margin-left: -2px; border-radius: 2px;
-        }
-
-        .milestone-container { padding: 10px 40px; position: relative; background-color: inherit; width: 50%; box-sizing: border-box; }
-        .milestone-container.left { left: 0; text-align: right; }
-        .milestone-container.right { left: 50%; text-align: left; }
-        
-        .milestone-container::after {
-            content: ''; position: absolute; width: 20px; height: 20px; right: -10px; background-color: white; border: 4px solid var(--accent-color); top: 25px; border-radius: 50%; z-index: 1;
-        }
-        .milestone-container.right::after { left: -10px; }
-
-        .milestone-content { padding: 20px; background-color: white; position: relative; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.08); border: 1px solid #eee; transition: transform 0.3s; }
-        .milestone-date { display: inline-block; background: var(--accent-color); color: white; padding: 5px 15px; border-radius: 20px; font-size: 0.9rem; font-weight: bold; margin-bottom: 10px; }
-        .milestone-title { font-size: 1.5rem; font-weight: bold; color: var(--text-color); margin-bottom: 10px; font-family: 'Charmonman'; }
-        .milestone-desc { font-size: 1rem; color: #555; line-height: 1.6; margin-bottom: 15px; }
-        .milestone-img { width: 100%; height: auto; border-radius: 10px; margin-top: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); max-height: 250px; object-fit: cover; }
-        .milestone-special { background: linear-gradient(135deg, #fff3e0 0%, #ffffff 100%); border-left: 5px solid var(--accent-color); }
-        
-        .problem-box { text-align: left; background: rgba(255,255,255,0.8); padding: 15px; border-radius: 10px; margin-top: 10px; border: 1px solid #eee; }
-        .problem-title { font-weight: bold; color: #d32f2f; display: block; margin-bottom: 5px; }
-        .solution-title { font-weight: bold; color: #388e3c; display: block; margin-top: 10px; margin-bottom: 5px; }
-        
-        .goal-list { list-style: none; text-align: left; padding: 0; }
-        .goal-list li { margin-bottom: 10px; position: relative; padding-left: 20px; }
-        .goal-list li::before { content: '🎯'; position: absolute; left: 0; top: 2px; font-size: 0.9rem; }
-        
-        .quote-box { text-align: right; margin: 40px auto 0; font-size: 1rem; font-family: 'Sarabun'; color: #999; max-width: 1000px; padding-right: 50px; }
-        .quote-author { display: block; font-size: 0.8rem; font-family: 'Sarabun'; margin-top: 5px; color: #aaa; }
-
-        /* --- GRAND FOOTER --- */
-        .grand-footer { background: linear-gradient(to bottom, #fff8e1, #fff); padding: 80px 20px 40px; text-align: center; border-top: 5px solid var(--accent-color); overflow: hidden; }
-        .contact-title { font-size: 2.5rem; color: var(--text-color); margin-bottom: 40px; }
-        
-        .social-large { display: flex; justify-content: center; gap: 30px; margin-bottom: 30px; flex-wrap: wrap; }
-        .social-item { display: flex; flex-direction: column; align-items: center; color: var(--text-color); text-decoration: none; transition: transform 0.3s; }
-        .social-item:hover { transform: translateY(-5px); color: var(--accent-color); }
-        .social-item i { font-size: 3.5rem; margin-bottom: 10px; }
-        
-        .phone-box { background: var(--accent-color); color: white; display: inline-block; padding: 20px 50px; border-radius: 15px; box-shadow: 0 10px 25px rgba(216, 67, 21, 0.3); margin: 20px 0 50px; transform: rotate(-2deg); transition: transform 0.3s; text-decoration: none; }
-        .phone-box:hover { transform: rotate(0deg) scale(1.05); }
-        .phone-number { font-size: 3.5rem; font-weight: 800; font-family: 'Sarabun'; line-height: 1; }
-        .phone-label { font-size: 1.2rem; opacity: 0.9; }
-
-        .grand-banner { max-width: 1000px; margin: 0 auto 40px; border-radius: 2px; overflow: hidden; box-shadow: 0 15px 50px rgba(0,0,0,0.15); border: 15px solid #fff; background-color: #f0f0f0; min-height: 200px; position: relative; transform: rotate(1deg); }
-        .grand-banner img { width: 100%; height: auto; display: block; font-size: 20px; color: red; }
-        .credit-text { font-size: 0.9rem; color: #aaa; margin-top: 40px; font-weight: 300; }
-
-        /* --- SPECIAL THANKS (FIXED GRID) --- */
-        .special-thanks-container { 
+        .feature-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr; /* Force 2 equal columns */
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 20px;
-            margin: 40px auto 20px; 
-            max-width: 600px; 
+            text-align: left;
+            margin-top: 30px;
+            width: 100%;
         }
-        .special-thanks-box { 
-            background: rgba(255, 255, 255, 0.5); 
-            padding: 20px; 
-            border-radius: 15px; 
-            border: 1px dashed var(--accent-color); 
-            text-align: center; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            transition: transform 0.3s; 
-            text-decoration: none;
-            width: 100%; /* Fill the grid cell */
+        .feature-item { display: flex; align-items: start; gap: 10px; }
+        .feature-item i { color: var(--success-color); margin-top: 5px; flex-shrink: 0; }
+
+        /* --- Conditions --- */
+        .condition-list {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+            width: 100%;
         }
-        .special-thanks-box:hover { transform: translateY(-5px); background: rgba(255, 255, 255, 0.8); }
-        .special-thanks-img { width: 80px; height: 80px; object-fit: cover; border-radius: 50%; border: 3px solid var(--secondary-color); box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin-bottom: 10px; }
-        .branch-name { font-size: 0.85rem; font-weight: bold; color: var(--accent-color); margin-bottom: 5px; }
-        .branch-desc { font-size: 0.7rem; font-weight: 300; opacity: 0.8; line-height: 1.4; color: var(--text-color); }
-
-        /* --- MOBILE ADJUSTMENTS (FIXED BREAKAGE) --- */
-        @media (max-width: 992px) {
-            .hero h1 { font-size: 2.5rem; }
-            .grid-container, .signature-container { flex-direction: column; grid-template-columns: 1fr; }
-            nav { padding: 15px; }
-            .signature-img-box { margin-bottom: 30px; }
-            .phone-number { font-size: 2.5rem; }
-            .social-large { gap: 20px; }
-            .social-item i { font-size: 2.5rem; }
-            .grand-banner, .phone-box, .signature-img { transform: rotate(0deg) !important; }
-            .about-section { padding: 60px 20px; }
-            .social-card { width: 100%; max-width: 360px; margin: 0 auto; }
-            .mobile-story-hint { display: flex !important; }
-
-            /* Timeline Mobile Fix */
-            .timeline-wrapper::after { left: 30px; }
-            .milestone-container { width: 100%; padding-left: 70px; padding-right: 25px; }
-            .milestone-container.left, .milestone-container.right { left: 0; text-align: left; }
-            .milestone-container::after { left: 21px; }
-            .milestone-title { font-size: 1.3rem; }
+        .condition-item {
+            background: #fafafa;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid var(--text-color);
         }
+        .condition-item h4 { margin-bottom: 5px; color: var(--accent-color); font-family: 'Sarabun'; }
+        .condition-item p { font-size: 0.9rem; margin: 0; color: #666; }
 
-        /* Special Thanks Mobile Layout (FIXED GRID) */
+        /* --- Training & Support --- */
+        .support-box {
+            text-align: center;
+            padding: 40px 20px;
+            background-color: var(--text-color);
+            color: white;
+            border-radius: 20px;
+            width: 100%;
+        }
+        .support-icon { font-size: 3rem; color: var(--secondary-color); margin-bottom: 20px; }
+
+        /* --- Call to Action --- */
+        .contact-box {
+            text-align: center;
+            margin-top: 40px;
+            width: 100%;
+        }
+        .btn-apply {
+            display: inline-block; background: var(--accent-color); color: white;
+            padding: 15px 30px; border-radius: 50px; text-decoration: none;
+            font-size: 1.2rem; font-weight: bold; 
+            box-shadow: 0 4px 15px rgba(216, 67, 21, 0.4); transition: 0.3s;
+            max-width: 100%;
+            word-wrap: break-word;
+        }
+        .btn-apply:hover { transform: scale(1.05); box-shadow: 0 6px 25px rgba(216, 67, 21, 0.6); }
+
+        /* --- Mobile Specific Fixes --- */
         @media (max-width: 768px) {
-            .special-thanks-container {
+            /* Force Single Column on Mobile */
+            .profit-grid, 
+            .condition-list, 
+            .feature-grid {
+                grid-template-columns: 1fr !important;
+                display: flex;
+                flex-direction: column;
+            }
+            
+            /* Fix Grid in Hero/Intro Concept */
+            .bg-white > div {
+                flex-direction: column;
+            }
+            .bg-white > div > div {
+                width: 100%;
+                min-width: 0 !important; /* Override min-width */
+            }
+
+            .chart-container { height: 300px; padding: 5px; }
+            .section { padding: 40px 15px; } 
+            
+            /* Smaller Investment Text */
+            .investment-price { font-size: 2.5rem; }
+            
+            .slider-container {
+                flex-direction: column;
                 gap: 10px;
-                padding: 0 10px;
             }
-            .special-thanks-box {
-                padding: 15px 5px;
-            }
-            .special-thanks-img { width: 50px; height: 50px; }
-            .branch-name { font-size: 0.75rem; }
-            .branch-desc { font-size: 0.65rem; }
         }
     </style>
 </head>
@@ -519,449 +297,372 @@
 
     <!-- Navbar -->
     <nav>
-        <a href="#" class="logo">น้ำพริกแม่ปู</a>
-        <div class="nav-links">
-            <a href="#contact">รับน้ำพริกฟรี (รีวิวให้เรา)</a>
-            <a href="franchise.html">ติดต่อแฟรนไชส์</a>
-            <a href="#products" class="btn-cta">สั่งซื้อเลย</a>
-        </div>
+        <a href="index.html" class="logo">น้ำพริกแม่ปู</a>
+        <a href="index.html" class="btn-back"><i class="fas fa-arrow-left"></i> กลับหน้าหลัก</a>
     </nav>
 
-    <!-- Hero Section -->
-    <header class="hero">
-        <div class="hero-overlay"></div>
-        <div class="hero-content" data-aos="fade-up">
-            <p>EST. 2024</p>
-            <h1>น้ำพริกแม่ปู</h1>
-            <p>"แม่ผมเป็นสาวชิค... ที่ทำอาหารโคตรอร่อย"</p>
-            <div style="margin-top: 30px;">
-                <a href="#products" class="btn-cta" style="padding: 15px 40px; font-size: 1.2rem;">ดูสินค้า</a>
-            </div>
-        </div>
-
-        <!-- Scroll Down Indicator -->
-        <div class="scroll-indicator" onclick="document.getElementById('products').scrollIntoView();">
-            <span class="scroll-text">เลื่อนเพื่อดูสินค้า</span>
-            <i class="fas fa-chevron-down scroll-arrow"></i>
+    <!-- Hero -->
+    <header class="fran-hero">
+        <div data-aos="fade-up">
+            <h1>แฟรนไชส์ข้าวราดน้ำพริกแม่ปู</h1>
+            <h2>"ขายง่าย กำไรดี คืนทุนไว สร้างอาชีพที่มั่นคง"</h2>
+            <p>ร่วมเติบโตไปกับเรา ด้วยโมเดลธุรกิจที่จริงใจ เน้นคุณภาพ และความยั่งยืน<br>เราพร้อมส่งต่อความอร่อยและประสบการณ์ทั้งหมดให้คุณ</p>
         </div>
     </header>
 
-    <!-- Marquee -->
-    <div class="marquee">
-        <div class="marquee-content">
-            ✦ HOMEMADE ORIGINAL ✦ ไม่ใส่วัตถุกันเสีย ✦ รสชาติจัดจ้าน ✦ สูตรลับฉบับคุณแม่ ✦ HOMEMADE ORIGINAL ✦ ไม่ใส่ผงชูรส ✦ ไม่ใส่วัตถุกันเสีย ✦ รสชาติจัดจ้าน ✦ สูตรลับฉบับคุณแม่
+    <!-- Business Concept -->
+    <section class="section">
+        <div class="section-header" data-aos="fade-up">
+            <h2>ทำไมต้อง "ข้าวราดน้ำพริก"?</h2>
+            <p>เมนูง่ายๆ ที่ใครๆ ก็ทานได้ รสชาติจัดจ้าน ถูกปากคนไทย</p>
         </div>
-    </div>
+        <div class="bg-white" data-aos="fade-up">
+            <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 30px;">
+                <div style="flex: 1; min-width: 300px; width: 100%;">
+                    <!-- แนะนำให้ใส่รูปข้าวราดน้ำพริกจริงๆ ตรงนี้ -->
+                    <img src="images/signature-น้ำพริกปลาสลิด.jpg" alt="ข้าวราดน้ำพริก" style="width: 100%; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                </div>
+                <div style="flex: 1.5; min-width: 300px; width: 100%;">
+                    <h3 style="color: var(--accent-color); margin-bottom: 15px;">Concept: Simple & High Profit</h3>
+                    <p>เราขาย <strong>"ข้าวสวยร้อนๆ ราดน้ำพริกรสเด็ด"</strong> เสิร์ฟพร้อมผักสดและเครื่องเคียง เป็นเมนูที่ทานง่าย จบในจานเดียว ตอบโจทย์คนทำงานและครอบครัว</p>
+                    <ul style="margin-top: 20px; list-style: none;">
+                        <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: var(--success-color);"></i> <strong>รสชาติมาตรฐาน:</strong> น้ำพริกส่งตรงจากครัวกลาง รสชาติเหมือนแม่ทำเองทุกจาน</li>
+                        <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: var(--success-color);"></i> <strong>จัดการง่าย:</strong> ไม่ต้องปรุงหน้างาน แค่ตักราดก็เสิร์ฟได้เลย</li>
+                        <li><i class="fas fa-check-circle" style="color: var(--success-color);"></i> <strong>กำไรดี:</strong> ควบคุมต้นทุนได้แม่นยำ ของเสียน้อยมาก</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <!-- NEW: FLOATING HINT FOR PRODUCTS -->
-    <div id="product-hint" class="product-floating-hint" style="display: none;">
-        <!-- ลบปุ่มเดิมออก ตามที่ขอครับ -->
-    </div>
-
-    <!-- 1. PRODUCT SECTION -->
-    <section id="products" class="product-section">
-        <div data-aos="fade-up">
-            <h2>สินค้าแนะนำ</h2>
-            <p>คัดสรรวัตถุดิบอย่างดี ใส่ใจทุกกระปุก</p>
+    <!-- Profit Analysis -->
+    <section class="section" style="background-color: #fffbf0; border-radius: 20px;">
+        <div class="section-header" data-aos="fade-up">
+            <h2>โครงสร้างราคาและกำไร</h2>
+            <p>ตัวเลขจริงใจ ไม่มีหมกเม็ด</p>
         </div>
         
-        <div class="product-grid">
-            <div class="product-card" data-aos="zoom-in">
-                <div class="product-img-box"><img src="images/product-ปลาสลิด.png" alt="น้ำพริกปลาสลิด"></div>
-                <div class="product-info">
-                    <h3>น้ำพริกปลาสลิด</h3>
-                    <p>เนื้อปลาชิ้นโต กรอบถึงใจ</p>
-                    <div class="price">180.-</div>
+        <div class="profit-grid">
+            <!-- Menu 1 -->
+            <div class="profit-card" data-aos="fade-up">
+                <div class="menu-title">ข้าวราดน้ำพริกปลาซิวแก้ว</div>
+                <div style="font-size: 2rem; color: var(--accent-color); font-weight: bold;">40 บาท</div>
+                <div class="cost-breakdown">
+                    <div class="cost-row"><span>ข้าว + ผัก + จาน</span> <span>18 บาท</span></div>
+                    <div class="cost-row"><span>น้ำพริกแม่ปู (วัตถุดิบหลัก)</span> <span>7 บาท</span></div>
+                    <div class="cost-row" style="font-weight: bold; color: #d32f2f;">รวมต้นทุนต่อจาน <span>25 บาท</span></div>
+                </div>
+                <div class="profit-highlight">
+                    กำไรต่อจาน: 15 บาท (37%)
                 </div>
             </div>
-            <div class="product-card" data-aos="zoom-in" data-aos-delay="100">
-                <div class="product-img-box"><img src="images/product-ปลาซิวแก้ว.jpg" alt="น้ำพริกปลาซิวแก้ว"></div>
-                <div class="product-info">
-                    <h3>น้ำพริกปลาซิวแก้ว</h3>
-                    <p>ปลาทั้งตัว แคลเซียมเน้นๆ</p>
-                    <div class="price">100.-</div>
-                </div>
-            </div>
-            <div class="product-card" data-aos="zoom-in" data-aos-delay="200">
-                <div class="product-img-box"><img src="images/product-ยำถั่วลิสงปลาสลิด.png" alt="ยำถั่วลิสงปลาสลิด"></div>
-                <div class="product-info">
-                    <h3>ยำถั่วลิสงปลาสลิด</h3>
-                    <p>มันส์ๆ กรอบๆ เข้ากันสุดๆ</p>
-                    <div class="price">80.-</div>
-                </div>
-            </div>
-        </div>
 
-        <div class="scroll-hint" onclick="document.getElementById('reviews').scrollIntoView();">
-            <p>ดูรีวิวจากลูกค้าตัวจริง</p>
-            <i class="fas fa-chevron-down"></i>
+            <!-- Menu 2 -->
+            <div class="profit-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="menu-title">ข้าวราดน้ำพริกปลาสลิด</div>
+                <div style="font-size: 2rem; color: var(--accent-color); font-weight: bold;">60 บาท</div>
+                <div class="cost-breakdown">
+                    <div class="cost-row"><span>ข้าว + ผัก + จาน</span> <span>18 บาท</span></div>
+                    <div class="cost-row"><span>น้ำพริกแม่ปู (วัตถุดิบหลัก)</span> <span>7 บาท</span></div>
+                    <div class="cost-row" style="font-weight: bold; color: #d32f2f;">รวมต้นทุนต่อจาน <span>25 บาท*</span></div>
+                    <div style="font-size: 0.8rem; color: #999; text-align: right;">*(บวกค่าเนื้อปลาสลิดเพิ่มตามสัดส่วน)</div>
+                </div>
+                <div class="profit-highlight">
+                    กำไรต่อจาน: ~35 บาท (58%)
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- 2. REVIEWS SECTION -->
-    <section id="reviews" class="reviews-section">
-        <div data-aos="fade-up">
-            <h2>เสียงจากลูกค้าตัวจริง</h2>
-            <p>Capture ความประทับใจ การันตีความอร่อย</p>
+    <!-- ROI Chart Section (Interactive) -->
+    <section class="section">
+        <div class="section-header" data-aos="fade-up">
+            <h2>ลองคำนวณจุดคุ้มทุน (ROI)</h2>
+            <p>ปรับยอดขายต่อวัน เพื่อดูความเป็นไปได้</p>
         </div>
         
-        <div class="review-grid">
-            <div class="review-card" data-aos="fade-up">
-                <img src="images/review-1.jpg" alt="Capture รีวิวลูกค้า" class="review-img">
-                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                <p class="review-text">"อร่อยมากค่ะ จุดเด่นอยู่ที่ชิ้นปลาใหญ่มาก รสชาติถึงเครื่องมากๆ"</p>
-                <div><span class="customer-name">คุณส้ม</span><span class="customer-type">ลูกค้าประจำ (จาก Line)</span></div>
-            </div>
-            <div class="review-card" data-aos="fade-up" data-aos-delay="100">
-                <img src="images/review-2.jpg" alt="Capture รีวิวลูกค้า" class="review-img">
-                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                <p class="review-text">"กินกับข้าวสวยร้อนๆ เนื้อปลากรอบมาก และ ให้เยอะมากๆ"</p>
-                <div><span class="customer-name">พี่โดโด้</span><span class="customer-type">ลูกค้าประจำ (จาก Facebook)</span></div>
-            </div>
-            <div class="review-card" data-aos="fade-up" data-aos-delay="200">
-                <img src="images/review-3.jpg" alt="Capture รีวิวลูกค้า" class="review-img">
-                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                <p class="review-text">"ชอบที่แม่ค้าใส่ใจ สะอาด รู้เลยว่าใช้ของมีคุณภาพ เป็นกำลังใจให้แบรนด์แม่ปูนะคะ"</p>
-                <div><span class="customer-name"></span><span class="customer-type">ลูกค้าใหม่</span></div>
-            </div>
-        </div>
-
-        <div class="scroll-hint" onclick="document.querySelector('.video-section').scrollIntoView();">
-            <p>ดูรีวิวจาก Influencer</p>
-            <i class="fas fa-chevron-down"></i>
-        </div>
-    </section>
-
-    <!-- 3. INFLUENCER VIDEO SECTION -->
-    <section class="video-section">
-        <div data-aos="fade-up">
-            <h2>รีวิวจาก Influencer</h2>
-            <p>ใครได้ชิมเป็นต้องติดใจ! ดูได้เลยไม่ต้องโหลดแอป</p>
-        </div>
-
-        <div class="video-grid">
-            <div class="social-card sc-yt" data-aos="fade-up">
-                <div class="social-header"><div class="social-icon-box"><i class="fab fa-youtube"></i></div><div class="social-info"><span class="social-name">พี่แพรพาชิม</span><span class="social-sub">YouTube Shorts</span></div></div>
-                <div class="social-body"><div class="youtube-shorts-wrapper"><iframe src="https://www.youtube.com/embed/nGHr0UdKJUI" title="Review" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></div>
-                <div class="social-footer">"ขอบพระคุณพี่แพรมากๆๆนะครับสำหรับรีวิว... เลิฟพี่แพรมากๆนะครับ"</div>
-            </div>
-            <div class="social-card sc-tt" data-aos="fade-up" data-aos-delay="100">
-                <div class="social-header"><div class="social-icon-box"><i class="fab fa-tiktok"></i></div><div class="social-info"><span class="social-name">@tastymommy</span><span class="social-sub">TikTok Video</span></div></div>
-                <div class="social-body"><blockquote class="tiktok-embed" cite="https://www.tiktok.com/@tastymommychilisauce/video/7586625210330139924" data-video-id="7586625210330139924" style="max-width: 605px;min-width: 325px; margin: 0;"><section> <a target="_blank" title="@tastymommychilisauce" href="https://www.tiktok.com/@tastymommychilisauce?refer=embed">@tastymommychilisauce</a> ... </section></blockquote><script async src="https://www.tiktok.com/embed.js"></script></div>
-                <div class="social-footer">"ขอบคุณสำหรับการรีวิวที่น่ารักมากๆๆเลยครับ"</div>
-            </div>
-            <div class="social-card sc-ig" data-aos="fade-up" data-aos-delay="200">
-                <div class="social-header"><div class="social-icon-box"><i class="fab fa-instagram"></i></div><div class="social-info"><span class="social-name">Customer Review</span><span class="social-sub">Instagram Reels</span></div></div>
-                <div class="social-body"><blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DIC7qSBSaNN/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:none; margin: 0; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"></blockquote><script async src="//www.instagram.com/embed.js"></script></div>
-                <div class="social-footer">"อีกหนึ่งเสียงยืนยันความอร่อยจากลูกค้าทาง IG ครับ"</div>
-            </div>
-        </div>
-
-        <div class="scroll-hint" onclick="document.querySelector('.signature-section').scrollIntoView();">
-            <p>ดูเมนู Signature ของเรา</p>
-            <i class="fas fa-chevron-down"></i>
-        </div>
-    </section>
-
-    <!-- NEW: Pop-up Button for Next Review -->
-    <div id="next-review-btn" class="next-review-btn">
-        ดูรีวิวถัดไป <i class="fas fa-chevron-down"></i>
-    </div>
-
-    <!-- 4. SIGNATURE SECTION -->
-    <section class="signature-section">
-        <div class="signature-container">
-            <div class="signature-img-box" data-aos="fade-right">
-                <div class="stack-container" onclick="shuffleCards()">
-                    <img src="images/customer-collage-1.jpg" class="card" alt="Customer Review 1">
-                    <img src="images/customer-collage-2.jpg" class="card" alt="Customer Review 2">
-                    <img src="images/customer-collage-3.jpg" class="card" alt="Customer Review 3">
-                    <img src="images/signature-น้ำพริกปลาสลิด.jpg" class="card" alt="น้ำพริกปลาสลิด">
-                    <div class="tap-hint"><i class="fas fa-hand-pointer"></i> แตะเพื่อดูรูปถัดไป</div>
+        <div class="chart-controls" data-aos="fade-up">
+            <span class="slider-label">ยอดขายเฉลี่ยต่อวัน:</span>
+            <div class="slider-container">
+                <input type="range" min="30" max="155" value="55" class="slider" id="dishesRange">
+                <div style="display: flex; align-items: baseline; justify-content: center; gap: 5px;">
+                    <span class="slider-value" id="dishesValue">55</span> 
+                    <span style="font-size: 1.1rem; color: #555;">จาน</span>
                 </div>
             </div>
+            <p style="margin-top: 15px; color: #777; font-size: 1rem;" id="profitText">กำไรสุทธิคาดการณ์: 11,250 บาท/เดือน</p>
+        </div>
+
+        <div class="chart-container" data-aos="zoom-in">
+            <canvas id="roiChart"></canvas>
+        </div>
+        
+        <div class="chart-explanation" data-aos="fade-up">
+            <strong>ℹ️ ที่มาของการคำนวณ (สมมติฐานคงที่):</strong>
+            <ul>
+                <li><strong>ราคาขายเฉลี่ย:</strong> 50 บาท/จาน (คิดจากค่าเฉลี่ยเมนู 40 และ 60 บาท)</li>
+                <li><strong>ต้นทุนวัตถุดิบ:</strong> 25 บาท/จาน (กำไรขั้นต้น 50%)</li>
+                <li><strong>ค่าใช้จ่ายคงที่ (Fixed Cost):</strong> 30,000 บาท/เดือน (ค่าเช่าที่ + เงินเดือนพนักงาน)</li>
+                <li><strong>เงินลงทุนเริ่มแรก:</strong> 200,000 บาท (เส้นสีส้ม)</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Investment Package -->
+    <section class="section">
+        <div class="section-header" data-aos="fade-up">
+            <h2>แพ็คเกจลงทุน: แม่ปู Partner</h2>
+            <p>จ่ายครั้งเดียวจบ พร้อมเปิดร้านได้ทันที</p>
+        </div>
+
+        <div class="investment-box" data-aos="zoom-in">
+            <div class="investment-price">200,000 บาท</div>
+            <div class="investment-sub">ระยะเวลาคืนทุนโดยเฉลี่ย 1.5 ปี</div>
             
-            <div class="signature-text" data-aos="fade-left">
-                <span class="badge">Must Try</span>
-                <h2 style="color: #ffcc80; font-size: 3rem; margin-bottom: 10px;">น้ำพริกปลาสลิด</h2>
-                <h3 style="color: white; font-family: 'Sarabun'; font-weight: 300;">กรอบ ปลาสลิดชิ้นโต ไม่ใส่ผงชูรส</h3>
-                <p style="opacity: 0.9; margin-top: 20px;">
-                    ที่สุดของความภาคภูมิใจ! เราใช้เนื้อปลาสลิดแท้ 100% ทอดจนเหลืองกรอบ 
-                    ส่วนท้องเรานำมาแกะก้างหมดและทอดให้กรอบฟู ส่วนปลายลำตัวเรานำมาป่นเพื่อนำไปคลุกกับน้ำพริก จะได้รสชาติอร่อยเข้มข้นจากปลาสลิด 
-                    หอมกลิ่นสมุนไพรเครื่องเทศ ทานกับข้าวสวยร้อนๆ ไข่ดาว ไข่เจียว คือที่สุดของความอร่อย
-                </p>
-                <ul class="feature-list">
-                    <li><i class="fas fa-check-circle"></i> เนื้อปลาสลิดเน้นๆ เต็มคำ</li>
-                    <li><i class="fas fa-check-circle"></i> ไม่ใส่วัตถุกันเสีย ไม่ใส่ผงชูรส</li>
-                    <li><i class="fas fa-check-circle"></i> เก็บได้นาน 3 เดือน</li>
-                </ul>
-                <div class="sig-price">180 บาท</div>
-                <a href="#contact" class="btn-cta" style="padding: 15px 50px; font-size: 1.2rem; box-shadow: 0 4px 15px rgba(216, 67, 21, 0.5);">สั่งเลย! <i class="fas fa-shopping-basket"></i></a>
-            </div>
-        </div>
-        <div class="scroll-hint" style="color: white; margin-top: 30px;" onclick="document.getElementById('about').scrollIntoView();">
-            <p>อ่านเรื่องราวของแม่ปู</p>
-            <i class="fas fa-chevron-down"></i>
-        </div>
-    </section>
+            <hr style="border: 0; border-top: 1px dashed #ddd; margin: 30px 0;">
 
-    <!-- NEW: FLOATING CONTINUE STORY BUTTON -->
-    <div id="story-hint-btn" class="mobile-story-hint" onclick="document.querySelector('.about-text').scrollIntoView({behavior: 'smooth'});">
-        <p>อ่านเรื่องราวต่อ</p>
-        <i class="fas fa-chevron-down"></i>
-    </div>
-
-    <!-- 5. STORY SECTION -->
-    <section id="about" class="about-section">
-        <div class="grid-container">
-            <div data-aos="fade-right" style="display: flex; flex-direction: column; align-items: center;">
-                <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DOiYRY1kdg9/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"></blockquote> <script async src="//www.instagram.com/embed.js"></script>
-                <div class="mobile-story-hint" onclick="document.querySelector('.about-text').scrollIntoView({behavior: 'smooth'});">
-                    <p>อ่านเรื่องราวต่อ</p>
-                    <i class="fas fa-chevron-down"></i>
+            <h3 style="color: var(--text-color);">สิ่งที่คุณจะได้รับ (All-in-One)</h3>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <i class="fas fa-store"></i>
+                    <div>
+                        <strong>โครงสร้างร้าน (Kiosk)</strong><br>
+                        <span style="font-size: 0.9rem; color: #666;">ออกแบบสวยงาม แข็งแรง พร้อมขาย</span>
+                    </div>
                 </div>
-            </div>
-            <div class="about-text" data-aos="fade-left">
-                <h2>Connecting the DOTs</h2>
-                <p><strong>จากรสมือแม่...สู่ความตั้งใจของลูกชาย</strong></p>
-                <p>3 ปีแห่งการลองผิดลองถูก ตั้งแต่สตรีมเมอร์ พนักงานเสิร์ฟ จนถึงผู้จัดการร้านอาหาร ทุกจุด (DOTs) หล่อหลอมให้ผมเข้าใจคุณค่าของ "ความอร่อย" และ "การบริการ"</p>
-                <p>วันนี้ผมอยากตะโกนบอกโลกว่า <strong>"แม่ผมทำอาหารอร่อยมาก!"</strong> และนี่คือจุดเริ่มต้นของน้ำพริกแม่ปู</p>
-                <br>
-                <img src="images/pi-card.jpg" alt="About Maepu" style="width: 100%; border-radius: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); margin-top: 10px;">
-            </div>
-        </div>
-    </section>
-
-    <!-- 6. NEW MILESTONE TIMELINE -->
-    <section class="milestone-section">
-        <div class="milestone-header" data-aos="fade-down">
-            <h2>เส้นทางและความฝัน</h2>
-            <p>จากจุดเริ่มต้นเล็กๆ สู่เป้าหมายที่ยิ่งใหญ่</p>
-        </div>
-        
-        <div class="timeline-wrapper">
-            <!-- 1. Start -->
-            <div class="milestone-container left">
-                <div class="milestone-content" data-aos="fade-right">
-                    <span class="milestone-date">17/02/68</span>
-                    <div class="milestone-title">จุดเริ่มต้น & Order แรก</div>
-                    <div class="milestone-desc">เริ่มต้นทำน้ำพริกด้วยใจรัก และได้รับ Order แรกที่เป็นจุดประกายความหวัง</div>
-                    <img src="images/milestone-start.jpg" alt="Order แรก" class="milestone-img">
+                <div class="feature-item">
+                    <i class="fas fa-paint-brush"></i>
+                    <div>
+                        <strong>Artwork & ตกแต่ง</strong><br>
+                        <span style="font-size: 0.9rem; color: #666;">ป้ายเมนู โลโก้ และงานตกแต่งทั้งหมด</span>
+                    </div>
                 </div>
-            </div>
-
-            <!-- 2. Tour Leader -->
-            <div class="milestone-container right">
-                <div class="milestone-content" data-aos="fade-left">
-                    <span class="milestone-date">16/06/68</span>
-                    <div class="milestone-title">ขยายตลาด Tour Leader</div>
-                    <div class="milestone-desc">ก้าวสู่ตลาดใหม่ แนะนำความอร่อยให้กับกลุ่มนักท่องเที่ยวผ่าน Tour Leader</div>
-                    <img src="images/milestone-tour.jpg" alt="Tour Leader Market" class="milestone-img">
+                <div class="feature-item">
+                    <i class="fas fa-utensils"></i>
+                    <div>
+                        <strong>อุปกรณ์ครัวครบชุด</strong><br>
+                        <span style="font-size: 0.9rem; color: #666;">หม้อหุงข้าว, โหลใส่น้ำพริก, อุปกรณ์เตรียม</span>
+                    </div>
                 </div>
-            </div>
-
-            <!-- 3. Consignment Shop -->
-            <div class="milestone-container left">
-                <div class="milestone-content" data-aos="fade-right">
-                    <span class="milestone-date">18/08/68</span>
-                    <div class="milestone-title">มีร้านค้าฝากขายประจำ</div>
-                    <div class="milestone-desc">สร้างฐานที่มั่นคง มีหน้าร้านประจำที่ลูกค้าสามารถตามหาความอร่อยได้เสมอ</div>
-                    <img src="images/milestone-shop.jpg" alt="Consignment Shop" class="milestone-img">
-                </div>
-            </div>
-
-            <!-- 4. Booth & Reality Check (Highlight) -->
-            <div class="milestone-container right">
-                <div class="milestone-content milestone-special" data-aos="fade-left">
-                    <span class="milestone-date">13/09/68</span>
-                    <div class="milestone-title">ออกบูธ & ความฝันแม่ปู</div>
-                    <div class="milestone-desc">ออกบูธครั้งสำคัญ พร้อมกับความฝันอยากขยายแฟรนไชส์ แต่ก็ได้พบกับบทเรียนและความท้าทายใหม่</div>
-                    <img src="images/milestone-booth.png" alt="Booth" class="milestone-img" style="margin-bottom: 15px;">
-                    <div class="problem-box">
-                        <span class="problem-title"><i class="fas fa-exclamation-circle"></i> ปัญหาที่พบ (Reality Check)</span>
-                        <p style="font-size: 0.9rem; margin-bottom: 10px;">1. ราคาค่อนข้างสูงเมื่อเทียบกับรายได้ประชากร แม้คุณภาพจะคุ้มค่า</p>
-                        <span class="solution-title"><i class="fas fa-lightbulb"></i> ทางออก</span>
-                        <p style="font-size: 0.9rem; margin-bottom: 15px;">👉 <strong>ผลิตแบบซอง</strong> เพื่อให้เข้าถึงง่ายขึ้น</p>
-                        <hr style="border: 0; border-top: 1px dashed #ccc; margin: 10px 0;">
-                        <p style="font-size: 0.9rem; margin-bottom: 10px;">2. แบรนด์ใหม่ ลูกค้ายังไม่กล้าเปิดใจลอง</p>
-                        <span class="solution-title"><i class="fas fa-users"></i> ทางออก</span>
-                        <p style="font-size: 0.9rem;">👉 สร้างเครือข่าย รีวิว และช่วยเหลือรีวิวร้านอาหารอื่นๆ เพื่อสร้างพันธมิตร</p>
+                <div class="feature-item">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    <div>
+                        <strong>Training จับมือทำ 1 สัปดาห์</strong><br>
+                        <span style="font-size: 0.9rem; color: #666;">สอนละเอียดทุกขั้นตอน จนกว่าจะเป็น</span>
                     </div>
                 </div>
             </div>
-
-            <!-- 5. NOW -->
-            <div class="milestone-container left">
-                <div class="milestone-content" data-aos="fade-right">
-                    <span class="milestone-date">NOW</span>
-                    <div class="milestone-title">ตัวตนบนโลกออนไลน์</div>
-                    <div class="milestone-desc">เปิดตัวเว็บไซต์นี้ เปรียบเสมือนนามบัตรดิจิทัล ให้ทุกคนรู้ว่า "เราคือใคร" และ "ตั้งใจแค่ไหน"</div>
-                    <img src="images/milestone-now.jpg" alt="Website Launch" class="milestone-img">
-                </div>
-            </div>
-
-            <!-- 6. Future Goals -->
-            <div class="milestone-container right">
-                <div class="milestone-content" data-aos="fade-left" style="background-color: #e8f5e9; border-color: #c8e6c9;">
-                    <span class="milestone-date" style="background-color: #2e7d32;">เป้าหมายภายใน 06/06/69</span>
-                    <div class="milestone-title">Next Chapter</div>
-                    <ul class="goal-list" style="margin-top: 10px;">
-                        <li><strong>ภารกิจ: ผลิตรูปแบบซอง</strong><br><span style="font-size: 0.9rem; color: #555; display: block; margin-top: 5px;">🎯 <strong>เป้าหมาย:</strong> หาเงินทุน 3 แสนบาท จาก (ยอดขาย + งานเสริม) เท่านั่น</span><span style="font-size: 0.9rem; color: #388e3c; display: block; margin-top: 5px; font-weight: 500;">🥣 <strong>Update:</strong> ผมเริ่มขาย "บัวลอย" เพื่อหาทุนเพิ่มแล้วนะครับ! แวะมาอุดหนุนได้ที่ <em>ชอบโภชนา สาขาระยอง</em> กำไรทุกบาทจะนำไปสานฝันเรื่องซองครับ</span></li>
-                        <li style="margin-top: 15px;"><strong>ครองใจคนระยอง</strong><br><span style="font-size: 0.9rem; color: #555;">ทำให้คนพื้นที่รู้จักให้มากที่สุด โดยใช้เงินให้น้อยที่สุด (เน้นไอเดียและความจริงใจ)</span></li>
-                    </ul>
-                    <img src="images/milestone-future.png" alt="Future Goals" class="milestone-img">
-                </div>
-            </div>
         </div>
-
-        <div class="quote-box">"Stay Hungry, Stay Foolish"<span class="quote-author">- Steve Jobs -</span></div>
     </section>
 
-    <!-- 7. GRAND FOOTER & CONTACT -->
-    <footer id="contact" class="grand-footer">
-        <div data-aos="fade-up">
-            <h2 class="contact-title">หากสนใจสามารถติดต่อได้</h2>
-            <div class="social-large">
-                <a href="https://www.instagram.com/tastymomychilisauce?igsh=Z3Z4aHRtaDIyazhl" class="social-item" target="_blank"><i class="fab fa-instagram" style="color: #E1306C;"></i><span>Instagram</span></a>
-                <a href="https://line.me/ti/p/E5qDfwRtZL" class="social-item" target="_blank"><i class="fab fa-line" style="color: #06C755;"></i><span>Line OA</span></a>
-                <a href="https://www.tiktok.com/@tastymommychilisauce?_r=1&_t=ZS-92SZxfN9dg5" class="social-item" target="_blank"><i class="fab fa-tiktok" style="color: #000;"></i><span>TikTok</span></a>
-            </div>
-            <a href="tel:0955343310" class="phone-box">
-                <div class="phone-label">โทรสั่งความอร่อย กดเลยตรงนี้</div>
-                <div class="phone-number">095-534-3310</div>
-            </a>
-            <div class="grand-banner"><img src="images/grand-banner.jpg" alt="⚠️ ไม่พบรูป 'grand-banner.jpg' กรุณาเช็คชื่อไฟล์"></div>
+    <!-- Conditions & Requirements -->
+    <section class="section">
+        <div class="grid-container" style="display: grid; gap: 40px; align-items: start;">
             
-            <div style="margin: 40px auto 20px; max-width: 600px;">
-                <h3 style="color: var(--text-color); margin-bottom: 20px;">Special Thanks <i class="fas fa-heart" style="color: #ff5252;"></i></h3>
-                <div class="special-thanks-container">
-                    <a href="https://www.facebook.com/profile.php?id=100069254547319" class="special-thanks-box" target="_blank">
-                        <img src="images/logo-chob-pochana-1.jpg" alt="สาขาจันทบุรี" class="special-thanks-img">
-                        <p class="branch-name">สาขาจันทบุรี</p>
-                        <p class="branch-desc">พี่สาวและพี่ชาย ที่เป็นยิ่งกว่าพี่ ผู้สนับสนุนผมเสมอมา</p>
-                    </a>
-                    <a href="https://www.facebook.com/profile.php?id=61562884358666" class="special-thanks-box" target="_blank">
-                        <img src="images/logo-chob-pochana-2.jpg" alt="สาขาระยอง" class="special-thanks-img">
-                        <p class="branch-name">สาขาระยอง</p>
-                        <p class="branch-desc">ร้านและพนักงานทุกคนที่ให้โอกาส</p>
-                    </a>
-                </div>
+            <!-- Left: Expenses -->
+            <div data-aos="fade-right">
+                <h3 style="color: var(--accent-color); margin-bottom: 20px;">ค่าใช้จ่ายรายเดือน & เงื่อนไข</h3>
+                <ul class="condition-list" style="display: block;">
+                    <li class="condition-item" style="margin-bottom: 15px;">
+                        <h4>Royalty Fee: 5%</h4>
+                        <p>จากยอดขาย เพื่อนำไปพัฒนาแบรนด์และการตลาดส่วนกลาง</p>
+                    </li>
+                    <li class="condition-item" style="margin-bottom: 15px;">
+                        <h4>POS System: 300 บาท/เดือน</h4>
+                        <p>ระบบจัดการหน้าร้าน เพื่อดูยอดขายและสต็อกแบบ Real-time</p>
+                    </li>
+                    <li class="condition-item">
+                        <h4>วัตถุดิบหลัก</h4>
+                        <p>ต้องสั่ง "น้ำพริก" จากครัวกลางแม่ปูเท่านั้น เพื่อควบคุมรสชาติ</p>
+                    </li>
+                </ul>
             </div>
 
-            <div class="credit-text">
-                <p>ขอบพระคุณ คุณ riko สำหรับที่ปรึกษาทำเว็ปไซต์</p>
-                <p style="font-size: 0.8rem; margin-top: 10px;">&copy; 2024 Maepu Homemade. All rights reserved.</p>
+            <!-- Right: Requirements -->
+            <div data-aos="fade-left">
+                <h3 style="color: var(--accent-color); margin-bottom: 20px;">สิ่งที่คุณต้องเตรียม</h3>
+                <ul class="condition-list" style="display: block;">
+                    <li class="condition-item" style="margin-bottom: 15px; border-left-color: var(--secondary-color);">
+                        <h4>พื้นที่ทำเล (Location)</h4>
+                        <p>ผู้ลงทุนเป็นผู้จัดหาพื้นที่และรับผิดชอบค่าเช่า (เราช่วยวิเคราะห์ทำเลให้ได้)</p>
+                    </li>
+                    <li class="condition-item" style="margin-bottom: 15px; border-left-color: var(--secondary-color);">
+                        <h4>พนักงาน 2 คน</h4>
+                        <p>แนะนำให้มีอย่างน้อย 2 คน เพื่อดูแลหน้าร้านและเตรียมอาหาร</p>
+                    </li>
+                    <li class="condition-item" style="border-left-color: var(--secondary-color);">
+                        <h4>หัวใจบริการ</h4>
+                        <p>สำคัญที่สุด! เรามองหาพาร์ทเนอร์ที่พร้อมดูแลลูกค้าเหมือนคนในครอบครัว</p>
+                    </li>
+                </ul>
             </div>
+
         </div>
-    </footer>
+    </section>
+
+    <!-- Support & Vision -->
+    <section class="section" data-aos="fade-up">
+        <div class="support-box">
+            <i class="fas fa-hands-helping support-icon"></i>
+            <h2 style="margin-bottom: 20px;">เราไม่ได้ขายแค่แฟรนไชส์ แต่เราหา "ครอบครัว"</h2>
+            <p style="font-size: 1.1rem; max-width: 800px; margin: 0 auto; opacity: 0.9;">
+                ผมเข้าใจดีว่าการลงทุนคือเรื่องใหญ่ ไม่ว่าคุณจะอายุเท่าไหร่ หรือมีประสบการณ์หรือไม่<br>
+                ขอแค่มีความฝันและความตั้งใจ ผมพร้อมที่จะสอนและดูแลคุณเหมือนพี่น้อง<br>
+                เราจะเติบโตไปด้วยกันครับ
+            </p>
+        </div>
+
+        <div class="contact-box">
+            <h3 style="color: var(--text-color); margin-bottom: 20px;">สนใจร่วมธุรกิจ หรือสอบถามเพิ่มเติม</h3>
+            <a href="https://line.me/ti/p/E5qDfwRtZL" target="_blank" class="btn-apply">
+                <i class="fab fa-line"></i> ทักไลน์คุยกับผมโดยตรง
+            </a>
+            <p style="margin-top: 20px; font-size: 1.1rem;">หรือโทร: <a href="tel:0955343310" style="color: var(--accent-color); font-weight: bold; text-decoration: none;">095-534-3310</a></p>
+        </div>
+    </section>
 
     <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ duration: 1000, once: true });
+        AOS.init({ duration: 1000 });
 
-        const productCards = document.querySelectorAll('.product-card');
-        const nudgedIndices = new Set(); 
+        // --- Chart Generation Logic ---
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('roiChart').getContext('2d');
+            
+            const slider = document.getElementById('dishesRange');
+            const outputValue = document.getElementById('dishesValue');
+            const profitText = document.getElementById('profitText');
 
-        if (window.innerWidth < 1024) { 
-             const productObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const index = Array.from(productCards).indexOf(entry.target);
-                        if (index !== -1 && index < 2 && !nudgedIndices.has(index)) {
-                            nudgedIndices.add(index);
-                            setTimeout(() => {
-                                const rect = entry.target.getBoundingClientRect();
-                                if (rect.top < window.innerHeight && rect.bottom > 0) {
-                                     window.scrollBy({ top: entry.target.offsetHeight + 30, behavior: 'smooth' });
-                                }
-                            }, 2500);
-                        }
+            const labels = Array.from({length: 24}, (_, i) => `เดือนที่ ${i + 1}`);
+            const initialInvestment = 200000;
+            const monthlyFixedCost = 30000;
+            const avgPrice = 50; 
+            const profitPerDish = 25; 
+
+            // Function to calculate data
+            function calculateData(dishesPerDay) {
+                const monthlyRevenue = dishesPerDay * 30 * avgPrice;
+                const monthlyGrossProfit = dishesPerDay * 30 * profitPerDish;
+                const monthlyNetProfit = monthlyGrossProfit - monthlyFixedCost;
+                
+                const cumulativeProfitData = [];
+                let currentCum = 0;
+                let paybackMonth = -1;
+
+                for (let i = 0; i < 24; i++) {
+                    currentCum += monthlyNetProfit;
+                    cumulativeProfitData.push(currentCum);
+
+                    if (paybackMonth === -1 && currentCum >= initialInvestment) {
+                        paybackMonth = i + 1;
                     }
-                });
-            }, { threshold: 0.6 }); 
-            if(productCards.length > 0) productObserver.observe(productCards[0]);
-            if(productCards.length > 1) productObserver.observe(productCards[1]);
-        }
-
-        const nextReviewBtn = document.getElementById('next-review-btn');
-        const socialCards = document.querySelectorAll('.social-card');
-
-        function checkVideoSectionNav() {
-            if (window.innerWidth > 992) {
-                nextReviewBtn.classList.remove('visible');
-                return;
-            }
-            const videoSection = document.querySelector('.video-section');
-            if (!videoSection) return;
-            const rect = videoSection.getBoundingClientRect();
-            const windowHeight = window.innerHeight;
-            const inSection = (rect.top < windowHeight * 0.8) && (rect.bottom > windowHeight * 0.5);
-
-            if (!inSection) {
-                nextReviewBtn.classList.remove('visible');
-                return;
-            }
-            const lastCard = socialCards[socialCards.length - 1];
-            if (lastCard) {
-                const lastCardRect = lastCard.getBoundingClientRect();
-                if (lastCardRect.top < windowHeight * 0.6) {
-                     nextReviewBtn.classList.remove('visible');
-                } else {
-                     nextReviewBtn.classList.add('visible');
                 }
+                
+                return { data: cumulativeProfitData, netProfit: monthlyNetProfit, payback: paybackMonth };
             }
-        }
 
-        if (nextReviewBtn) {
-            nextReviewBtn.addEventListener('click', () => {
-                for (const card of socialCards) {
-                    const rect = card.getBoundingClientRect();
-                    if (rect.top > window.innerHeight / 2) {
-                        window.scrollBy({ top: rect.top - 100, behavior: 'smooth' });
-                        break;
+            // Initial Data (55 dishes)
+            let result = calculateData(55);
+            const investmentData = new Array(24).fill(initialInvestment);
+
+            // Create Chart
+            const roiChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'เงินลงทุนตั้งต้น (200,000 บาท)',
+                            data: investmentData,
+                            borderColor: 'rgba(216, 67, 21, 0.8)',
+                            borderWidth: 2,
+                            borderDash: [5, 5],
+                            pointRadius: 0, 
+                            fill: false,
+                            order: 0
+                        },
+                        {
+                            label: 'กำไรสุทธิสะสม (เงินที่คืนทุน)',
+                            data: result.data,
+                            borderColor: 'rgba(46, 125, 50, 1)',
+                            backgroundColor: 'rgba(46, 125, 50, 0.1)',
+                            borderWidth: 3,
+                            pointBackgroundColor: 'white',
+                            pointBorderColor: 'rgba(46, 125, 50, 1)',
+                            pointBorderWidth: 2,
+                            pointRadius: 4, 
+                            pointHoverRadius: 7, 
+                            fill: true,
+                            tension: 0,
+                            order: 1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: { mode: 'index', intersect: false },
+                    plugins: {
+                        legend: { position: 'bottom', labels: { font: { family: 'Sarabun', size: 14 } } },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) label += ': ';
+                                    if (context.parsed.y !== null) label += new Intl.NumberFormat('th-TH', { style: 'currency', currency: 'THB', maximumFractionDigits: 0 }).format(context.parsed.y);
+                                    return label;
+                                }
+                            },
+                            titleFont: { family: 'Sarabun' },
+                            bodyFont: { family: 'Sarabun' },
+                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            padding: 10,
+                            cornerRadius: 8,
+                            displayColors: false 
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: false, 
+                            ticks: {
+                                callback: function(value) { return (value/1000).toLocaleString() + 'k'; },
+                                font: { family: 'Sarabun' }
+                            },
+                            grid: { color: '#f0f0f0' }
+                        },
+                        x: { grid: { display: false }, ticks: { font: { family: 'Sarabun' }, maxTicksLimit: 12 } }
                     }
                 }
             });
-        }
-        window.addEventListener('scroll', checkVideoSectionNav);
 
-        const storyHintBtn = document.getElementById('story-hint-btn');
-        const aboutSection = document.getElementById('about');
-        const aboutText = document.querySelector('.about-text');
+            // Slider Event Listener
+            slider.oninput = function() {
+                const val = this.value;
+                outputValue.innerHTML = val;
+                
+                const newResult = calculateData(val);
+                
+                const formattedProfit = new Intl.NumberFormat('th-TH').format(newResult.netProfit);
+                let paybackText = "";
+                
+                if (newResult.netProfit <= 0) {
+                    paybackText = " (ยังไม่คืนทุน / ขาดทุน)";
+                    profitText.style.color = "red";
+                } else if (newResult.payback !== -1) {
+                    paybackText = ` (คืนทุนในประมาณ ${newResult.payback} เดือน)`;
+                    profitText.style.color = "#2e7d32";
+                } else {
+                    paybackText = " (คืนทุนนานกว่า 2 ปี)";
+                    profitText.style.color = "#d84315";
+                }
+                
+                profitText.innerHTML = `กำไรสุทธิคาดการณ์: <strong>${formattedProfit}</strong> บาท/เดือน ${paybackText}`;
 
-        function checkStoryHint() {
-            if (window.innerWidth > 992) {
-                storyHintBtn.classList.remove('visible');
-                return;
+                roiChart.data.datasets[1].data = newResult.data;
+                roiChart.update();
             }
-            if (!aboutSection || !aboutText) return;
-            const aboutRect = aboutSection.getBoundingClientRect();
-            const textRect = aboutText.getBoundingClientRect();
-            const windowHeight = window.innerHeight;
-            const isAboutVisible = (aboutRect.top < windowHeight * 0.8) && (aboutRect.bottom > 0);
-            const isTextInFocus = textRect.top < windowHeight * 0.6;
-
-            if (isAboutVisible && !isTextInFocus) {
-                storyHintBtn.classList.add('visible');
-            } else {
-                storyHintBtn.classList.remove('visible');
-            }
-        }
-        window.addEventListener('scroll', checkStoryHint);
-
-        function shuffleCards() {
-            const container = document.querySelector('.stack-container');
-            const cards = container.querySelectorAll('.card');
-            const bottomCard = cards[0]; 
-            if (!bottomCard) return;
-            bottomCard.classList.add('dealing');
-            setTimeout(() => {
-                bottomCard.classList.remove('dealing');
-                const tapHint = container.querySelector('.tap-hint');
-                container.insertBefore(bottomCard, tapHint); 
-            }, 550); 
-        }
+        });
     </script>
 </body>
 </html>
