@@ -98,10 +98,28 @@
             position: relative;
             display: flex;
             flex-direction: column;
+            transition: transform 0.3s ease;
+        }
+        .menu-analysis-card:hover {
+            transform: translateY(-5px);
         }
 
         .menu-card-standard { border-top-color: var(--accent-color); }
         .menu-card-premium { border-top-color: #fbc02d; }
+
+        /* New Image Styling */
+        .menu-img {
+            width: 100%;
+            height: 220px; /* เพิ่มความสูงให้เห็นชัดขึ้น */
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: transform 0.4s ease;
+        }
+        .menu-img:hover {
+            transform: scale(1.03); /* ลูกเล่นขยายเมื่อเอาเมาส์ชี้ */
+        }
 
         .menu-header {
             text-align: center;
@@ -247,6 +265,9 @@
             
             <!-- Menu 1: Pla Siu Kaew -->
             <div class="menu-analysis-card menu-card-standard" data-aos="fade-right">
+                <!-- ใส่ชื่อไฟล์ตรงนี้ -->
+                <img src="ข้าวราดน้ำพริกปลาซิวแก้ว.jpg" alt="ข้าวราดน้ำพริกปลาซิวแก้ว" class="menu-img">
+                
                 <div class="menu-header">
                     <h3>ข้าวราดน้ำพริกปลาซิวแก้ว</h3>
                     <span class="badge bg-orange">เมนูราคาประหยัด</span>
@@ -292,6 +313,9 @@
 
             <!-- Menu 2: Pla Salid -->
             <div class="menu-analysis-card menu-card-premium" data-aos="fade-left">
+                <!-- ใส่ชื่อไฟล์ตรงนี้ -->
+                <img src="ข้าวราดน้ำพริกปลาสลิด.jpg" alt="ข้าวราดน้ำพริกปลาสลิด" class="menu-img">
+
                 <div class="menu-header">
                     <h3>ข้าวราดน้ำพริกปลาสลิด</h3>
                     <span class="badge bg-gold">เมนูพรีเมียม</span>
