@@ -59,15 +59,16 @@
         .btn-back { display: inline-flex; align-items: center; gap: 5px; color: var(--text-color); text-decoration: none; font-weight: 600; font-size: 0.9rem; }
         .btn-back:hover { color: var(--accent-color); }
 
-        /* --- Franchise Hero --- */
+        /* --- Franchise Hero (Reverted to Image) --- */
         .fran-hero {
-            /* ใช้ Path รูปจาก Server จริงที่มีอยู่แล้ว */
-            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url('https://maepu-website.vercel.app/images/milestone-booth.png');
+            /* กลับมาใช้ภาพนิ่งเป็นพื้นหลังตามเดิม */
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url('images/milestone-booth.png'); /* แก้เป็น path ในเครื่อง */
             background-size: cover;
             background-position: center;
             color: white;
             padding: 100px 20px;
             text-align: center;
+            position: relative;
         }
         /* Fallback กรณีรูป Hero ไม่ขึ้น */
         .fran-hero[style*="undefined"] {
@@ -224,7 +225,7 @@
         <a href="https://maepu-website.vercel.app/" class="btn-back"><i class="fas fa-arrow-left"></i> กลับหน้าหลัก</a>
     </nav>
 
-    <!-- Hero -->
+    <!-- Hero (Reverted to Image Background) -->
     <header class="fran-hero">
         <div data-aos="fade-up">
             <h1>แฟรนไชส์ข้าวราดน้ำพริกแม่ปู</h1>
@@ -233,7 +234,7 @@
         </div>
     </header>
 
-    <!-- Business Concept -->
+    <!-- Business Concept (Updated with Video) -->
     <section class="section">
         <div class="section-header" data-aos="fade-up">
             <h2>ทำไมต้อง "ข้าวราดน้ำพริก"?</h2>
@@ -241,9 +242,32 @@
         </div>
         <div class="bg-white" data-aos="fade-up">
             <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 30px;">
-                <div style="flex: 1; min-width: 300px;">
-                    <img src="https://images.unsplash.com/photo-1596560548464-f010549b8416?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="ข้าวราดน้ำพริก" style="width: 100%; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                
+                <!-- ส่วนวิดีโอ (ปรับแก้สำหรับแนวตั้ง) -->
+                <div style="flex: 1; min-width: 300px; display: flex; justify-content: center;">
+                    <!-- 
+                       STYLE UPDATES:
+                       1. max-width: 320px -> จำกัดความกว้างให้เหมือนจอมือถือ ไม่ให้ใหญ่เกินไป
+                       2. border-radius: 25px -> เพิ่มความโค้งให้เข้ากับทรงมือถือ
+                       3. aspect-ratio: 9/16 -> บังคับสัดส่วนแนวตั้ง (เผื่อวิดีโอโหลดช้า พื้นที่จะได้ไม่ยุบ)
+                       4. object-fit: cover -> ถ้าวิดีโอไม่เต็มจอ จะขยายให้เต็มโดยไม่เสียสัดส่วน
+                       5. background-color: #000 -> รองพื้นสีดำ
+                    -->
+                    <video autoplay muted loop playsinline 
+                        style="width: 100%; max-width: 320px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); object-fit: cover; aspect-ratio: 9/16; background-color: #000;">
+                        <!-- 
+                           [STEP 3] จุดแก้ไขโค้ด:
+                           - src="videos/concept-video.mp4" 
+                           - หมายความว่าให้ไปหาไฟล์ชื่อ concept-video.mp4 ในโฟลเดอร์ videos
+                           - ถ้าคุณตั้งชื่อไฟล์อื่น ก็แก้ตรงนี้ให้ตรงกับชื่อไฟล์ครับ
+                        -->
+                        <source src="videos/concept-video.mp4" type="video/mp4">
+                        
+                        <!-- Fallback message -->
+                        Browser ของคุณไม่รองรับวิดีโอ
+                    </video>
                 </div>
+
                 <div style="flex: 1.5; min-width: 300px;">
                     <h3 style="color: var(--accent-color); margin-bottom: 15px;">Concept: Simple & High Profit</h3>
                     <p>เราขาย <strong>"ข้าวสวยร้อนๆ ราดน้ำพริกรสเด็ด"</strong> เสิร์ฟพร้อมผักสดและเครื่องเคียง เป็นเมนูที่ทานง่าย จบในจานเดียว ตอบโจทย์คนทำงานและครอบครัว</p>
@@ -268,10 +292,6 @@
             
             <!-- Menu 1: Pla Siu Kaew -->
             <div class="menu-analysis-card menu-card-standard" data-aos="fade-right">
-                <!-- 
-                   FIX 1: เพิ่ม 'images/' นำหน้า เพื่อให้ตรงกับโครงสร้างบน Server (ส่วนใหญ่รูปจะอยู่ในโฟลเดอร์ images)
-                   FIX 2: เพิ่ม onerror เพื่อกันรูปเสีย ถ้าโหลดไม่ได้จะแสดงรูป Placeholder แทน
-                -->
                 <img 
                     src="images/rice-siu-kaew.png" 
                     onerror="this.onerror=null; this.src='https://placehold.co/600x400?text=No+Image+Found';"
@@ -324,7 +344,6 @@
 
             <!-- Menu 2: Pla Salid -->
             <div class="menu-analysis-card menu-card-premium" data-aos="fade-left">
-                <!-- FIX: ทำเหมือนกันกับเมนูที่ 2 -->
                 <img 
                     src="images/rice-salid.png" 
                     onerror="this.onerror=null; this.src='https://placehold.co/600x400?text=No+Image+Found';"
