@@ -59,9 +59,9 @@
         .btn-back { display: inline-flex; align-items: center; gap: 5px; color: var(--text-color); text-decoration: none; font-weight: 600; font-size: 0.9rem; }
         .btn-back:hover { color: var(--accent-color); }
 
-        /* --- Franchise Hero (UPDATED IMAGE HERE) --- */
+        /* --- Franchise Hero --- */
         .fran-hero {
-            /* เปลี่ยน URL รูปภาพเป็นรูปจริงตามที่ขอครับ */
+            /* ใช้ Path รูปจาก Server จริงที่มีอยู่แล้ว */
             background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url('https://maepu-website.vercel.app/images/milestone-booth.png');
             background-size: cover;
             background-position: center;
@@ -69,6 +69,11 @@
             padding: 100px 20px;
             text-align: center;
         }
+        /* Fallback กรณีรูป Hero ไม่ขึ้น */
+        .fran-hero[style*="undefined"] {
+             background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), #3e2723;
+        }
+
         .fran-hero h1 { font-size: 2.2rem; margin-bottom: 15px; color: var(--secondary-color); text-shadow: 2px 2px 4px rgba(0,0,0,0.5); line-height: 1.3; }
         .fran-hero h2 { font-size: 1.4rem; margin-bottom: 20px; font-family: 'Sarabun'; font-weight: 300; line-height: 1.4; }
         .fran-hero p { font-size: 1rem; max-width: 800px; margin: 0 auto; opacity: 0.9; }
@@ -79,7 +84,7 @@
         .section-header h2 { font-size: 2rem; color: var(--accent-color); }
         .bg-white { background-color: white; box-shadow: 0 5px 20px rgba(0,0,0,0.05); border-radius: 20px; padding: 30px 20px; margin-bottom: 40px; }
 
-        /* --- NEW Cost & Profit Structure (Split by Menu) --- */
+        /* --- Cost & Profit Structure --- */
         .cost-container {
             display: flex;
             flex-wrap: wrap;
@@ -107,18 +112,19 @@
         .menu-card-standard { border-top-color: var(--accent-color); }
         .menu-card-premium { border-top-color: #fbc02d; }
 
-        /* New Image Styling */
+        /* Image Styling */
         .menu-img {
             width: 100%;
-            height: 220px; /* เพิ่มความสูงให้เห็นชัดขึ้น */
+            height: 220px;
             object-fit: cover;
             border-radius: 12px;
             margin-bottom: 20px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
             transition: transform 0.4s ease;
+            background-color: #eee; /* สีพื้นหลังระหว่างรอรูปโหลด */
         }
         .menu-img:hover {
-            transform: scale(1.03); /* ลูกเล่นขยายเมื่อเอาเมาส์ชี้ */
+            transform: scale(1.03);
         }
 
         .menu-header {
@@ -142,13 +148,10 @@
             background: #fdfbf7;
             padding: 15px;
             border-radius: 10px;
-            margin-top: auto; /* Push to bottom */
+            margin-top: auto;
             border: 1px solid #eee;
         }
         .summary-row { display: flex; justify-content: space-between; margin-bottom: 5px; align-items: center; }
-        .total-cost { color: #d32f2f; font-weight: bold; }
-        .selling-price { font-size: 1.1rem; font-weight: bold; color: var(--text-color); border-bottom: 1px solid #ddd; padding-bottom: 5px; margin-bottom: 5px; width: 100%; text-align: right; }
-        
         .profit-highlight {
             background: var(--success-color);
             color: white;
@@ -254,7 +257,7 @@
         </div>
     </section>
 
-    <!-- UPDATED: Cost Analysis & Profit (Split by Menu) -->
+    <!-- UPDATED: Cost Analysis & Profit -->
     <section class="section" style="background-color: #fffbf0; border-radius: 20px;">
         <div class="section-header" data-aos="fade-up">
             <h2>โครงสร้างราคาและกำไร</h2>
@@ -265,8 +268,16 @@
             
             <!-- Menu 1: Pla Siu Kaew -->
             <div class="menu-analysis-card menu-card-standard" data-aos="fade-right">
-                <!-- แก้ไขชื่อไฟล์รูปภาพเป็นภาษาอังกฤษ -->
-                <img src="rice-siu-kaew.png" alt="ข้าวราดน้ำพริกปลาซิวแก้ว" class="menu-img">
+                <!-- 
+                   FIX 1: เพิ่ม 'images/' นำหน้า เพื่อให้ตรงกับโครงสร้างบน Server (ส่วนใหญ่รูปจะอยู่ในโฟลเดอร์ images)
+                   FIX 2: เพิ่ม onerror เพื่อกันรูปเสีย ถ้าโหลดไม่ได้จะแสดงรูป Placeholder แทน
+                -->
+                <img 
+                    src="images/rice-siu-kaew.png" 
+                    onerror="this.onerror=null; this.src='https://placehold.co/600x400?text=No+Image+Found';"
+                    alt="ข้าวราดน้ำพริกปลาซิวแก้ว" 
+                    class="menu-img"
+                >
                 
                 <div class="menu-header">
                     <h3>ข้าวราดน้ำพริกปลาซิวแก้ว</h3>
@@ -313,8 +324,13 @@
 
             <!-- Menu 2: Pla Salid -->
             <div class="menu-analysis-card menu-card-premium" data-aos="fade-left">
-                <!-- แก้ไขชื่อไฟล์รูปภาพเป็นภาษาอังกฤษ -->
-                <img src="rice-salid.png" alt="ข้าวราดน้ำพริกปลาสลิด" class="menu-img">
+                <!-- FIX: ทำเหมือนกันกับเมนูที่ 2 -->
+                <img 
+                    src="images/rice-salid.png" 
+                    onerror="this.onerror=null; this.src='https://placehold.co/600x400?text=No+Image+Found';"
+                    alt="ข้าวราดน้ำพริกปลาสลิด" 
+                    class="menu-img"
+                >
 
                 <div class="menu-header">
                     <h3>ข้าวราดน้ำพริกปลาสลิด</h3>
@@ -462,10 +478,9 @@
         </div>
     </section>
 
-    <!-- ADDED: Founder's Commitment Section -->
+    <!-- Founder's Commitment Section -->
     <section class="section" data-aos="fade-up">
         <div style="background: var(--text-color); color: white; padding: 50px 30px; border-radius: 20px; text-align: center; position: relative; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.15);">
-            <!-- Decorative Quotes -->
             <i class="fas fa-quote-left" style="position: absolute; top: 20px; left: 20px; font-size: 4rem; opacity: 0.1; color: var(--secondary-color);"></i>
             <i class="fas fa-quote-right" style="position: absolute; bottom: 20px; right: 20px; font-size: 4rem; opacity: 0.1; color: var(--secondary-color);"></i>
             
@@ -510,17 +525,11 @@
             const initialInvestment = 200000;
             const monthlyFixedCost = 30000;
             
-            // Logic Update: Average of Menu 1 and Menu 2
-            // Menu 1: Sell 40, Cost 25, Profit 15
-            // Menu 2: Sell 60, Cost 30, Profit 30
-            // Average Profit = (15 + 30) / 2 = 22.5
             const avgPrice = 50; 
             const profitPerDish = 22.5; 
 
             function calculateData(dishesPerDay) {
-                // Not used in calculation directly but useful for context if needed
                 const monthlyRevenue = dishesPerDay * 30 * avgPrice;
-                
                 const monthlyGrossProfit = dishesPerDay * 30 * profitPerDish;
                 const monthlyNetProfit = monthlyGrossProfit - monthlyFixedCost;
                 
