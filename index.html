@@ -810,9 +810,19 @@
             position: relative;
             transform: rotate(1deg);
         }
+        
+        /* สไตล์สำหรับรูปภาพเดิม (เผื่อใช้เป็น poster) */
         .grand-banner img { 
             width: 100%; height: auto; display: block; 
             font-size: 20px; color: red;
+        }
+
+        /* สไตล์สำหรับวิดีโอ (New Addition) */
+        .grand-banner video {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover; /* ทำให้วิดีโอเต็มพื้นที่ */
         }
 
         .credit-text { font-size: 0.9rem; color: #aaa; margin-top: 40px; font-weight: 300; }
@@ -1353,8 +1363,12 @@
                 <div class="phone-number">095-534-3310</div>
             </a>
 
+            <!-- Changed to Video here -->
             <div class="grand-banner">
-                <img src="images/grand-banner.jpg" alt="⚠️ ไม่พบรูป 'grand-banner.jpg' กรุณาเช็คชื่อไฟล์">
+                <video autoplay loop muted playsinline poster="images/grand-banner.jpg">
+                    <source src="images/grand-banner.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
             </div>
 
             <div style="margin: 40px auto 20px; max-width: 600px;">
