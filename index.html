@@ -993,7 +993,7 @@
             <!-- UPDATED LINK HERE -->
             <a href="https://maepu-website.vercel.app/free-review.html" class="link-text">รับน้ำพริกฟรี (รีวิวให้เรา)</a>
             <a href="https://maepu-website.vercel.app/franchise.html" class="link-text">ติดต่อแฟรนไชส์</a>
-            <a href="#contact" class="btn-cta" onclick="ttq.track('ClickButton', {content_name: 'Navbar Order Button'});">สั่งซื้อเลย</a>
+            <a href="#contact" class="btn-cta" onclick="ttq.track('ClickButton', {content_name: 'Navbar Order Button'}); fbq('track', 'Contact', {content_name: 'Navbar Order Button'});">สั่งซื้อเลย</a>
         </div>
     </nav>
 
@@ -1004,7 +1004,7 @@
             <h1>น้ำพริกแม่ปู</h1>
             <p>"แม่ผมเป็นสาวชิค... ที่ทำอาหารโคตรอร่อย"</p>
             <div style="margin-top: 30px;">
-                <a href="#products" class="btn-cta" style="padding: 15px 40px; font-size: 1.2rem;" onclick="ttq.track('ClickButton', {content_name: 'Hero Order Button'});">ดูสินค้า</a>
+                <a href="#products" class="btn-cta" style="padding: 15px 40px; font-size: 1.2rem;" onclick="ttq.track('ClickButton', {content_name: 'Hero Order Button'}); fbq('track', 'ViewContent', {content_name: 'Hero Order Button'});">ดูสินค้า</a>
             </div>
         </div>
 
@@ -1225,7 +1225,7 @@
 
                 <div class="sig-price">180 บาท</div>
                 
-                <a href="#contact" class="btn-cta" style="padding: 15px 50px; font-size: 1.2rem; box-shadow: 0 4px 15px rgba(216, 67, 21, 0.5);" onclick="ttq.track('ClickButton', {content_name: 'Signature Order Button'});">
+                <a href="#contact" class="btn-cta" style="padding: 15px 50px; font-size: 1.2rem; box-shadow: 0 4px 15px rgba(216, 67, 21, 0.5);" onclick="ttq.track('ClickButton', {content_name: 'Signature Order Button'}); fbq('track', 'Contact', {content_name: 'Signature Order Button'});">
                     สั่งเลย! <i class="fas fa-shopping-basket"></i>
                 </a>
             </div>
@@ -1381,21 +1381,21 @@
             <h2 class="contact-title">หากสนใจสามารถติดต่อได้</h2>
             
             <div class="social-large">
-                <a href="https://www.instagram.com/tastymomychilisauce?igsh=Z3Z4aHRtaDIyazhl" class="social-item" target="_blank" onclick="ttq.track('Contact', {content_name: 'Instagram'});">
+                <a href="https://www.instagram.com/tastymomychilisauce?igsh=Z3Z4aHRtaDIyazhl" class="social-item" target="_blank" onclick="ttq.track('Contact', {content_name: 'Instagram'}); fbq('track', 'Contact', {content_name: 'Instagram'});">
                     <i class="fab fa-instagram" style="color: #E1306C;"></i>
                     <span>Instagram</span>
                 </a>
-                <a href="https://line.me/ti/p/E5qDfwRtZL" class="social-item" target="_blank" onclick="ttq.track('Contact', {content_name: 'Line OA'});">
+                <a href="https://line.me/ti/p/E5qDfwRtZL" class="social-item" target="_blank" onclick="ttq.track('Contact', {content_name: 'Line OA'}); fbq('track', 'Contact', {content_name: 'Line OA'});">
                     <i class="fab fa-line" style="color: #06C755;"></i>
                     <span>Line OA</span>
                 </a>
-                <a href="https://www.tiktok.com/@tastymommychilisauce?_r=1&_t=ZS-92SZxfN9dg5" class="social-item" target="_blank" onclick="ttq.track('Contact', {content_name: 'TikTok Profile'});">
+                <a href="https://www.tiktok.com/@tastymommychilisauce?_r=1&_t=ZS-92SZxfN9dg5" class="social-item" target="_blank" onclick="ttq.track('Contact', {content_name: 'TikTok Profile'}); fbq('track', 'Contact', {content_name: 'TikTok Profile'});">
                     <i class="fab fa-tiktok" style="color: #000;"></i>
                     <span>TikTok</span>
                 </a>
             </div>
 
-            <a href="tel:0955343310" class="phone-box" onclick="ttq.track('Contact', {content_name: 'Phone Call'});">
+            <a href="tel:0955343310" class="phone-box" onclick="ttq.track('Contact', {content_name: 'Phone Call'}); fbq('track', 'Contact', {content_name: 'Phone Call'});">
                 <div class="phone-label">โทรสั่งความอร่อย กดเลยตรงนี้</div>
                 <div class="phone-number">095-534-3310</div>
             </a>
