@@ -11,6 +11,43 @@
 
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
+    <!-- TikTok Pixel Code Start -->
+    <script>
+    !function (w, d, t) {
+      w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(
+    var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};n=document.createElement("script")
+    ;n.type="text/javascript",n.async=!0,n.src=r+"?sdkid="+e+"&lib="+t;e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};
+
+
+      ttq.load('D5EIJL3C77UEEICNCU6G');
+      ttq.page();
+    }(window, document, 'ttq');
+    </script>
+    <!-- TikTok Pixel Code End -->
+
+
+    <!-- ========================================== -->
+    <!-- [START] FACEBOOK PIXEL CODE -->
+    <!-- ========================================== -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    
+    // ⚠️ แก้ไข ID ตรงนี้ ⚠️
+    fbq('init', 'ใส่_FACEBOOK_PIXEL_ID_ที่นี่');
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=ใส่_FACEBOOK_PIXEL_ID_ที่นี่&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- [END] FACEBOOK PIXEL CODE -->
+
     <style>
         /* --- CSS Master Variables --- */
         :root {
@@ -799,16 +836,16 @@
         .phone-label { font-size: 1.2rem; opacity: 0.9; }
 
         .grand-banner {
-            max-width: 1000px; 
+            max-width: 800px; /* ปรับขนาดให้พอดีสายตา (ลดจาก 1000px) */
             margin: 0 auto 40px; 
-            border-radius: 2px;
+            border-radius: 20px; /* เพิ่มความโค้งมน แก้ปัญหาขอบแข็ง */
             overflow: hidden;
-            box-shadow: 0 15px 50px rgba(0,0,0,0.15); 
-            border: 15px solid #fff;
-            background-color: #f0f0f0;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2); /* เงานุ่มขึ้น */
+            border: 8px solid #fff; /* ลดขอบขาวลงเหลือ 8px ให้ดูทันสมัย */
+            background-color: #000; /* พื้นหลังดำกันภาพกระพริบ */
             min-height: 200px;
             position: relative;
-            transform: rotate(1deg);
+            /* เอา transform: rotate(1deg); ออก เพื่อแก้ปัญหาขอบเป็นคลื่น */
         }
         
         /* สไตล์สำหรับรูปภาพเดิม (เผื่อใช้เป็น poster) */
