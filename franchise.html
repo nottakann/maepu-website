@@ -20,26 +20,24 @@
             --accent-color: #d84315;
             --secondary-color: #ffcc80;
             --success-color: #2e7d32;
-            --light-gray: #f5f5f5;
         }
-        
-        /* Reset CSS */
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        
-        html { scroll-behavior: smooth; }
-
         body {
             font-family: 'Sarabun', sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
+            overflow-x: hidden;
             line-height: 1.6;
             width: 100%;
-            overflow-x: hidden; 
+            margin: 0;
+            padding: 0;
             -webkit-overflow-scrolling: touch;
         }
+        html { scroll-behavior: smooth; }
         
         h1, h2, h3, h4 { font-family: 'Charmonman', cursive; font-weight: 700; }
 
+        /* ป้องกัน Animation ล้นจอ */
         section { overflow: hidden; width: 100%; }
 
         /* --- Navbar --- */
@@ -47,173 +45,226 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 20px;
+            padding: 15px 40px;
             background: rgba(253, 251, 247, 0.98);
             position: sticky;
             top: 0;
             z-index: 1000;
             border-bottom: 1px solid #eee;
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            width: 100%;
         }
         .logo { font-size: 1.4rem; color: var(--accent-color); font-weight: bold; text-decoration: none; font-family: 'Charmonman', cursive; }
         .btn-back { display: inline-flex; align-items: center; gap: 5px; color: var(--text-color); text-decoration: none; font-weight: 600; font-size: 0.9rem; }
         .btn-back:hover { color: var(--accent-color); }
 
-        /* --- Franchise Hero (Reverted to Image) --- */
+        /* --- Franchise Hero --- */
         .fran-hero {
-            /* กลับมาใช้ภาพนิ่งเป็นพื้นหลังตามเดิม */
-            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url('images/milestone-booth.png'); /* แก้เป็น path ในเครื่อง */
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url('images/milestone-booth.png');
             background-size: cover;
             background-position: center;
             color: white;
             padding: 100px 20px;
             text-align: center;
-            position: relative;
+            width: 100%;
         }
-        /* Fallback กรณีรูป Hero ไม่ขึ้น */
-        .fran-hero[style*="undefined"] {
-             background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), #3e2723;
-        }
-
         .fran-hero h1 { font-size: 2.2rem; margin-bottom: 15px; color: var(--secondary-color); text-shadow: 2px 2px 4px rgba(0,0,0,0.5); line-height: 1.3; }
         .fran-hero h2 { font-size: 1.4rem; margin-bottom: 20px; font-family: 'Sarabun'; font-weight: 300; line-height: 1.4; }
         .fran-hero p { font-size: 1rem; max-width: 800px; margin: 0 auto; opacity: 0.9; }
 
         /* --- Content Sections --- */
-        .section { padding: 50px 20px; max-width: 1100px; margin: auto; }
+        .section { padding: 50px 20px; max-width: 1100px; margin: auto; width: 100%; }
+        .bg-white { background-color: white; box-shadow: 0 5px 20px rgba(0,0,0,0.05); border-radius: 20px; margin-bottom: 40px; padding: 30px 20px; width: 100%; }
+        
         .section-header { text-align: center; margin-bottom: 40px; }
         .section-header h2 { font-size: 2rem; color: var(--accent-color); }
-        .bg-white { background-color: white; box-shadow: 0 5px 20px rgba(0,0,0,0.05); border-radius: 20px; padding: 30px 20px; margin-bottom: 40px; }
-
-        /* --- Cost & Profit Structure --- */
-        .cost-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 30px;
-            justify-content: center;
-        }
-
-        .menu-analysis-card {
-            flex: 1;
-            min-width: 320px;
-            background: #fff;
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            border-top: 5px solid transparent;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            transition: transform 0.3s ease;
-        }
-        .menu-analysis-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .menu-card-standard { border-top-color: var(--accent-color); }
-        .menu-card-premium { border-top-color: #fbc02d; }
-
-        /* Image Styling */
-        .menu-img {
+        
+        /* --- Business Model (Cost & Profit) --- */
+        .profit-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
             width: 100%;
-            height: 220px;
-            object-fit: cover;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            transition: transform 0.4s ease;
-            background-color: #eee; /* สีพื้นหลังระหว่างรอรูปโหลด */
         }
-        .menu-img:hover {
-            transform: scale(1.03);
-        }
-
-        .menu-header {
-            text-align: center;
-            margin-bottom: 20px;
-            border-bottom: 1px dashed #eee;
-            padding-bottom: 15px;
-        }
-        .menu-header h3 { font-size: 1.4rem; color: var(--text-color); margin-bottom: 5px; font-family: 'Sarabun'; font-weight: bold; }
-        .menu-header .badge { padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: bold; color: white; display: inline-block; }
-        .bg-orange { background-color: var(--accent-color); }
-        .bg-gold { background-color: #fbc02d; color: #5d4037 !important; }
-
-        .cost-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; margin-bottom: 15px; }
-        .cost-table td { padding: 6px 0; border-bottom: 1px solid #f9f9f9; color: #555; }
-        .cost-table tr:last-child td { border-bottom: none; }
-        .cost-table .price { text-align: right; font-weight: bold; color: #333; }
-        .cost-table .subtext { font-size: 0.75rem; color: #999; }
-
-        .total-summary {
-            background: #fdfbf7;
-            padding: 15px;
-            border-radius: 10px;
-            margin-top: auto;
+        .profit-card {
             border: 1px solid #eee;
-        }
-        .summary-row { display: flex; justify-content: space-between; margin-bottom: 5px; align-items: center; }
-        .profit-highlight {
-            background: var(--success-color);
-            color: white;
-            padding: 10px;
-            border-radius: 8px;
+            border-radius: 15px;
+            padding: 20px;
             text-align: center;
-            margin-top: 10px;
-            font-weight: bold;
-            font-size: 1.1rem;
-            box-shadow: 0 4px 10px rgba(46, 125, 50, 0.2);
+            background: #fff;
+            transition: transform 0.3s;
+            width: 100%;
         }
+        .profit-card:hover { transform: translateY(-5px); border-color: var(--secondary-color); }
+        .menu-title { font-size: 1.4rem; color: var(--text-color); margin-bottom: 15px; font-weight: bold; }
+        .cost-breakdown { text-align: left; margin: 20px 0; font-size: 0.9rem; color: #555; }
+        .cost-row { display: flex; justify-content: space-between; margin-bottom: 8px; border-bottom: 1px dashed #eee; padding-bottom: 5px; }
+        .profit-highlight { background: #e8f5e9; padding: 15px; border-radius: 10px; color: var(--success-color); font-weight: bold; font-size: 1.1rem; }
 
-        /* --- ROI Chart Section --- */
+        /* --- Chart Section & Controls --- */
         .chart-controls {
-            background-color: #fff; padding: 20px; border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 30px; text-align: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+            text-align: center;
             border: 1px solid #eee;
+            width: 100%;
         }
-        .slider-container { display: flex; align-items: center; justify-content: center; gap: 15px; flex-wrap: wrap; margin-top: 15px; }
-        .slider-label { font-size: 1.1rem; font-weight: bold; color: var(--text-color); }
-        input[type=range] { -webkit-appearance: none; width: 100%; max-width: 300px; height: 10px; border-radius: 5px; background: #e0e0e0; outline: none; }
-        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 25px; height: 25px; border-radius: 50%; background: var(--accent-color); cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
-        .slider-value { font-size: 1.4rem; color: var(--accent-color); font-weight: bold; min-width: 60px; }
+        .slider-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+        .slider-label {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: var(--text-color);
+        }
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            max-width: 300px;
+            height: 10px;
+            border-radius: 5px;
+            background: #e0e0e0;
+            outline: none;
+            transition: opacity .2s;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: var(--accent-color);
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .slider-value {
+            font-size: 1.4rem;
+            color: var(--accent-color);
+            font-weight: bold;
+            min-width: 60px;
+        }
 
-        .chart-container { position: relative; height: 400px; width: 100%; background: white; padding: 10px; border-radius: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); margin-bottom: 20px; }
-        .chart-explanation { text-align: left; background-color: #f9f9f9; padding: 20px; border-radius: 10px; border-left: 4px solid var(--accent-color); font-size: 0.9rem; color: #555; margin-top: 20px; }
+        .chart-container {
+            position: relative;
+            height: 400px;
+            width: 100%;
+            background: white;
+            padding: 10px;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+        }
+        
+        .chart-explanation {
+            text-align: left;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid var(--accent-color);
+            font-size: 0.9rem;
+            color: #555;
+            margin-top: 20px;
+            width: 100%;
+        }
+        .chart-explanation strong { color: var(--text-color); }
         .chart-explanation ul { padding-left: 20px; margin-top: 10px; }
+        .chart-explanation li { margin-bottom: 5px; }
 
         /* --- Investment Package --- */
         .investment-box {
             background: linear-gradient(135deg, #fff3e0 0%, #ffffff 100%);
-            border: 2px solid var(--secondary-color); border-radius: 20px;
-            padding: 30px 15px; text-align: center; margin-bottom: 40px;
+            border: 2px solid var(--secondary-color);
+            border-radius: 20px;
+            padding: 30px 15px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            width: 100%;
         }
-        .investment-price { font-size: 3rem; color: var(--accent-color); font-weight: 800; line-height: 1; font-family: 'Sarabun'; }
-        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; text-align: left; margin-top: 30px; }
+        .investment-price { font-size: 3rem; color: var(--accent-color); font-weight: 800; line-height: 1; font-family: 'Sarabun'; word-wrap: break-word; }
+        .investment-sub { font-size: 1.1rem; color: #666; margin-bottom: 30px; }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            text-align: left;
+            margin-top: 30px;
+            width: 100%;
+        }
         .feature-item { display: flex; align-items: start; gap: 10px; }
         .feature-item i { color: var(--success-color); margin-top: 5px; flex-shrink: 0; }
 
         /* --- Conditions --- */
-        .condition-list { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 20px; }
-        .condition-item { background: #fafafa; padding: 20px; border-radius: 10px; border-left: 4px solid var(--text-color); }
+        .condition-list {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+            width: 100%;
+        }
+        .condition-item {
+            background: #fafafa;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid var(--text-color);
+        }
         .condition-item h4 { margin-bottom: 5px; color: var(--accent-color); font-family: 'Sarabun'; }
         .condition-item p { font-size: 0.9rem; margin: 0; color: #666; }
 
-        /* --- Footer/Contact --- */
-        .contact-box { text-align: center; margin-top: 40px; padding-bottom: 40px; }
+        /* --- Training & Support --- */
+        .support-box {
+            text-align: center;
+            padding: 40px 20px;
+            background-color: var(--text-color);
+            color: white;
+            border-radius: 20px;
+            width: 100%;
+        }
+        .support-icon { font-size: 3rem; color: var(--secondary-color); margin-bottom: 20px; }
+
+        /* --- Call to Action --- */
+        .contact-box {
+            text-align: center;
+            margin-top: 40px;
+            width: 100%;
+        }
         .btn-apply {
             display: inline-block; background: var(--accent-color); color: white;
             padding: 15px 30px; border-radius: 50px; text-decoration: none;
             font-size: 1.2rem; font-weight: bold; 
             box-shadow: 0 4px 15px rgba(216, 67, 21, 0.4); transition: 0.3s;
+            max-width: 100%;
+            word-wrap: break-word;
         }
         .btn-apply:hover { transform: scale(1.05); box-shadow: 0 6px 25px rgba(216, 67, 21, 0.6); }
 
-        /* --- Mobile --- */
+        /* Mobile Specific Fixes */
         @media (max-width: 768px) {
-            .cost-container { flex-direction: column; }
-            .condition-list, .feature-grid { grid-template-columns: 1fr; }
+            .profit-grid, .condition-list, .feature-grid {
+                grid-template-columns: 1fr !important;
+                display: flex;
+                flex-direction: column;
+            }
             .chart-container { height: 300px; padding: 5px; }
+            .section { padding: 40px 15px; } 
+            
             .investment-price { font-size: 2.5rem; }
+            
+            .slider-container {
+                flex-direction: column;
+                gap: 10px;
+            }
         }
     </style>
 </head>
@@ -221,20 +272,20 @@
 
     <!-- Navbar -->
     <nav>
-        <a href="https://maepu-website.vercel.app/" class="logo">น้ำพริกแม่ปู</a>
-        <a href="https://maepu-website.vercel.app/" class="btn-back"><i class="fas fa-arrow-left"></i> กลับหน้าหลัก</a>
+        <a href="index.html" class="logo">น้ำพริกแม่ปู</a>
+        <a href="index.html" class="btn-back"><i class="fas fa-arrow-left"></i> กลับหน้าหลัก</a>
     </nav>
 
-    <!-- Hero (Reverted to Image Background) -->
+    <!-- Hero -->
     <header class="fran-hero">
         <div data-aos="fade-up">
             <h1>แฟรนไชส์ข้าวราดน้ำพริกแม่ปู</h1>
             <h2>"ขายง่าย กำไรดี คืนทุนไว สร้างอาชีพที่มั่นคง"</h2>
-            <p>ร่วมเติบโตไปกับเรา ด้วยโมเดลธุรกิจที่จริงใจ เน้นคุณภาพ และความยั่งยืน</p>
+            <p>ร่วมเติบโตไปกับเรา ด้วยโมเดลธุรกิจที่จริงใจ เน้นคุณภาพ และความยั่งยืน<br>เราพร้อมส่งต่อความอร่อยและประสบการณ์ทั้งหมดให้คุณ</p>
         </div>
     </header>
 
-    <!-- Business Concept (Updated with Video) -->
+    <!-- Business Concept -->
     <section class="section">
         <div class="section-header" data-aos="fade-up">
             <h2>ทำไมต้อง "ข้าวราดน้ำพริก"?</h2>
@@ -242,178 +293,77 @@
         </div>
         <div class="bg-white" data-aos="fade-up">
             <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 30px;">
-                
-                <!-- ส่วนวิดีโอ (ปรับแก้สำหรับแนวตั้ง) -->
-                <div style="flex: 1; min-width: 300px; display: flex; justify-content: center;">
-                    <!-- 
-                       STYLE UPDATES:
-                       1. max-width: 320px -> จำกัดความกว้างให้เหมือนจอมือถือ ไม่ให้ใหญ่เกินไป
-                       2. border-radius: 25px -> เพิ่มความโค้งให้เข้ากับทรงมือถือ
-                       3. aspect-ratio: 9/16 -> บังคับสัดส่วนแนวตั้ง (เผื่อวิดีโอโหลดช้า พื้นที่จะได้ไม่ยุบ)
-                       4. object-fit: cover -> ถ้าวิดีโอไม่เต็มจอ จะขยายให้เต็มโดยไม่เสียสัดส่วน
-                       5. background-color: #000 -> รองพื้นสีดำ
-                    -->
-                    <video autoplay muted loop playsinline 
-                        style="width: 100%; max-width: 320px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); object-fit: cover; aspect-ratio: 9/16; background-color: #000;">
-                        <!-- 
-                           [STEP 3] จุดแก้ไขโค้ด:
-                           - src="videos/concept-video.mp4" 
-                           - หมายความว่าให้ไปหาไฟล์ชื่อ concept-video.mp4 ในโฟลเดอร์ videos
-                           - ถ้าคุณตั้งชื่อไฟล์อื่น ก็แก้ตรงนี้ให้ตรงกับชื่อไฟล์ครับ
-                        -->
-                        <source src="videos/concept-video.mp4" type="video/mp4">
-                        
-                        <!-- Fallback message -->
-                        Browser ของคุณไม่รองรับวิดีโอ
-                    </video>
+                <div style="flex: 1; min-width: 280px; width: 100%;">
+                    <!-- แนะนำให้ใส่รูปข้าวราดน้ำพริกจริงๆ ตรงนี้ -->
+                    <img src="images/signature-น้ำพริกปลาสลิด.jpg" alt="ข้าวราดน้ำพริก" style="width: 100%; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
                 </div>
-
-                <div style="flex: 1.5; min-width: 300px;">
+                <div style="flex: 1.5; min-width: 280px; width: 100%;">
                     <h3 style="color: var(--accent-color); margin-bottom: 15px;">Concept: Simple & High Profit</h3>
                     <p>เราขาย <strong>"ข้าวสวยร้อนๆ ราดน้ำพริกรสเด็ด"</strong> เสิร์ฟพร้อมผักสดและเครื่องเคียง เป็นเมนูที่ทานง่าย จบในจานเดียว ตอบโจทย์คนทำงานและครอบครัว</p>
                     <ul style="margin-top: 20px; list-style: none;">
-                        <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: var(--success-color);"></i> <strong>รสชาติมาตรฐาน:</strong> น้ำพริกส่งตรงจากครัวกลาง</li>
-                        <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: var(--success-color);"></i> <strong>จัดการง่าย:</strong> ไม่ต้องปรุงหน้างาน</li>
-                        <li><i class="fas fa-check-circle" style="color: var(--success-color);"></i> <strong>กำไรดี:</strong> ควบคุมต้นทุนได้แม่นยำ</li>
+                        <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: var(--success-color);"></i> <strong>รสชาติมาตรฐาน:</strong> น้ำพริกส่งตรงจากครัวกลาง รสชาติเหมือนแม่ทำเองทุกจาน</li>
+                        <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: var(--success-color);"></i> <strong>จัดการง่าย:</strong> ไม่ต้องปรุงหน้างาน แค่ตักราดก็เสิร์ฟได้เลย</li>
+                        <li><i class="fas fa-check-circle" style="color: var(--success-color);"></i> <strong>กำไรดี:</strong> ควบคุมต้นทุนได้แม่นยำ ของเสียน้อยมาก</li>
                     </ul>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- UPDATED: Cost Analysis & Profit -->
+    <!-- Profit Analysis -->
     <section class="section" style="background-color: #fffbf0; border-radius: 20px;">
         <div class="section-header" data-aos="fade-up">
             <h2>โครงสร้างราคาและกำไร</h2>
-            <p>แยกตามประเภทเมนูยอดนิยม</p>
+            <p>ตัวเลขจริงใจ ไม่มีหมกเม็ด</p>
         </div>
         
-        <div class="cost-container">
-            
-            <!-- Menu 1: Pla Siu Kaew -->
-            <div class="menu-analysis-card menu-card-standard" data-aos="fade-right">
-                <img 
-                    src="images/rice-siu-kaew.png" 
-                    onerror="this.onerror=null; this.src='https://placehold.co/600x400?text=No+Image+Found';"
-                    alt="ข้าวราดน้ำพริกปลาซิวแก้ว" 
-                    class="menu-img"
-                >
-                
-                <div class="menu-header">
-                    <h3>ข้าวราดน้ำพริกปลาซิวแก้ว</h3>
-                    <span class="badge bg-orange">เมนูราคาประหยัด</span>
+        <div class="profit-grid">
+            <div class="profit-card" data-aos="fade-up">
+                <div class="menu-title">ข้าวราดน้ำพริกปลาซิวแก้ว</div>
+                <div style="font-size: 2rem; color: var(--accent-color); font-weight: bold;">40 บาท</div>
+                <div class="cost-breakdown">
+                    <div class="cost-row"><span>ข้าว + ผัก + จาน</span> <span>18 บาท</span></div>
+                    <div class="cost-row"><span>น้ำพริกแม่ปู (วัตถุดิบหลัก)</span> <span>7 บาท</span></div>
+                    <div class="cost-row" style="font-weight: bold; color: #d32f2f;">รวมต้นทุนต่อจาน <span>25 บาท</span></div>
                 </div>
-                
-                <table class="cost-table">
-                    <tr>
-                        <td>น้ำพริกปลาซิวแก้ว <span class="subtext">(1 ถ้วยเล็ก)</span></td>
-                        <td class="price">10.00 บ.</td>
-                    </tr>
-                    <tr>
-                        <td>ข้าวสวย <span class="subtext">(คุณภาพดี/ผสม)</span></td>
-                        <td class="price">4.00 บ.</td>
-                    </tr>
-                    <tr>
-                        <td>ไข่ต้ม <span class="subtext">(ครึ่งฟอง)</span></td>
-                        <td class="price">3.50 บ.</td>
-                    </tr>
-                    <tr>
-                        <td>ผักเคียง <span class="subtext">(แตงกวา/ถั่วฝักยาว)</span></td>
-                        <td class="price">3.00 บ.</td>
-                    </tr>
-                    <tr>
-                        <td>บรรจุภัณฑ์ <span class="subtext">(กล่อง+อุปกรณ์)</span></td>
-                        <td class="price">4.50 บ.</td>
-                    </tr>
-                    <tr style="border-top: 1px solid #ddd;">
-                        <td style="color: #d32f2f; font-weight: bold;">รวมต้นทุน</td>
-                        <td class="price" style="color: #d32f2f; font-size: 1.1rem;">25.00 บ.</td>
-                    </tr>
-                </table>
-
-                <div class="total-summary">
-                    <div class="summary-row">
-                        <span>ราคาขาย</span>
-                        <span style="font-size: 1.2rem; font-weight: bold;">40 บาท</span>
-                    </div>
-                    <div class="profit-highlight">
-                        กำไร 15 บาท (37.5%)
-                    </div>
+                <div class="profit-highlight">
+                    กำไรต่อจาน: 15 บาท (37%)
                 </div>
             </div>
 
-            <!-- Menu 2: Pla Salid -->
-            <div class="menu-analysis-card menu-card-premium" data-aos="fade-left">
-                <img 
-                    src="images/rice-salid.png" 
-                    onerror="this.onerror=null; this.src='https://placehold.co/600x400?text=No+Image+Found';"
-                    alt="ข้าวราดน้ำพริกปลาสลิด" 
-                    class="menu-img"
-                >
-
-                <div class="menu-header">
-                    <h3>ข้าวราดน้ำพริกปลาสลิด</h3>
-                    <span class="badge bg-gold">เมนูพรีเมียม</span>
+            <div class="profit-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="menu-title">ข้าวราดน้ำพริกปลาสลิด</div>
+                <div style="font-size: 2rem; color: var(--accent-color); font-weight: bold;">60 บาท</div>
+                <div class="cost-breakdown">
+                    <div class="cost-row"><span>ข้าว + ผัก + จาน</span> <span>18 บาท</span></div>
+                    <div class="cost-row"><span>น้ำพริกแม่ปู (วัตถุดิบหลัก)</span> <span>7 บาท</span></div>
+                    <div class="cost-row" style="font-weight: bold; color: #d32f2f;">รวมต้นทุนต่อจาน <span>25 บาท*</span></div>
+                    <div style="font-size: 0.8rem; color: #999; text-align: right;">*(บวกค่าเนื้อปลาสลิดเพิ่มตามสัดส่วน)</div>
                 </div>
-                
-                <table class="cost-table">
-                    <tr>
-                        <td>น้ำพริกปลาสลิด <span class="subtext">(เนื้อเน้นๆ)</span></td>
-                        <td class="price">15.00 บ.</td>
-                    </tr>
-                    <tr>
-                        <td>ข้าวสวย <span class="subtext">(คุณภาพดี/ผสม)</span></td>
-                        <td class="price">4.00 บ.</td>
-                    </tr>
-                    <tr>
-                        <td>ไข่ต้ม <span class="subtext">(ครึ่งฟอง)</span></td>
-                        <td class="price">3.50 บ.</td>
-                    </tr>
-                    <tr>
-                        <td>ผักเคียง <span class="subtext">(แตงกวา/ถั่วฝักยาว)</span></td>
-                        <td class="price">3.00 บ.</td>
-                    </tr>
-                    <tr>
-                        <td>บรรจุภัณฑ์ <span class="subtext">(กล่อง+อุปกรณ์)</span></td>
-                        <td class="price">4.50 บ.</td>
-                    </tr>
-                    <tr style="border-top: 1px solid #ddd;">
-                        <td style="color: #d32f2f; font-weight: bold;">รวมต้นทุน</td>
-                        <td class="price" style="color: #d32f2f; font-size: 1.1rem;">30.00 บ.</td>
-                    </tr>
-                </table>
-
-                <div class="total-summary">
-                    <div class="summary-row">
-                        <span>ราคาขาย</span>
-                        <span style="font-size: 1.2rem; font-weight: bold;">60 บาท</span>
-                    </div>
-                    <div class="profit-highlight">
-                        กำไร 30 บาท (50%)
-                    </div>
+                <div class="profit-highlight">
+                    กำไรต่อจาน: ~35 บาท (58%)
                 </div>
             </div>
-
         </div>
     </section>
 
-    <!-- ROI Chart Section -->
+    <!-- ROI Chart Section (Interactive) -->
     <section class="section">
         <div class="section-header" data-aos="fade-up">
             <h2>ลองคำนวณจุดคุ้มทุน (ROI)</h2>
-            <p>จำลองรายได้แบบคละเมนู (เฉลี่ยกำไร 22.50 บาท/จาน)</p>
+            <p>ปรับยอดขายต่อวัน เพื่อดูความเป็นไปได้</p>
         </div>
         
         <div class="chart-controls" data-aos="fade-up">
             <span class="slider-label">ยอดขายเฉลี่ยต่อวัน:</span>
             <div class="slider-container">
-                <input type="range" min="30" max="150" value="60" class="slider" id="dishesRange">
+                <input type="range" min="30" max="155" value="55" class="slider" id="dishesRange">
                 <div style="display: flex; align-items: baseline; justify-content: center; gap: 5px;">
-                    <span class="slider-value" id="dishesValue">60</span> 
+                    <span class="slider-value" id="dishesValue">55</span> 
                     <span style="font-size: 1.1rem; color: #555;">จาน</span>
                 </div>
             </div>
-            <p style="margin-top: 15px; color: #777; font-size: 1rem;" id="profitText">กำไรสุทธิคาดการณ์: 10,500 บาท/เดือน</p>
+            <p style="margin-top: 15px; color: #777; font-size: 1rem;" id="profitText">กำไรสุทธิคาดการณ์: 11,250 บาท/เดือน</p>
         </div>
 
         <div class="chart-container" data-aos="zoom-in">
@@ -421,12 +371,12 @@
         </div>
         
         <div class="chart-explanation" data-aos="fade-up">
-            <strong>ℹ️ สมมติฐานการคำนวณ:</strong>
+            <strong>ℹ️ ที่มาของการคำนวณ (สมมติฐานคงที่):</strong>
             <ul>
-                <li><strong>ยอดขายเฉลี่ย:</strong> คำนวณแบบคละกัน 50:50 ระหว่างเมนู 40 บาท และ 60 บาท</li>
-                <li><strong>กำไรเฉลี่ยต่อจาน:</strong> 22.50 บาท (เฉลี่ยจากกำไร 15 บาท และ 30 บาท)</li>
-                <li><strong>ค่าใช้จ่ายคงที่ (Fixed Cost):</strong> 30,000 บาท/เดือน (ค่าเช่า + พนักงาน + ค่าน้ำไฟ)</li>
-                <li><strong>เงินลงทุน:</strong> 200,000 บาท</li>
+                <li><strong>ราคาขายเฉลี่ย:</strong> 50 บาท/จาน (คิดจากค่าเฉลี่ยเมนู 40 และ 60 บาท)</li>
+                <li><strong>ต้นทุนวัตถุดิบ:</strong> 25 บาท/จาน (กำไรขั้นต้น 50%)</li>
+                <li><strong>ค่าใช้จ่ายคงที่ (Fixed Cost):</strong> 30,000 บาท/เดือน (ค่าเช่าที่ + เงินเดือนพนักงาน)</li>
+                <li><strong>เงินลงทุนเริ่มแรก:</strong> 200,000 บาท (เส้นสีส้ม)</li>
             </ul>
         </div>
     </section>
@@ -440,92 +390,108 @@
 
         <div class="investment-box" data-aos="zoom-in">
             <div class="investment-price">200,000 บาท</div>
-            <div class="investment-sub">อุปกรณ์ครบ พร้อมขายทันที</div>
+            <div class="investment-sub">ระยะเวลาคืนทุนโดยเฉลี่ย 1.5 ปี</div>
             
             <hr style="border: 0; border-top: 1px dashed #ddd; margin: 30px 0;">
 
+            <h3 style="color: var(--text-color);">สิ่งที่คุณจะได้รับ (All-in-One)</h3>
             <div class="feature-grid">
                 <div class="feature-item">
                     <i class="fas fa-store"></i>
-                    <div><strong>โครงสร้างร้าน (Kiosk)</strong><br><span style="font-size: 0.9rem; color: #666;">ออกแบบสวยงาม แข็งแรง</span></div>
+                    <div>
+                        <strong>โครงสร้างร้าน (Kiosk)</strong><br>
+                        <span style="font-size: 0.9rem; color: #666;">ออกแบบสวยงาม แข็งแรง พร้อมขาย</span>
+                    </div>
                 </div>
                 <div class="feature-item">
                     <i class="fas fa-paint-brush"></i>
-                    <div><strong>Artwork & ตกแต่ง</strong><br><span style="font-size: 0.9rem; color: #666;">ป้ายเมนู โลโก้ ครบชุด</span></div>
+                    <div>
+                        <strong>Artwork & ตกแต่ง</strong><br>
+                        <span style="font-size: 0.9rem; color: #666;">ป้ายเมนู โลโก้ และงานตกแต่งทั้งหมด</span>
+                    </div>
                 </div>
                 <div class="feature-item">
                     <i class="fas fa-utensils"></i>
-                    <div><strong>อุปกรณ์ครัว</strong><br><span style="font-size: 0.9rem; color: #666;">หม้อหุงข้าว, อุปกรณ์ตัก ฯลฯ</span></div>
+                    <div>
+                        <strong>อุปกรณ์ครัวครบชุด</strong><br>
+                        <span style="font-size: 0.9rem; color: #666;">หม้อหุงข้าว, โหลใส่น้ำพริก, อุปกรณ์เตรียม</span>
+                    </div>
                 </div>
                 <div class="feature-item">
                     <i class="fas fa-chalkboard-teacher"></i>
-                    <div><strong>Training 1 สัปดาห์</strong><br><span style="font-size: 0.9rem; color: #666;">สอนสูตรและเทคนิคการขาย</span></div>
+                    <div>
+                        <strong>Training จับมือทำ 1 สัปดาห์</strong><br>
+                        <span style="font-size: 0.9rem; color: #666;">สอนละเอียดทุกขั้นตอน จนกว่าจะเป็น</span>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Conditions -->
+    <!-- Conditions & Requirements -->
     <section class="section">
         <div class="grid-container" style="display: grid; gap: 40px; align-items: start;">
+            
+            <!-- Left: Expenses -->
             <div data-aos="fade-right">
                 <h3 style="color: var(--accent-color); margin-bottom: 20px;">ค่าใช้จ่ายรายเดือน & เงื่อนไข</h3>
                 <ul class="condition-list" style="display: block;">
                     <li class="condition-item" style="margin-bottom: 15px;">
                         <h4>Royalty Fee: 5%</h4>
-                        <p>จากยอดขาย เพื่อพัฒนาแบรนด์</p>
+                        <p>จากยอดขาย เพื่อนำไปพัฒนาแบรนด์และการตลาดส่วนกลาง</p>
+                    </li>
+                    <li class="condition-item" style="margin-bottom: 15px;">
+                        <h4>POS System: 300 บาท/เดือน</h4>
+                        <p>ระบบจัดการหน้าร้าน เพื่อดูยอดขายและสต็อกแบบ Real-time</p>
                     </li>
                     <li class="condition-item">
                         <h4>วัตถุดิบหลัก</h4>
-                        <p>ต้องสั่ง "น้ำพริก" จากครัวกลางเท่านั้น</p>
+                        <p>ต้องสั่ง "น้ำพริก" จากครัวกลางแม่ปูเท่านั้น เพื่อควบคุมรสชาติ</p>
                     </li>
                 </ul>
             </div>
+
+            <!-- Right: Requirements -->
             <div data-aos="fade-left">
                 <h3 style="color: var(--accent-color); margin-bottom: 20px;">สิ่งที่คุณต้องเตรียม</h3>
                 <ul class="condition-list" style="display: block;">
                     <li class="condition-item" style="margin-bottom: 15px; border-left-color: var(--secondary-color);">
                         <h4>พื้นที่ทำเล (Location)</h4>
-                        <p>รับผิดชอบค่าเช่าพื้นที่</p>
+                        <p>ผู้ลงทุนเป็นผู้จัดหาพื้นที่และรับผิดชอบค่าเช่า (เราช่วยวิเคราะห์ทำเลให้ได้)</p>
+                    </li>
+                    <li class="condition-item" style="margin-bottom: 15px; border-left-color: var(--secondary-color);">
+                        <h4>พนักงาน 2 คน</h4>
+                        <p>แนะนำให้มีอย่างน้อย 2 คน เพื่อดูแลหน้าร้านและเตรียมอาหาร</p>
                     </li>
                     <li class="condition-item" style="border-left-color: var(--secondary-color);">
-                        <h4>พนักงาน</h4>
-                        <p>แนะนำ 1-2 คน สำหรับดูแลร้าน</p>
+                        <h4>หัวใจบริการ</h4>
+                        <p>สำคัญที่สุด! เรามองหาพาร์ทเนอร์ที่พร้อมดูแลลูกค้าเหมือนคนในครอบครัว</p>
                     </li>
                 </ul>
             </div>
+
         </div>
     </section>
 
-    <!-- Founder's Commitment Section -->
+    <!-- Support & Vision -->
     <section class="section" data-aos="fade-up">
-        <div style="background: var(--text-color); color: white; padding: 50px 30px; border-radius: 20px; text-align: center; position: relative; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.15);">
-            <i class="fas fa-quote-left" style="position: absolute; top: 20px; left: 20px; font-size: 4rem; opacity: 0.1; color: var(--secondary-color);"></i>
-            <i class="fas fa-quote-right" style="position: absolute; bottom: 20px; right: 20px; font-size: 4rem; opacity: 0.1; color: var(--secondary-color);"></i>
-            
-            <h2 style="color: var(--secondary-color); margin-bottom: 30px; font-size: 1.8rem; font-family: 'Charmonman', cursive;">คำสัญญาจากใจถึง Partner รุ่นแรก</h2>
-            
-            <p style="font-size: 1.2rem; line-height: 1.8; max-width: 800px; margin: 0 auto; font-weight: 300; position: relative; z-index: 1;">
-                "สิ่งที่ผมต้องการจากคุณมีเพียง <strong style="color: var(--secondary-color);">ความตั้งใจ</strong> และ <strong style="color: var(--secondary-color);">สัญญากับผมว่าจะไม่หยุด</strong><br>
-                ผมจะอยู่กับคุณทุกๆ วัน คอยดูแลและแก้ปัญหา จนกว่าระบบร้านของคุณจะนิ่ง<br>
-                เพราะคุณคือ <strong style="color: var(--secondary-color); font-size: 1.3rem;">แฟรนไชส์ 20 สาขาแรก</strong> ของเรา<br>
-                ผมต้องมั่นใจว่า คุณจะสำเร็จและเติบโตไปพร้อมกับเราครับ"
+        <div class="support-box">
+            <i class="fas fa-hands-helping support-icon"></i>
+            <h2 style="margin-bottom: 20px;">เราไม่ได้ขายแค่แฟรนไชส์ แต่เราหา "ครอบครัว"</h2>
+            <p style="font-size: 1.1rem; max-width: 800px; margin: 0 auto; opacity: 0.9;">
+                ผมเข้าใจดีว่าการลงทุนคือเรื่องใหญ่ ไม่ว่าคุณจะอายุเท่าไหร่ หรือมีประสบการณ์หรือไม่<br>
+                ขอแค่มีความฝันและความตั้งใจ ผมพร้อมที่จะสอนและดูแลคุณเหมือนพี่น้อง<br>
+                เราจะเติบโตไปด้วยกันครับ
             </p>
-            
-            <div style="margin-top: 30px; display: flex; flex-direction: column; align-items: center;">
-                <div style="width: 50px; height: 3px; background: var(--secondary-color); margin-bottom: 15px;"></div>
-                <div style="font-size: 1rem; opacity: 0.9; font-weight: bold;">ผู้ก่อตั้งแฟรนไชส์น้ำพริกแม่ปู</div>
-            </div>
         </div>
-    </section>
 
-    <!-- Contact -->
-    <section class="contact-box" data-aos="fade-up">
-        <h3 style="color: var(--text-color); margin-bottom: 20px;">สนใจร่วมธุรกิจ หรือสอบถามเพิ่มเติม</h3>
-        <a href="#" class="btn-apply">
-            <i class="fab fa-line"></i> ติดต่อเราทางไลน์
-        </a>
-        <p style="margin-top: 20px;">หรือโทร: <a href="tel:0955343310" style="color: var(--accent-color); font-weight: bold; text-decoration: none;">095-534-3310</a></p>
+        <div class="contact-box">
+            <h3 style="color: var(--text-color); margin-bottom: 20px;">สนใจร่วมธุรกิจ หรือสอบถามเพิ่มเติม</h3>
+            <a href="https://line.me/ti/p/E5qDfwRtZL" target="_blank" class="btn-apply">
+                <i class="fab fa-line"></i> ทักไลน์คุยกับผมโดยตรง
+            </a>
+            <p style="margin-top: 20px; font-size: 1.1rem;">หรือโทร: <a href="tel:0955343310" style="color: var(--accent-color); font-weight: bold; text-decoration: none;">095-534-3310</a></p>
+        </div>
     </section>
 
     <!-- Scripts -->
@@ -533,20 +499,24 @@
     <script>
         AOS.init({ duration: 1000 });
 
-        // Chart Logic
+        // --- Chart Generation Logic ---
         document.addEventListener('DOMContentLoaded', function() {
             const ctx = document.getElementById('roiChart').getContext('2d');
+            
             const slider = document.getElementById('dishesRange');
             const outputValue = document.getElementById('dishesValue');
             const profitText = document.getElementById('profitText');
 
+            // Detect Mobile Screen
+            const isMobile = window.innerWidth < 768;
+
             const labels = Array.from({length: 24}, (_, i) => `เดือนที่ ${i + 1}`);
             const initialInvestment = 200000;
             const monthlyFixedCost = 30000;
-            
             const avgPrice = 50; 
-            const profitPerDish = 22.5; 
+            const profitPerDish = 25; 
 
+            // Function to calculate data
             function calculateData(dishesPerDay) {
                 const monthlyRevenue = dishesPerDay * 30 * avgPrice;
                 const monthlyGrossProfit = dishesPerDay * 30 * profitPerDish;
@@ -559,35 +529,50 @@
                 for (let i = 0; i < 24; i++) {
                     currentCum += monthlyNetProfit;
                     cumulativeProfitData.push(currentCum);
-                    if (paybackMonth === -1 && currentCum >= initialInvestment) paybackMonth = i + 1;
+
+                    if (paybackMonth === -1 && currentCum >= initialInvestment) {
+                        paybackMonth = i + 1;
+                    }
                 }
+                
                 return { data: cumulativeProfitData, netProfit: monthlyNetProfit, payback: paybackMonth };
             }
 
-            let result = calculateData(60);
+            // Initial Data (55 dishes)
+            let result = calculateData(55);
             const investmentData = new Array(24).fill(initialInvestment);
 
+            // Create Chart
             const roiChart = new Chart(ctx, {
                 type: 'line',
                 data: {
                     labels: labels,
                     datasets: [
                         {
-                            label: 'เงินลงทุน (200,000)',
+                            label: 'เงินลงทุนตั้งต้น (200,000 บาท)',
                             data: investmentData,
                             borderColor: 'rgba(216, 67, 21, 0.8)',
+                            borderWidth: 2,
                             borderDash: [5, 5],
-                            pointRadius: 0,
-                            fill: false
+                            pointRadius: 0, 
+                            fill: false,
+                            order: 0
                         },
                         {
-                            label: 'กำไรสะสม (คืนทุน)',
+                            label: 'กำไรสุทธิสะสม (เงินที่คืนทุน)',
                             data: result.data,
                             borderColor: 'rgba(46, 125, 50, 1)',
                             backgroundColor: 'rgba(46, 125, 50, 0.1)',
                             borderWidth: 3,
+                            pointBackgroundColor: 'white',
+                            pointBorderColor: 'rgba(46, 125, 50, 1)',
+                            pointBorderWidth: 2,
+                            // ปรับขนาดจุดตามขนาดหน้าจอ
+                            pointRadius: isMobile ? 2 : 4, 
+                            pointHoverRadius: isMobile ? 4 : 7, 
                             fill: true,
-                            tension: 0.3
+                            tension: 0,
+                            order: 1
                         }
                     ]
                 },
@@ -596,37 +581,68 @@
                     maintainAspectRatio: false,
                     interaction: { mode: 'index', intersect: false },
                     plugins: {
-                        legend: { position: 'bottom', labels: { font: { family: 'Sarabun' } } },
+                        legend: { position: 'bottom', labels: { font: { family: 'Sarabun', size: 14 } } },
                         tooltip: {
                             callbacks: {
                                 label: function(context) {
                                     let label = context.dataset.label || '';
                                     if (label) label += ': ';
-                                    if (context.parsed.y !== null) label += new Intl.NumberFormat('th-TH').format(context.parsed.y) + ' บ.';
+                                    if (context.parsed.y !== null) label += new Intl.NumberFormat('th-TH', { style: 'currency', currency: 'THB', maximumFractionDigits: 0 }).format(context.parsed.y);
                                     return label;
                                 }
-                            }
+                            },
+                            titleFont: { family: 'Sarabun' },
+                            bodyFont: { family: 'Sarabun' },
+                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            padding: 10,
+                            cornerRadius: 8,
+                            displayColors: false 
                         }
                     },
                     scales: {
-                        y: { ticks: { callback: function(value) { return (value/1000) + 'k'; } } },
-                        x: { grid: { display: false } }
+                        y: {
+                            beginAtZero: false, 
+                            ticks: {
+                                callback: function(value) { return (value/1000).toLocaleString() + 'k'; },
+                                font: { family: 'Sarabun' }
+                            },
+                            grid: { color: '#f0f0f0' }
+                        },
+                        x: { 
+                            grid: { display: false }, 
+                            // ปรับจำนวนป้ายกำกับแกน X บนมือถือให้ลดลง
+                            ticks: { 
+                                font: { family: 'Sarabun' }, 
+                                maxTicksLimit: isMobile ? 6 : 12 
+                            } 
+                        }
                     }
                 }
             });
 
+            // Slider Event Listener
             slider.oninput = function() {
                 const val = this.value;
                 outputValue.innerHTML = val;
+                
                 const newResult = calculateData(val);
+                
                 const formattedProfit = new Intl.NumberFormat('th-TH').format(newResult.netProfit);
+                let paybackText = "";
                 
-                let paybackText = newResult.netProfit <= 0 ? "(ขาดทุน)" : 
-                                  newResult.payback !== -1 ? `(คืนทุนใน ${newResult.payback} เดือน)` : "(> 2 ปี)";
+                if (newResult.netProfit <= 0) {
+                    paybackText = " (ยังไม่คืนทุน / ขาดทุน)";
+                    profitText.style.color = "red";
+                } else if (newResult.payback !== -1) {
+                    paybackText = ` (คืนทุนในประมาณ ${newResult.payback} เดือน)`;
+                    profitText.style.color = "#2e7d32";
+                } else {
+                    paybackText = " (คืนทุนนานกว่า 2 ปี)";
+                    profitText.style.color = "#d84315";
+                }
                 
-                let color = newResult.netProfit <= 0 ? "red" : "#2e7d32";
-                profitText.innerHTML = `กำไรสุทธิคาดการณ์: <strong style="color:${color}">${formattedProfit}</strong> บาท/เดือน ${paybackText}`;
-                
+                profitText.innerHTML = `กำไรสุทธิคาดการณ์: <strong>${formattedProfit}</strong> บาท/เดือน ${paybackText}`;
+
                 roiChart.data.datasets[1].data = newResult.data;
                 roiChart.update();
             }
