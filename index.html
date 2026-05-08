@@ -38,9 +38,19 @@
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     <link rel="preconnect" href="https://unpkg.com">
 
+    <!-- Preload LCP image (hero background) -->
+    <link rel="preload" as="image" href="images/maepu-signature.webp" type="image/webp">
+
+    <!-- Critical CSS: Fonts (blocking — needed for FCP) -->
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600&family=Charmonman:wght@700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Non-critical CSS: Font Awesome (deferred) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"></noscript>
+
+    <!-- Non-critical CSS: AOS animations (deferred) -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"></noscript>
 
     <!-- TikTok Pixel Code Start -->
     <script>
@@ -273,7 +283,8 @@
             justify-content: center;
             text-align: center;
             position: relative;
-            background-image: url('images/maepu-signature.png'); 
+            background-image: url('images/maepu-signature.png');
+            background-image: url('images/maepu-signature.webp');
             background-size: cover;
             background-position: center;
             background-color: #3e2723;
