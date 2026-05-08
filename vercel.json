@@ -25,8 +25,8 @@
   "redirects": [
     {
       "source": "/(.*)",
-      "has": [{ "type": "host", "value": "www.xn--m3ci2a4e.com" }],
-      "destination": "https://xn--m3ci2a4e.com/$1",
+      "has": [{ "type": "host", "value": "www.xn--s3cl7e3azb.com" }],
+      "destination": "https://xn--s3cl7e3azb.com/$1",
       "permanent": true
     }
   ]

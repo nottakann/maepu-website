@@ -1,4 +1,4 @@
-# SEO Audit — น้ำพริกแม่ปู (xn--m3ci2a4e.com)
+# SEO Audit — น้ำพริกแม่ปู (xn--s3cl7e3azb.com)
 **วันที่ตรวจ:** 2026-05-08  
 **ผู้ตรวจ:** Claude Code (Phase 1 Audit)
 
