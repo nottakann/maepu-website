@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>น้ำพริกแม่ปู — Pitch Deck 2026</title>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700;800;900&family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet"/>
+
+<!-- AOS -->
+<link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css"/>
+
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: { extend: {
+      colors: { gold:'#c0973e', 'gold-light':'#e4b84a', brown:'#5d4037', 'brown-dark':'#3e2723',
+                chilli:'#e64a19', cream:'#faf7f2', dark:'#120d08' },
+      fontFamily: { sans:['Sarabun','Inter','sans-serif'] }
+    }}
+  };
+</script>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+<style>
+/* ══ CSS Variables ═══════════════════════════════════════════════════ */
+:root {
+  --gold:#c0973e; --gold-light:#e4b84a; --gold-dim:rgba(192,151,62,.15);
+  --brown:#5d4037; --brown-dk:#3e2723; --chilli:#e64a19;
+  --cream:#faf7f2; --dark:#120d08; --dark2:#1c1208;
+  --radius:1.5rem; --transition:.35s cubic-bezier(.22,.61,.36,1);
+}
+
+/* ══ Reset / Base ════════════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+html { scroll-behavior:smooth; }
+body { font-family:'Sarabun','Inter',sans-serif; background:var(--cream); color:var(--dark); overflow-x:hidden; }
+
+/* ══ Grain texture overlay ═══════════════════════════════════════════ */
+body::after {
+  content:''; pointer-events:none; position:fixed; inset:0; z-index:999;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity:.03; background-size:160px;
+}
+
+/* ══ Slide base ══════════════════════════════════════════════════════ */
+.slide { min-height:100vh; display:flex; flex-direction:column; justify-content:center; padding:6rem 1.5rem; position:relative; overflow:hidden; }
+.container { max-width:1100px; margin:0 auto; width:100%; }
+
+/* ══ Typography ══════════════════════════════════════════════════════ */
+.eyebrow { font-size:.72rem; font-weight:700; letter-spacing:.22em; text-transform:uppercase; color:var(--gold); margin-bottom:.75rem; display:flex; align-items:center; gap:.5rem; }
+.eyebrow::before { content:''; display:block; width:2rem; height:2px; background:var(--gold); }
+.title { font-size:clamp(2rem,4vw,3.2rem); font-weight:900; line-height:1.15; }
+.title .en { font-size:.52em; font-weight:400; opacity:.6; display:block; margin-top:.15em; }
+.hero-num { font-size:clamp(3rem,7vw,5.5rem); font-weight:900; line-height:1; letter-spacing:-.02em; }
+
+/* ══ Glass card ══════════════════════════════════════════════════════ */
+.glass {
+  background:rgba(255,255,255,.07); backdrop-filter:blur(16px) saturate(180%);
+  border:1px solid rgba(255,255,255,.14); border-radius:var(--radius);
+  transition:transform var(--transition), box-shadow var(--transition);
+}
+.glass:hover { transform:translateY(-4px) scale(1.02); box-shadow:0 24px 60px rgba(0,0,0,.25); }
+
+/* ══ White card ══════════════════════════════════════════════════════ */
+.wcard {
+  background:#fff; border-radius:var(--radius); padding:2rem 1.5rem;
+  border:1.5px solid rgba(192,151,62,.13);
+  box-shadow:0 4px 24px rgba(92,64,55,.07);
+  transition:transform var(--transition), box-shadow var(--transition);
+}
+.wcard:hover { transform:translateY(-5px) scale(1.02); box-shadow:0 16px 50px rgba(192,151,62,.18); }
+
+/* ══ Gold gradient text ══════════════════════════════════════════════ */
+.gold-text {
+  background:linear-gradient(135deg,#e4b84a,#c0973e,#f0cc68);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+}
+
+/* ══ Shimmer animation ═══════════════════════════════════════════════ */
+@keyframes shimmer {
+  0%   { background-position:200% center; }
+  100% { background-position:-200% center; }
+}
+.shimmer {
+  background:linear-gradient(90deg,#e4b84a 0%,#fff8e1 25%,#e4b84a 50%,#fff8e1 75%,#e4b84a 100%);
+  background-size:200% auto; -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+  animation:shimmer 4s linear infinite;
+}
+
+/* ══ Float animation ═════════════════════════════════════════════════ */
+@keyframes float { 0%,100%{transform:translateY(0) rotate(-5deg)} 50%{transform:translateY(-18px) rotate(5deg)} }
+@keyframes float2{ 0%,100%{transform:translateY(0) rotate(8deg)}  50%{transform:translateY(-14px) rotate(-4deg)} }
+@keyframes float3{ 0%,100%{transform:translateY(0)}               50%{transform:translateY(-22px)} }
+.f1{animation:float  6s ease-in-out infinite}
+.f2{animation:float2 7.5s ease-in-out infinite}
+.f3{animation:float3 5s ease-in-out infinite}
+
+/* ══ Pulse glow ══════════════════════════════════════════════════════ */
+@keyframes glow { 0%,100%{box-shadow:0 0 30px rgba(192,151,62,.3)} 50%{box-shadow:0 0 60px rgba(192,151,62,.6)} }
+.glow { animation:glow 3s ease-in-out infinite; }
+
+/* ══ Bar chart (Unit Econ) ═══════════════════════════════════════════ */
+.bar-track { background:rgba(255,255,255,.1); border-radius:99px; height:1.6rem; overflow:hidden; }
+.bar-fill   { height:100%; border-radius:99px; width:0; transition:width 1.5s cubic-bezier(.22,.61,.36,1);
+              background:linear-gradient(90deg,var(--gold),var(--chilli)); }
+.bar-fill.ready { width:var(--w); }
+
+/* ══ Pack card highlight ═════════════════════════════════════════════ */
+.pack-best {
+  background:linear-gradient(135deg,var(--brown-dk),var(--dark));
+  color:var(--cream); border:2px solid var(--gold);
+  box-shadow:0 0 0 4px rgba(192,151,62,.2);
+  transform:scale(1.05);
+}
+.pack-best:hover { transform:scale(1.09) translateY(-5px); box-shadow:0 24px 60px rgba(192,151,62,.35); }
+
+/* ══ Badge ═══════════════════════════════════════════════════════════ */
+.badge { display:inline-block; padding:.18em .7em; border-radius:99px; font-size:.7rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; }
+.badge-gold   { background:var(--gold);   color:#fff; }
+.badge-chilli { background:var(--chilli); color:#fff; }
+.badge-green  { background:#2e7d32;       color:#fff; }
+
+/* ══ Progress bar (top) ══════════════════════════════════════════════ */
+#progress { position:fixed; top:0; left:0; height:3px; background:linear-gradient(90deg,var(--gold),var(--chilli)); z-index:1000; width:0; transition:width .1s; }
+
+/* ══ Nav dots ════════════════════════════════════════════════════════ */
+#nav-dots { position:fixed; right:1.25rem; top:50%; transform:translateY(-50%); z-index:100; display:flex; flex-direction:column; gap:.55rem; }
+.nav-dot { width:9px; height:9px; border-radius:50%; background:rgba(192,151,62,.3); cursor:pointer; transition:all .3s; border:none; }
+.nav-dot:hover, .nav-dot.active { background:var(--gold); transform:scale(1.5); box-shadow:0 0 10px rgba(192,151,62,.5); }
+
+/* ══ Stat card (dark bg) ═════════════════════════════════════════════ */
+.stat-card { padding:1.75rem 1.5rem; border-radius:var(--radius); text-align:center; }
+
+/* ══ Comparison table ════════════════════════════════════════════════ */
+.ctable { border-collapse:collapse; width:100%; border-radius:var(--radius); overflow:hidden; }
+.ctable th { background:var(--brown); color:var(--cream); padding:.85rem 1.25rem; font-size:.85rem; font-weight:700; text-align:left; }
+.ctable td { padding:.85rem 1.25rem; font-size:.9rem; border-bottom:1px solid rgba(192,151,62,.1); }
+.ctable tr.hl td { background:rgba(192,151,62,.12); font-weight:700; }
+.ctable tr:last-child td { border:none; }
+
+/* ══ Timeline ════════════════════════════════════════════════════════ */
+.tl-line { position:absolute; top:1.5rem; left:2rem; right:2rem; height:3px; background:linear-gradient(90deg,var(--gold),var(--chilli)); border-radius:99px; }
+.tl-dot  { width:3rem; height:3rem; border-radius:50%; background:var(--gold); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:.82rem; position:relative; z-index:1; border:3px solid var(--cream); box-shadow:0 0 0 3px var(--gold); flex-shrink:0; }
+
+/* ══ CTA button ══════════════════════════════════════════════════════ */
+.btn { display:inline-flex; align-items:center; gap:.6rem; padding:1.1rem 2.75rem; border-radius:99px; font-weight:800; font-size:1.1rem; text-decoration:none; letter-spacing:.04em; transition:all var(--transition); cursor:pointer; border:none; }
+.btn-primary { background:linear-gradient(135deg,var(--gold),var(--chilli)); color:#fff; box-shadow:0 8px 30px rgba(230,74,25,.35); }
+.btn-primary:hover { transform:translateY(-3px) scale(1.04); box-shadow:0 18px 50px rgba(230,74,25,.45); }
+.btn-outline { background:transparent; color:var(--gold); border:2px solid var(--gold); }
+.btn-outline:hover { background:var(--gold); color:#fff; }
+
+/* ══ Divider ═════════════════════════════════════════════════════════ */
+.divider { width:4rem; height:3px; background:linear-gradient(90deg,var(--gold),var(--chilli)); border-radius:99px; margin:1.25rem 0; }
+
+/* ══ Stars ═══════════════════════════════════════════════════════════ */
+.stars { color:#f59e0b; font-size:1.3rem; letter-spacing:.05em; }
+
+/* ══ Team card ═══════════════════════════════════════════════════════ */
+.team-avatar { width:5rem; height:5rem; border-radius:50%; background:linear-gradient(135deg,var(--gold),var(--chilli)); display:flex; align-items:center; justify-content:center; font-size:2.5rem; margin-bottom:1.25rem; box-shadow:0 8px 24px rgba(192,151,62,.4); }
+
+/* ══ Scroll indicator ════════════════════════════════════════════════ */
+@keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(8px)} }
+.scroll-hint { position:absolute; bottom:2rem; left:50%; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; gap:.4rem; opacity:.5; animation:bounce 2s ease-in-out infinite; font-size:.75rem; letter-spacing:.1em; text-transform:uppercase; }
+
+/* ══ Circle stat (Market slide) ═════════════════════════════════════ */
+.market-circle { border-radius:50%; display:flex; flex-direction:column; align-items:center; justify-content:center; border:3px solid; text-align:center; }
+
+/* ══ Print ═══════════════════════════════════════════════════════════ */
+@media print {
+  #nav-dots,#progress,.scroll-hint { display:none!important; }
+  .glass,.wcard { backdrop-filter:none!important; }
+  .slide { min-height:auto; padding:2rem 1rem; page-break-after:always; }
+  body::after { display:none; }
+  .bar-fill { transition:none!important; }
+}
+
+/* ══ Mobile ══════════════════════════════════════════════════════════ */
+@media(max-width:640px) {
+  .slide { padding:4rem 1rem; }
+  .hero-num { font-size:3rem; }
+  .pack-best { transform:none; }
+  #nav-dots { display:none; }
+}
+</style>
+</head>
+
+<body>
+<!-- Progress bar -->
+<div id="progress"></div>
+
+<!-- Nav dots -->
+<nav id="nav-dots" aria-label="slide navigation">
+  <button class="nav-dot active" data-target="s1" aria-label="Slide 1"></button>
+  <button class="nav-dot" data-target="s2" aria-label="Slide 2"></button>
+  <button class="nav-dot" data-target="s3" aria-label="Slide 3"></button>
+  <button class="nav-dot" data-target="s4" aria-label="Slide 4"></button>
+  <button class="nav-dot" data-target="s5" aria-label="Slide 5"></button>
+  <button class="nav-dot" data-target="s6" aria-label="Slide 6"></button>
+  <button class="nav-dot" data-target="s7" aria-label="Slide 7"></button>
+  <button class="nav-dot" data-target="s8" aria-label="Slide 8"></button>
+  <button class="nav-dot" data-target="s9" aria-label="Slide 9"></button>
+  <button class="nav-dot" data-target="s10" aria-label="Slide 10"></button>
+  <button class="nav-dot" data-target="s11" aria-label="Slide 11"></button>
+  <button class="nav-dot" data-target="s12" aria-label="Slide 12"></button>
+  <button class="nav-dot" data-target="s13" aria-label="Slide 13"></button>
+</nav>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- SLIDE 1 — Hero                                                     -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<section id="s1" class="slide" style="background:linear-gradient(145deg,#120d08 0%,#2a1800 40%,#1c0e00 100%);">
+
+  <!-- Decorative floats -->
+  <span class="f1" style="position:absolute;top:10%;left:8%;font-size:3.5rem;opacity:.12;user-select:none;">🌶️</span>
+  <span class="f2" style="position:absolute;top:22%;right:10%;font-size:2.5rem;opacity:.1;user-select:none;">🐟</span>
+  <span class="f3" style="position:absolute;bottom:18%;left:15%;font-size:2rem;opacity:.08;user-select:none;">🌶️</span>
+  <span class="f1" style="position:absolute;bottom:25%;right:18%;font-size:4rem;opacity:.07;user-select:none;">🐟</span>
+
+  <!-- Glow circle -->
+  <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;background:radial-gradient(ellipse,rgba(192,151,62,.12) 0%,transparent 70%);border-radius:50%;pointer-events:none;"></div>
+
+  <div class="container" style="z-index:1;position:relative;text-align:center;">
+    <!-- Brand -->
+    <div data-aos="fade-down" data-aos-delay="0">
+      <div class="eyebrow" style="justify-content:center;color:rgba(192,151,62,.7);margin-bottom:1.5rem;">
+        <span>🌶️ Nam Prik Mae Puu · น้ำพริกแม่ปู</span>
+      </div>
+      <h1 class="shimmer" style="font-size:clamp(3rem,8vw,6.5rem);font-weight:900;line-height:1;margin-bottom:.5rem;">
+        น้ำพริกแม่ปู
+      </h1>
+      <p style="color:rgba(250,247,242,.55);font-size:clamp(1rem,2vw,1.35rem);margin-top:.75rem;font-weight:300;letter-spacing:.05em;">
+        ซอง 35g &nbsp;·&nbsp; Snack-Size Revolution &nbsp;·&nbsp; สูตรบ้าน รสจัด พกพาง่าย
+      </p>
+    </div>
+
+    <!-- Stats row -->
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-12 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="200">
+      <div class="glass stat-card">
+        <div class="eyebrow" style="justify-content:center;font-size:.65rem;">ต้นทุน/ซอง</div>
+        <div class="hero-num gold-text count-up" data-target="18.66" data-decimals="2">0</div>
+        <div style="color:rgba(250,247,242,.5);font-size:.85rem;margin-top:.35rem;">บาท</div>
+      </div>
+      <div class="glass stat-card">
+        <div class="eyebrow" style="justify-content:center;font-size:.65rem;">ราคาขายเฉลี่ย</div>
+        <div class="hero-num gold-text count-up" data-target="35.80" data-decimals="2">0</div>
+        <div style="color:rgba(250,247,242,.5);font-size:.85rem;margin-top:.35rem;">บาท/ซอง</div>
+      </div>
+      <div class="glass stat-card glow">
+        <div class="eyebrow" style="justify-content:center;font-size:.65rem;">Gross Margin</div>
+        <div class="hero-num gold-text count-up" data-target="48" data-suffix="%">0</div>
+        <div style="color:rgba(250,247,242,.5);font-size:.85rem;margin-top:.35rem;">กำไรขั้นต้น</div>
+      </div>
+    </div>
+
+    <!-- Sub-tagline -->
+    <p data-aos="fade-up" data-aos-delay="400" style="color:rgba(250,247,242,.4);margin-top:2.5rem;font-size:.9rem;letter-spacing:.05em;">
+      สร้างจากกระปุก 136g ที่ขายได้จริง → format ใหม่ที่เข้าถึงกว่า
+    </p>
+  </div>
+
+  <!-- Scroll hint -->
+  <div class="scroll-hint" style="color:rgba(250,247,242,.4);">
+    <span style="font-size:1.2rem;">↓</span>
+    <span>scroll</span>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- SLIDE 2 — Problem                                                  -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<section id="s2" class="slide" style="background:var(--cream);">
+  <div class="container">
+    <div class="eyebrow" data-aos="fade-right">02 / Problem</div>
+    <h2 class="title" data-aos="fade-right" data-aos-delay="50">
+      ปัญหาที่เห็นชัด
+      <span class="en">The Problem with Traditional Packaging</span>
+    </h2>
+    <div class="divider" data-aos="fade-right" data-aos-delay="80"></div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">
+      <!-- P1 -->
+      <div class="wcard" data-aos="fade-up" data-aos-delay="100">
+        <div style="font-size:3rem;margin-bottom:1rem;">🏺</div>
+        <div style="font-weight:800;font-size:1.1rem;margin-bottom:.5rem;color:var(--brown);">ราคาสูงเกินไป</div>
+        <div class="divider" style="width:2.5rem;margin:.75rem 0;"></div>
+        <p style="font-size:.92rem;line-height:1.7;opacity:.75;">กระปุก 136g ราคา <strong>180 ฿</strong> — ลูกค้าใหม่ต้องเสี่ยง ทำให้ไม่กล้าลอง</p>
+        <div style="margin-top:1rem;padding:.65rem 1rem;background:rgba(230,74,25,.07);border-radius:.75rem;border-left:3px solid var(--chilli);font-size:.82rem;color:var(--chilli);font-weight:600;">
+          "แพงเกินลอง ไม่รู้ว่าอร่อยไหม"
+        </div>
+      </div>
+      <!-- P2 -->
+      <div class="wcard" data-aos="fade-up" data-aos-delay="200">
+        <div style="font-size:3rem;margin-bottom:1rem;">📦</div>
+        <div style="font-weight:800;font-size:1.1rem;margin-bottom:.5rem;color:var(--brown);">ค่าส่งกินกำไร</div>
+        <div class="divider" style="width:2.5rem;margin:.75rem 0;"></div>
+        <p style="font-size:.92rem;line-height:1.7;opacity:.75;">ส่ง 1 กระปุก = ค่าส่ง 25-35 ฿ ต่อ 1 ออเดอร์ — margin หายไป 15-20%</p>
+        <div style="margin-top:1rem;padding:.65rem 1rem;background:rgba(230,74,25,.07);border-radius:.75rem;border-left:3px solid var(--chilli);font-size:.82rem;color:var(--chilli);font-weight:600;">
+          "ส่งครั้งละกระปุก ไม่คุ้ม"
+        </div>
+      </div>
+      <!-- P3 -->
+      <div class="wcard" data-aos="fade-up" data-aos-delay="300">
+        <div style="font-size:3rem;margin-bottom:1rem;">📱</div>
+        <div style="font-weight:800;font-size:1.1rem;margin-bottom:.5rem;color:var(--brown);">Online ต้องการ Impulse</div>
+        <div class="divider" style="width:2.5rem;margin:.75rem 0;"></div>
+        <p style="font-size:.92rem;line-height:1.7;opacity:.75;">Shopee ลูกค้าซื้อของ <strong>ราคา &lt; 50 ฿</strong> แบบ impulse — กระปุกใหญ่ขาด segment นี้</p>
+        <div style="margin-top:1rem;padding:.65rem 1rem;background:rgba(230,74,25,.07);border-radius:.75rem;border-left:3px solid var(--chilli);font-size:.82rem;color:var(--chilli);font-weight:600;">
+          "ราคาต่ำ = ซื้อง่าย = Volume สูง"
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- SLIDE 3 — Solution                                                 -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<section id="s3" class="slide" style="background:linear-gradient(145deg,var(--brown-dk) 0%,#2d1a0e 100%);">
+  <div class="container">
+    <div class="eyebrow" data-aos="fade-right" style="color:rgba(192,151,62,.7);">03 / Solution</div>
+    <h2 class="title gold-text" data-aos="fade-right" data-aos-delay="50">
+      ซอง 35g — The Answer
+      <span class="en" style="-webkit-text-fill-color:rgba(250,247,242,.55);">Small Size, Big Market</span>
+    </h2>
+    <div class="divider" data-aos="fade-right" data-aos-delay="80"></div>
+
+    <!-- Concept banner -->
+    <div data-aos="zoom-in" data-aos-delay="150" style="margin:2rem 0;padding:2rem;border-radius:var(--radius);border:1.5px solid rgba(192,151,62,.3);background:rgba(192,151,62,.08);text-align:center;">
+      <div style="font-size:3rem;margin-bottom:.75rem;">🌶️ → 📦</div>
+      <div style="font-size:1.25rem;font-weight:700;color:var(--cream);">เอาสูตรเดิมที่ดีอยู่แล้ว → ใส่ซองเล็กราคาถูก</div>
+      <div style="font-size:.9rem;color:rgba(250,247,242,.5);margin-top:.5rem;">ต้นทุนวัตถุดิบ = 0.364 ฿/g เหมือนกัน — เปลี่ยนแค่ packaging</div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mt-4">
+      <div class="glass stat-card" data-aos="fade-up" data-aos-delay="100">
+        <div style="font-size:2.5rem;margin-bottom:.75rem;">💰</div>
+        <div style="font-weight:800;color:var(--cream);margin-bottom:.4rem;">39 ฿ ลองได้เลย</div>
+        <p style="font-size:.85rem;color:rgba(250,247,242,.55);line-height:1.6;">ราคาต่ำสุด = ลูกค้าไม่ต้องคิดมาก → Impulse buy ทันที</p>
+      </div>
+      <div class="glass stat-card" data-aos="fade-up" data-aos-delay="200">
+        <div style="font-size:2.5rem;margin-bottom:.75rem;">📦</div>
+        <div style="font-weight:800;color:var(--cream);margin-bottom:.4rem;">ซื้อ 10-pack = ส่งฟรี</div>
+        <p style="font-size:.85rem;color:rgba(250,247,242,.55);line-height:1.6;">ลูกค้าได้ส่งฟรี เราได้ออเดอร์ใหญ่ 310 ฿ — Win-Win</p>
+      </div>
+      <div class="glass stat-card" data-aos="fade-up" data-aos-delay="300">
+        <div style="font-size:2.5rem;margin-bottom:.75rem;">🔄</div>
+        <div style="font-weight:800;color:var(--cream);margin-bottom:.4rem;">ทดลองชิม → ซื้อกระปุก</div>
+        <p style="font-size:.85rem;color:rgba(250,247,242,.55);line-height:1.6;">ซองทำหน้าที่เป็น "product sample" ราคา 39 ฿ แทนการแจกฟรี</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- SLIDE 4 — Pack Pricing                                             -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<section id="s4" class="slide" style="background:var(--cream);">
+  <div class="container">
+    <div class="eyebrow" data-aos="fade-right">04 / Pack Pricing</div>
+    <h2 class="title" data-aos="fade-right" data-aos-delay="50">
+      ราคาแต่ละ Pack
+      <span class="en">4-Tier Pricing Strategy</span>
+    </h2>
+    <div class="divider" data-aos="fade-right" data-aos-delay="80"></div>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-10">
+      <!-- Single -->
+      <div class="wcard text-center" data-aos="fade-up" data-aos-delay="100">
+        <div style="font-size:1.75rem;margin-bottom:.5rem;">🛍️</div>
+        <div style="font-weight:700;font-size:1rem;color:var(--brown);margin-bottom:.75rem;">Single</div>
+        <div style="font-size:2.4rem;font-weight:900;color:var(--dark);line-height:1;">39</div>
+        <div style="font-size:.8rem;color:var(--brown);margin-bottom:.75rem;">฿ / ซอง</div>
+        <div class="divider" style="width:2rem;margin:.75rem auto;"></div>
+        <div style="font-size:.78rem;opacity:.6;">1 ซอง</div>
+        <div style="font-size:.78rem;opacity:.6;">ค่าส่ง: ลูกค้าจ่าย</div>
+      </div>
+      <!-- 5-pack -->
+      <div class="wcard text-center" data-aos="fade-up" data-aos-delay="150">
+        <div style="font-size:1.75rem;margin-bottom:.5rem;">🎁</div>
+        <div style="font-weight:700;font-size:1rem;color:var(--brown);margin-bottom:.75rem;">5-Pack</div>
+        <div style="font-size:2.4rem;font-weight:900;color:var(--dark);line-height:1;">35</div>
+        <div style="font-size:.8rem;color:var(--brown);margin-bottom:.75rem;">฿ / ซอง</div>
+        <div class="divider" style="width:2rem;margin:.75rem auto;"></div>
+        <div style="font-size:.78rem;opacity:.6;">5 ซอง · รวม 175 ฿</div>
+        <div style="font-size:.78rem;color:#2e7d32;font-weight:600;">ประหยัด 10%</div>
+      </div>
+      <!-- 10-pack ⭐ BEST -->
+      <div class="pack-best text-center" data-aos="zoom-in" data-aos-delay="200" style="border-radius:var(--radius);padding:2rem 1.5rem;position:relative;">
+        <div style="position:absolute;top:-1px;left:50%;transform:translateX(-50%);">
+          <span class="badge badge-chilli">⭐ Best Value</span>
+        </div>
+        <div style="font-size:1.75rem;margin-bottom:.5rem;margin-top:.5rem;">📦</div>
+        <div style="font-weight:800;font-size:1rem;color:var(--gold-light);margin-bottom:.75rem;">10-Pack</div>
+        <div style="font-size:2.75rem;font-weight:900;line-height:1;" class="gold-text">31</div>
+        <div style="font-size:.8rem;color:rgba(250,247,242,.6);margin-bottom:.75rem;">฿ / ซอง</div>
+        <div class="divider" style="width:2rem;margin:.75rem auto;background:linear-gradient(90deg,var(--gold),var(--gold-light));"></div>
+        <div style="font-size:.78rem;color:rgba(250,247,242,.7);">10 ซอง · รวม 310 ฿</div>
+        <div style="font-size:.78rem;color:var(--gold-light);font-weight:700;margin-top:.25rem;">🚚 ส่งฟรี!</div>
+      </div>
+      <!-- Bulk -->
+      <div class="wcard text-center" data-aos="fade-up" data-aos-delay="300">
+        <div style="font-size:1.75rem;margin-bottom:.5rem;">🏭</div>
+        <div style="font-weight:700;font-size:1rem;color:var(--brown);margin-bottom:.75rem;">Bulk 20+</div>
+        <div style="font-size:2.4rem;font-weight:900;color:var(--dark);line-height:1;">29</div>
+        <div style="font-size:.8rem;color:var(--brown);margin-bottom:.75rem;">฿ / ซอง</div>
+        <div class="divider" style="width:2rem;margin:.75rem auto;"></div>
+        <div style="font-size:.78rem;opacity:.6;">20 ซอง · รวม 580 ฿</div>
+        <div style="font-size:.78rem;color:#2e7d32;font-weight:600;">🚚 ส่งฟรี · ถูกสุด</div>
+      </div>
+    </div>
+
+    <!-- Insight -->
+    <div data-aos="fade-up" data-aos-delay="350" style="margin-top:2rem;padding:1.25rem 1.5rem;border-radius:var(--radius);background:linear-gradient(90deg,rgba(192,151,62,.08),rgba(230,74,25,.06));border-left:4px solid var(--gold);display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
+      <span style="font-size:1.5rem;">💡</span>
+      <div>
+        <strong>Sweet Spot Strategy:</strong> ดึงลูกค้า 40% ให้ซื้อ 10-pack → ค่าส่งเฉลี่ยที่เราออกลดเหลือ <strong>0.67 ฿/ซอง</strong> (จาก 20 ฿/ออเดอร์ ÷ 12 ซอง × 40%)
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- SLIDE 5 — Unit Economics                                           -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<section id="s5" class="slide" style="background:linear-gradient(145deg,var(--dark) 0%,#1c1004 100%);">
+  <div class="container">
+    <div class="eyebrow" data-aos="fade-right" style="color:rgba(192,151,62,.7);">05 / Unit Economics</div>
+    <h2 class="title gold-text" data-aos="fade-right" data-aos-delay="50">
+      ต้นทุน & กำไร
+      <span class="en" style="-webkit-text-fill-color:rgba(250,247,242,.5);">Per Sachet Breakdown · Realistic 2,000 ซอง/เดือน</span>
+    </h2>
+    <div class="divider" data-aos="fade-right" data-aos-delay="80"></div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-10 mt-8 items-center">
+      <!-- Left: big numbers -->
+      <div data-aos="fade-right" data-aos-delay="100">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.5rem;">
+          <div class="glass stat-card">
+            <div style="font-size:.7rem;color:rgba(250,247,242,.5);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.4rem;">ต้นทุน/ซอง</div>
+            <div style="font-size:2.5rem;font-weight:900;color:var(--chilli);">18.66 <span style="font-size:1rem;">฿</span></div>
+          </div>
+          <div class="glass stat-card">
+            <div style="font-size:.7rem;color:rgba(250,247,242,.5);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.4rem;">รายได้เฉลี่ย/ซอง</div>
+            <div style="font-size:2.5rem;font-weight:900;color:var(--gold);">35.80 <span style="font-size:1rem;">฿</span></div>
+          </div>
+        </div>
+        <div class="glass stat-card glow" style="text-align:center;margin-bottom:1rem;">
+          <div style="font-size:.7rem;color:rgba(250,247,242,.5);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.4rem;">Gross Margin</div>
+          <div style="font-size:3.5rem;font-weight:900;" class="gold-text">48%</div>
+          <div style="font-size:.82rem;color:rgba(250,247,242,.45);margin-top:.25rem;">กำไร 17.14 ฿/ซอง</div>
+        </div>
+        <!-- Break-even box -->
+        <div class="glass stat-card" style="border:1.5px solid rgba(192,151,62,.3);">
+          <div style="font-size:.75rem;color:var(--gold);font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.5rem;">🎯 Break-Even Point</div>
+          <div style="font-size:2.2rem;font-weight:900;color:var(--cream);">210 <span style="font-size:1rem;font-weight:400;opacity:.6;">ซอง/เดือน</span></div>
+          <div style="font-size:.85rem;color:rgba(250,247,242,.5);margin-top:.35rem;">= เพียงวันละ <strong style="color:var(--gold);">7 ซอง</strong></div>
+        </div>
+      </div>
+
+      <!-- Right: cost bar chart -->
+      <div data-aos="fade-left" data-aos-delay="200">
+        <div style="color:rgba(250,247,242,.55);font-size:.82rem;margin-bottom:1.25rem;letter-spacing:.08em;text-transform:uppercase;">ต้นทุน 18.66 ฿ แบ่งเป็น</div>
+        <div class="cost-bars" style="display:flex;flex-direction:column;gap:.85rem;">
+          <div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:.4rem;">
+              <span style="color:var(--cream);font-size:.88rem;">🐟 วัตถุดิบ (ปลาสลิด+เครื่อง)</span>
+              <span style="color:var(--gold);font-weight:700;font-size:.88rem;">12.74 ฿  <span style="opacity:.5;font-size:.75rem;">68%</span></span>
+            </div>
+            <div class="bar-track"><div class="bar-fill" style="--w:68%;"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:.4rem;">
+              <span style="color:var(--cream);font-size:.88rem;">📦 ซอง + สติ๊กเกอร์</span>
+              <span style="color:var(--gold);font-weight:700;font-size:.88rem;">3.00 ฿  <span style="opacity:.5;font-size:.75rem;">16%</span></span>
+            </div>
+            <div class="bar-track"><div class="bar-fill" style="--w:16%;"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:.4rem;">
+              <span style="color:var(--cream);font-size:.88rem;">🏭 ค่าแรง+เช่า+แก๊ส (allocated)</span>
+              <span style="color:var(--gold);font-weight:700;font-size:.88rem;">2.25 ฿  <span style="opacity:.5;font-size:.75rem;">12%</span></span>
+            </div>
+            <div class="bar-track"><div class="bar-fill" style="--w:12%;"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:.4rem;">
+              <span style="color:var(--cream);font-size:.88rem;">🚚 ค่าส่งเฉลี่ย (40%×20÷12)</span>
+              <span style="color:var(--gold);font-weight:700;font-size:.88rem;">0.67 ฿  <span style="opacity:.5;font-size:.75rem;">4%</span></span>
+            </div>
+            <div class="bar-track"><div class="bar-fill" style="--w:4%;"></div></div>
+          </div>
+        </div>
+        <div style="margin-top:1.5rem;padding:1rem;border-radius:.75rem;border:1px solid rgba(192,151,62,.25);display:flex;justify-content:space-between;align-items:center;">
+          <span style="color:rgba(250,247,242,.6);font-size:.85rem;">Fixed Cost/เดือน (allocated)</span>
+          <span style="color:var(--gold);font-weight:800;font-size:1.1rem;">4,500 ฿</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- SLIDE 6 — Market Opportunity                                        -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<section id="s6" class="slide" style="background:var(--cream);">
+  <div class="container">
+    <div class="eyebrow" data-aos="fade-right">06 / Market Opportunity</div>
+    <h2 class="title" data-aos="fade-right" data-aos-delay="50">
+      โอกาสทางตลาด
+      <span class="en">TAM · SAM · SOM</span>
+    </h2>
+    <div class="divider" data-aos="fade-right" data-aos-delay="80"></div>
+
+    <!-- TAM/SAM/SOM circles -->
+    <div style="display:flex;flex-wrap:wrap;gap:2rem;justify-content:center;margin-top:2.5rem;align-items:flex-end;">
+      <div data-aos="zoom-in" data-aos-delay="100" style="text-align:center;">
+        <div class="market-circle" style="width:200px;height:200px;border-color:rgba(93,64,55,.2);background:rgba(93,64,55,.05);margin:0 auto;">
+          <div style="font-size:1.5rem;font-weight:900;color:var(--brown);">฿20B+</div>
+          <div style="font-size:.7rem;color:var(--brown);opacity:.7;margin-top:.25rem;">ต่อปี</div>
+        </div>
+        <div style="margin-top:1rem;font-weight:700;color:var(--brown);">TAM</div>
+        <div style="font-size:.8rem;opacity:.6;max-width:160px;margin:auto;">ตลาดซอส+เครื่องปรุงสำเร็จรูปไทยทั้งหมด</div>
+      </div>
+      <div data-aos="zoom-in" data-aos-delay="200" style="text-align:center;">
+        <div class="market-circle" style="width:155px;height:155px;border-color:rgba(192,151,62,.4);background:rgba(192,151,62,.07);margin:0 auto;">
+          <div style="font-size:1.3rem;font-weight:900;color:var(--gold);">฿3B+</div>
+          <div style="font-size:.65rem;color:var(--gold);opacity:.7;margin-top:.25rem;">ต่อปี</div>
+        </div>
+        <div style="margin-top:1rem;font-weight:700;color:var(--gold);">SAM</div>
+        <div style="font-size:.8rem;opacity:.6;max-width:140px;margin:auto;">น้ำพริก + เครื่องจิ้มออนไลน์ทั่วประเทศ</div>
+      </div>
+      <div data-aos="zoom-in" data-aos-delay="300" style="text-align:center;">
+        <div class="market-circle glow" style="width:115px;height:115px;border-color:var(--chilli);background:rgba(230,74,25,.08);margin:0 auto;">
+          <div style="font-size:1.1rem;font-weight:900;color:var(--chilli);">฿2M+</div>
+          <div style="font-size:.6rem;color:var(--chilli);opacity:.8;margin-top:.15rem;">ปีที่ 2</div>
+        </div>
+        <div style="margin-top:1rem;font-weight:700;color:var(--chilli);">SOM</div>
+        <div style="font-size:.8rem;opacity:.6;max-width:120px;margin:auto;">เป้าหมาย 2 ปี (0.07% ของ SAM)</div>
+      </div>
+    </div>
+
+    <!-- Market facts -->
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-10">
+      <div class="wcard text-center" data-aos="fade-up" data-aos-delay="100">
+        <div style="font-size:1.9rem;font-weight:900;color:var(--gold);">25-30%</div>
+        <div style="font-size:.85rem;margin-top:.35rem;opacity:.7;">การเติบโต Food E-Commerce ไทย ต่อปี (2024) — เติบโตเร็วที่สุดใน SEA</div>
+      </div>
+      <div class="wcard text-center" data-aos="fade-up" data-aos-delay="200">
+        <div style="font-size:1.9rem;font-weight:900;color:var(--chilli);">7.5%</div>
+        <div style="font-size:.85rem;margin-top:.35rem;opacity:.7;">CAGR ตลาดเครื่องปรุงสำเร็จรูปไทย (Global report 2023) — steady growth</div>
+      </div>
+      <div class="wcard text-center" data-aos="fade-up" data-aos-delay="300">
+        <div style="font-size:1.9rem;font-weight:900;color:var(--brown);">USD 2.3B</div>
+        <div style="font-size:.85rem;margin-top:.35rem;opacity:.7;">มูลค่าตลาดเครื่องปรุงไทยทั่วโลก (2023) — ขยายตัวทุกปี</div>
+      </div>
+    </div>
+
+    <div data-aos="fade-up" data-aos-delay="350" style="margin-top:1.5rem;padding:1rem 1.5rem;border-radius:var(--radius);background:linear-gradient(90deg,rgba(192,151,62,.08),transparent);border-left:4px solid var(--gold);font-size:.88rem;opacity:.8;">
+      💡 <strong>ข้อมูลจริง:</strong> ตลาดเครื่องปรุงไทย USD 2.3B (CAGR 7.5%) · Food E-Commerce ไทย USD 1.86B โต 25-30%/ปี · Sachet format ตอบโจทย์ทั้ง convenience กินคนเดียว และ ส่งออนไลน์ได้ง่าย
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- SLIDE 7 — Competition                                              -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<section id="s7" class="slide" style="background:linear-gradient(145deg,var(--brown) 0%,#3e2010 100%);">
+  <div class="container">
+    <div class="eyebrow" data-aos="fade-right" style="color:rgba(192,151,62,.7);">07 / Competitive Landscape</div>
+    <h2 class="title gold-text" data-aos="fade-right" data-aos-delay="50">
+      เทียบคู่แข่ง
+      <span class="en" style="-webkit-text-fill-color:rgba(250,247,242,.5);">Competitive Positioning</span>
+    </h2>
+    <div class="divider" data-aos="fade-right" data-aos-delay="80"></div>
+
+    <div data-aos="fade-up" data-aos-delay="100" style="margin-bottom:1rem;font-size:.78rem;color:rgba(250,247,242,.4);display:flex;align-items:center;gap:.4rem;">
+      <span>📊</span> ราคาจริง ณ พ.ค. 2026 — 7-Eleven AllOnline · Lazada · Priceza
+    </div>
+    <div data-aos="fade-up" data-aos-delay="120" style="margin-top:.5rem;border-radius:var(--radius);overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.35);">
+      <table class="ctable" style="background:rgba(255,255,255,.05);">
+        <thead>
+          <tr>
+            <th>แบรนด์</th>
+            <th>ขนาด</th>
+            <th>ราคา/ซอง</th>
+            <th>฿/g</th>
+            <th>ช่องทาง</th>
+            <th>ส่งฟรี</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="color:rgba(250,247,242,.7);">
+            <td><strong style="color:var(--cream);">ไทยเดิม</strong> <span style="font-size:.72rem;opacity:.5;">น้ำพริกปลาสลิด</span></td>
+            <td>15g</td>
+            <td>15.30 ฿</td>
+            <td>1.02 ฿/g</td>
+            <td>7-Eleven</td>
+            <td>❌ N/A</td>
+          </tr>
+          <tr style="color:rgba(250,247,242,.7);">
+            <td><strong style="color:var(--cream);">แม่ประนอม</strong> <span style="font-size:.72rem;opacity:.5;">น้ำพริกเผา</span></td>
+            <td>25g</td>
+            <td>7.60 ฿</td>
+            <td>0.30 ฿/g</td>
+            <td>7-Eleven / Makro</td>
+            <td>❌ N/A</td>
+          </tr>
+          <tr style="color:rgba(250,247,242,.7);">
+            <td><strong style="color:var(--cream);">Chaolae</strong> <span style="font-size:.72rem;opacity:.5;">น้ำพริกปลาสลิด</span></td>
+            <td>25g</td>
+            <td>28.00 ฿</td>
+            <td>1.12 ฿/g</td>
+            <td>Lazada / Online</td>
+            <td>⚠️ ขั้นต่ำ</td>
+          </tr>
+          <tr style="color:rgba(250,247,242,.7);">
+            <td><strong style="color:var(--cream);">แม่แอ๊ว</strong> <span style="font-size:.72rem;opacity:.5;">น้ำพริกกากหมู</span></td>
+            <td>40g</td>
+            <td>45.00 ฿</td>
+            <td>1.13 ฿/g</td>
+            <td>Online / ตลาด</td>
+            <td>⚠️ บางร้าน</td>
+          </tr>
+          <tr class="hl" style="border:2px solid rgba(192,151,62,.4);">
+            <td><strong style="color:var(--gold);">🌶️ แม่ปู ⭐</strong></td>
+            <td>35g</td>
+            <td><strong style="color:var(--gold);">31-39 ฿</strong></td>
+            <td><strong style="color:var(--gold);">0.89-1.11 ฿</strong></td>
+            <td><strong>Shopee / FB / Line</strong></td>
+            <td><strong style="color:#4caf50;">✅ 10-pack</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Advantages -->
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6">
+      <div class="glass stat-card" data-aos="fade-up" data-aos-delay="150">
+        <div style="font-size:1.75rem;margin-bottom:.6rem;">🏡</div>
+        <div style="font-weight:700;color:var(--cream);margin-bottom:.35rem;">Local Brand Story</div>
+        <p style="font-size:.82rem;color:rgba(250,247,242,.55);line-height:1.6;">สูตรบ้าน ทำมือ บอกได้ว่าปลามาจากไหน — เรื่องราวที่ Mass brand ทำไม่ได้</p>
+      </div>
+      <div class="glass stat-card" data-aos="fade-up" data-aos-delay="250">
+        <div style="font-size:1.75rem;margin-bottom:.6rem;">✨</div>
+        <div style="font-weight:700;color:var(--cream);margin-bottom:.35rem;">ความสด</div>
+        <p style="font-size:.82rem;color:rgba(250,247,242,.55);line-height:1.6;">ทำ batch เล็ก ๆ บ่อย ๆ — สดกว่า mass production ที่อยู่ใน warehouse เดือน</p>
+      </div>
+      <div class="glass stat-card" data-aos="fade-up" data-aos-delay="350">
+        <div style="font-size:1.75rem;margin-bottom:.6rem;">🤝</div>
+        <div style="font-weight:700;color:var(--cream);margin-bottom:.35rem;">Free Shipping Hook</div>
+        <p style="font-size:.82rem;color:rgba(250,247,242,.55);line-height:1.6;">ส่งฟรีที่ 10-pack เป็น competitive moat — คู่แข่งรายย่อยส่วนใหญ่ไม่ทำ</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- SLIDE 8 — Traction / Validation                                    -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<section id="s8" class="slide" style="background:linear-gradient(135deg,#b8860b 0%,#8b5e0a 50%,#6b3d08 100%);">
+  <div class="container">
+    <div class="eyebrow" data-aos="fade-right" style="color:rgba(255,255,255,.6);">08 / Traction</div>
+    <h2 class="title" data-aos="fade-right" data-aos-delay="50" style="color:#fff;">
+      เรามีของอยู่แล้ว
+      <span class="en" style="color:rgba(255,255,255,.5);">We Already Have Proof</span>
+    </h2>
+    <div class="divider" data-aos="fade-right" data-aos-delay="80" style="background:linear-gradient(90deg,rgba(255,255,255,.6),transparent);"></div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8 items-start">
+      <!-- Current proof -->
+      <div data-aos="fade-right" data-aos-delay="100">
+        <div style="padding:2rem;border-radius:var(--radius);background:rgba(0,0,0,.2);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.15);">
+          <div style="font-size:.75rem;color:rgba(255,255,255,.5);letter-spacing:.12em;text-transform:uppercase;margin-bottom:1rem;">สินค้าปัจจุบัน — ขายได้จริง</div>
+          <div style="display:flex;align-items:center;gap:1.25rem;margin-bottom:1.5rem;">
+            <div style="font-size:3.5rem;">🫙</div>
+            <div>
+              <div style="font-weight:800;font-size:1.2rem;color:#fff;">กระปุก 136g</div>
+              <div style="font-size:2rem;font-weight:900;color:var(--gold-light);">180 ฿</div>
+              <div style="font-size:.85rem;color:rgba(255,255,255,.6);">Margin <strong style="color:#fff;">66.6%</strong></div>
+            </div>
+          </div>
+          <div class="stars" style="margin-bottom:.5rem;font-size:1.5rem;">★★★★★</div>
+          <div style="font-weight:700;color:#fff;font-size:1.1rem;">4.7 / 5.0</div>
+          <div style="font-size:.82rem;color:rgba(255,255,255,.55);margin-top:.25rem;">ร้านชอบโภชนา — รีวิวจริงจากลูกค้า</div>
+        </div>
+      </div>
+
+      <!-- Assets -->
+      <div data-aos="fade-left" data-aos-delay="150">
+        <div style="font-size:.82rem;color:rgba(255,255,255,.6);letter-spacing:.1em;text-transform:uppercase;margin-bottom:1.25rem;">สิ่งที่มีอยู่แล้ว ✅</div>
+        <div style="display:flex;flex-direction:column;gap:.85rem;">
+          <div style="display:flex;align-items:center;gap:1rem;padding:1rem 1.25rem;border-radius:.85rem;background:rgba(255,255,255,.1);backdrop-filter:blur(8px);">
+            <span style="font-size:1.5rem;flex-shrink:0;">🧪</span>
+            <div>
+              <div style="font-weight:700;color:#fff;font-size:.92rem;">สูตรพิสูจน์แล้ว</div>
+              <div style="font-size:.78rem;color:rgba(255,255,255,.55);">ต้นทุน 0.364 ฿/g — ใช้สูตรเดิมผลิตซอง</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:1rem;padding:1rem 1.25rem;border-radius:.85rem;background:rgba(255,255,255,.1);backdrop-filter:blur(8px);">
+            <span style="font-size:1.5rem;flex-shrink:0;">🏪</span>
+            <div>
+              <div style="font-weight:700;color:#fff;font-size:.92rem;">ฐานลูกค้าเดิม</div>
+              <div style="font-size:.78rem;color:rgba(255,255,255,.55);">ลูกค้ากระปุกที่ชอบอยู่แล้ว = first buyers ซอง</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:1rem;padding:1rem 1.25rem;border-radius:.85rem;background:rgba(255,255,255,.1);backdrop-filter:blur(8px);">
+            <span style="font-size:1.5rem;flex-shrink:0;">🍳</span>
+            <div>
+              <div style="font-weight:700;color:#fff;font-size:.92rem;">ครัวผลิตพร้อม</div>
+              <div style="font-size:.78rem;color:rgba(255,255,255,.55);">สถานที่ผลิต + อุปกรณ์ + วัตถุดิบทราบแล้ว</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:1rem;padding:1rem 1.25rem;border-radius:.85rem;background:rgba(255,255,255,.1);backdrop-filter:blur(8px);">
+            <span style="font-size:1.5rem;flex-shrink:0;">📊</span>
+            <div>
+              <div style="font-weight:700;color:#fff;font-size:.92rem;">ตัวเลขชัดเจน</div>
+              <div style="font-size:.78rem;color:rgba(255,255,255,.55);">Business plan + Excel model พร้อม — ไม่ใช่แค่ idea</div>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:1.5rem;padding:.85rem 1.25rem;border-radius:.75rem;background:rgba(0,0,0,.2);font-size:.85rem;color:rgba(255,255,255,.75);border-left:3px solid var(--gold-light);">
+          💡 <strong style="color:var(--gold-light);">Key Insight:</strong> เรามีสูตร มีฐานลูกค้า มีครัว — เหลือแค่เงิน เปิดตัว format ซอง
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- SLIDE 9 — 12-Month Forecast                                        -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<section id="s9" class="slide" style="background:var(--cream);">
+  <div class="container">
+    <div class="eyebrow" data-aos="fade-right">09 / Forecast</div>
+    <h2 class="title" data-aos="fade-right" data-aos-delay="50">
+      ประมาณการ 12 เดือน
+      <span class="en">12-Month Cash Flow Projection</span>
+    </h2>
+    <div class="divider" data-aos="fade-right" data-aos-delay="80"></div>
+
+    <!-- Milestone boxes -->
+    <div class="grid grid-cols-3 gap-4 mt-6 mb-6">
+      <div class="wcard text-center" data-aos="fade-up" data-aos-delay="100">
+        <div style="font-size:.7rem;color:var(--gold);font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.4rem;">เดือน 1-3</div>
+        <div style="font-size:1.4rem;font-weight:900;color:var(--brown);">5,195 ฿</div>
+        <div style="font-size:.78rem;opacity:.6;margin-top:.2rem;">/เดือน · 500 ซอง</div>
+      </div>
+      <div class="wcard text-center" data-aos="fade-up" data-aos-delay="200">
+        <div style="font-size:.7rem;color:var(--gold);font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.4rem;">เดือน 4-6</div>
+        <div style="font-size:1.4rem;font-weight:900;color:var(--brown);">14,890 ฿</div>
+        <div style="font-size:.78rem;opacity:.6;margin-top:.2rem;">/เดือน · 1,000 ซอง</div>
+      </div>
+      <div class="wcard text-center" data-aos="fade-up" data-aos-delay="300" style="border-color:rgba(192,151,62,.4);">
+        <div style="font-size:.7rem;color:var(--gold);font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.4rem;">เดือน 7-12</div>
+        <div style="font-size:1.4rem;font-weight:900;color:var(--gold);">34,280 ฿</div>
+        <div style="font-size:.78rem;opacity:.6;margin-top:.2rem;">/เดือน · 2,000 ซอง</div>
+      </div>
+    </div>
+
+    <div data-aos="fade-up" data-aos-delay="150" style="position:relative;">
+      <canvas id="forecastChart" style="max-height:340px;"></canvas>
+    </div>
+
+    <div data-aos="fade-up" data-aos-delay="300" style="margin-top:1.25rem;padding:1rem 1.5rem;border-radius:var(--radius);background:linear-gradient(90deg,rgba(192,151,62,.08),transparent);border-left:4px solid var(--gold);display:flex;align-items:center;gap:1rem;flex-wrap:wrap;font-size:.88rem;">
+      <span>📈</span>
+      <span>กำไรสะสมตลอด 12 เดือน: <strong>265,935 ฿</strong> — คืนทุน Standard (ไม่รวม อย.) ภายในเดือนที่ 5-6</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- SLIDE 10 — Use of Funds                                            -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<section id="s10" class="slide" style="background:linear-gradient(145deg,var(--dark) 0%,#1a0f04 100%);">
+  <div class="container">
+    <div class="eyebrow" data-aos="fade-right" style="color:rgba(192,151,62,.7);">10 / Use of Funds</div>
+    <h2 class="title gold-text" data-aos="fade-right" data-aos-delay="50">
+      ใช้เงินทำอะไร
+      <span class="en" style="-webkit-text-fill-color:rgba(250,247,242,.5);">Budget Breakdown · Standard Level</span>
+    </h2>
+    <div class="divider" data-aos="fade-right" data-aos-delay="80"></div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-10 mt-8 items-center">
+      <!-- Chart -->
+      <div data-aos="zoom-in" data-aos-delay="100">
+        <canvas id="fundsChart" style="max-height:320px;"></canvas>
+      </div>
+      <!-- Breakdown -->
+      <div data-aos="fade-left" data-aos-delay="150">
+        <div style="display:flex;flex-direction:column;gap:.85rem;">
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:.85rem 1.1rem;border-radius:.75rem;background:rgba(255,255,255,.06);">
+            <span style="display:flex;align-items:center;gap:.6rem;font-size:.88rem;color:var(--cream);">
+              <span style="width:.7rem;height:.7rem;border-radius:50%;background:#c0973e;display:inline-block;flex-shrink:0;"></span>
+              วัตถุดิบ batch แรก (2,000 ซอง)
+            </span>
+            <span style="font-weight:700;color:var(--gold);font-size:.88rem;white-space:nowrap;">25,480 ฿</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:.85rem 1.1rem;border-radius:.75rem;background:rgba(255,255,255,.06);">
+            <span style="display:flex;align-items:center;gap:.6rem;font-size:.88rem;color:var(--cream);">
+              <span style="width:.7rem;height:.7rem;border-radius:50%;background:#e64a19;display:inline-block;flex-shrink:0;"></span>
+              อย. / มผช. (certification)
+            </span>
+            <span style="font-weight:700;color:var(--chilli);font-size:.88rem;white-space:nowrap;">30,000 ฿</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:.85rem 1.1rem;border-radius:.75rem;background:rgba(255,255,255,.06);">
+            <span style="display:flex;align-items:center;gap:.6rem;font-size:.88rem;color:var(--cream);">
+              <span style="width:.7rem;height:.7rem;border-radius:50%;background:#8bc34a;display:inline-block;flex-shrink:0;"></span>
+              ซอง + สติ๊กเกอร์ batch แรก
+            </span>
+            <span style="font-weight:700;color:#8bc34a;font-size:.88rem;white-space:nowrap;">6,000 ฿</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:.85rem 1.1rem;border-radius:.75rem;background:rgba(255,255,255,.06);">
+            <span style="display:flex;align-items:center;gap:.6rem;font-size:.88rem;color:var(--cream);">
+              <span style="width:.7rem;height:.7rem;border-radius:50%;background:#42a5f5;display:inline-block;flex-shrink:0;"></span>
+              เครื่อง heat seal + ออกแบบ label
+            </span>
+            <span style="font-weight:700;color:#42a5f5;font-size:.88rem;white-space:nowrap;">6,500 ฿</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:.85rem 1.1rem;border-radius:.75rem;background:rgba(255,255,255,.06);">
+            <span style="display:flex;align-items:center;gap:.6rem;font-size:.88rem;color:var(--cream);">
+              <span style="width:.7rem;height:.7rem;border-radius:50%;background:#ab47bc;display:inline-block;flex-shrink:0;"></span>
+              เงินสำรอง (1 เดือน)
+            </span>
+            <span style="font-weight:700;color:#ab47bc;font-size:.88rem;white-space:nowrap;">4,500 ฿</span>
+          </div>
+        </div>
+
+        <div style="margin-top:1.25rem;padding:1rem 1.25rem;border-radius:.85rem;border:1.5px solid rgba(192,151,62,.3);">
+          <div style="display:flex;justify-content:space-between;">
+            <span style="color:rgba(250,247,242,.6);font-size:.88rem;">รวมทั้งหมด</span>
+            <span style="font-weight:900;font-size:1.25rem;" class="gold-text">72,480 ฿</span>
+          </div>
+          <div style="margin-top:.5rem;font-size:.78rem;color:rgba(250,247,242,.45);">
+            ⚡ MVP ไม่รวม อย. = <strong style="color:rgba(250,247,242,.7);">~42,480 ฿</strong> เพื่อทดสอบตลาดก่อน
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- SLIDE 11 — Roadmap                                                 -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<section id="s11" class="slide" style="background:var(--cream);">
+  <div class="container">
+    <div class="eyebrow" data-aos="fade-right">11 / Roadmap</div>
+    <h2 class="title" data-aos="fade-right" data-aos-delay="50">
+      แผน 12 เดือน
+      <span class="en">Month-by-Month Milestones</span>
+    </h2>
+    <div class="divider" data-aos="fade-right" data-aos-delay="80"></div>
+
+    <!-- Desktop timeline -->
+    <div class="hidden sm:block mt-12" style="position:relative;padding-top:3rem;">
+      <div class="tl-line"></div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;">
+        <div data-aos="fade-up" data-aos-delay="100" style="display:flex;flex-direction:column;align-items:center;">
+          <div class="tl-dot" style="margin-bottom:1.25rem;">M1</div>
+          <div style="text-align:center;">
+            <span class="badge badge-chilli" style="margin-bottom:.6rem;display:inline-block;">เดือน 1</span>
+            <div style="font-weight:800;margin:.5rem 0 .35rem;font-size:.95rem;">Launch MVP</div>
+            <p style="font-size:.8rem;opacity:.65;line-height:1.5;">เปิดร้าน Shopee + batch แรก 500 ซอง + ทดสอบ Pack Pricing</p>
+          </div>
+        </div>
+        <div data-aos="fade-up" data-aos-delay="200" style="display:flex;flex-direction:column;align-items:center;">
+          <div class="tl-dot" style="margin-bottom:1.25rem;background:var(--gold-light);">M3</div>
+          <div style="text-align:center;">
+            <span class="badge badge-gold" style="margin-bottom:.6rem;display:inline-block;">เดือน 3</span>
+            <div style="font-weight:800;margin:.5rem 0 .35rem;font-size:.95rem;">เกิน Break-Even</div>
+            <p style="font-size:.8rem;opacity:.65;line-height:1.5;">500 ซอง/เดือน สม่ำเสมอ · วัด % ลูกค้า 10-pack · ปรับราคาจากข้อมูลจริง</p>
+          </div>
+        </div>
+        <div data-aos="fade-up" data-aos-delay="300" style="display:flex;flex-direction:column;align-items:center;">
+          <div class="tl-dot" style="margin-bottom:1.25rem;background:var(--brown);">M6</div>
+          <div style="text-align:center;">
+            <span class="badge" style="background:var(--brown);color:#fff;margin-bottom:.6rem;display:inline-block;">เดือน 6</span>
+            <div style="font-weight:800;margin:.5rem 0 .35rem;font-size:.95rem;">ขยาย + ขายส่ง</div>
+            <p style="font-size:.8rem;opacity:.65;line-height:1.5;">1,000 ซอง/เดือน · เริ่มขายส่งร้านค้า · ยื่น มผช. (ถ้ายอดขายพิสูจน์แล้ว)</p>
+          </div>
+        </div>
+        <div data-aos="fade-up" data-aos-delay="400" style="display:flex;flex-direction:column;align-items:center;">
+          <div class="tl-dot glow" style="margin-bottom:1.25rem;background:linear-gradient(135deg,var(--gold),var(--chilli));font-size:.75rem;">M12</div>
+          <div style="text-align:center;">
+            <span class="badge badge-green" style="margin-bottom:.6rem;display:inline-block;">เดือน 12</span>
+            <div style="font-weight:800;margin:.5rem 0 .35rem;font-size:.95rem;">Scale + Franchise</div>
+            <p style="font-size:.8rem;opacity:.65;line-height:1.5;">2,000 ซอง/เดือน · 71,600 ฿/เดือน · พิจารณา Franchise + Platform</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile timeline -->
+    <div class="sm:hidden mt-8" style="display:flex;flex-direction:column;gap:1.25rem;border-left:3px solid var(--gold);padding-left:1.5rem;">
+      <div data-aos="fade-right" style="position:relative;">
+        <div style="position:absolute;left:-2.1rem;top:.35rem;width:1rem;height:1rem;border-radius:50%;background:var(--chilli);border:2px solid var(--cream);"></div>
+        <span class="badge badge-chilli">เดือน 1</span>
+        <div style="font-weight:700;margin:.4rem 0 .25rem;">Launch MVP</div>
+        <p style="font-size:.82rem;opacity:.65;">เปิดร้าน Shopee + batch แรก 500 ซอง</p>
+      </div>
+      <div data-aos="fade-right" data-aos-delay="100" style="position:relative;">
+        <div style="position:absolute;left:-2.1rem;top:.35rem;width:1rem;height:1rem;border-radius:50%;background:var(--gold);border:2px solid var(--cream);"></div>
+        <span class="badge badge-gold">เดือน 3</span>
+        <div style="font-weight:700;margin:.4rem 0 .25rem;">เกิน Break-Even</div>
+        <p style="font-size:.82rem;opacity:.65;">500 ซอง/เดือน สม่ำเสมอ · วัดข้อมูลลูกค้า</p>
+      </div>
+      <div data-aos="fade-right" data-aos-delay="200" style="position:relative;">
+        <div style="position:absolute;left:-2.1rem;top:.35rem;width:1rem;height:1rem;border-radius:50%;background:var(--brown);border:2px solid var(--cream);"></div>
+        <span class="badge" style="background:var(--brown);color:#fff;">เดือน 6</span>
+        <div style="font-weight:700;margin:.4rem 0 .25rem;">ขยาย + ขายส่ง</div>
+        <p style="font-size:.82rem;opacity:.65;">1,000 ซอง · เริ่มขายส่ง · ยื่น มผช.</p>
+      </div>
+      <div data-aos="fade-right" data-aos-delay="300" style="position:relative;">
+        <div style="position:absolute;left:-2.1rem;top:.35rem;width:1rem;height:1rem;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--chilli));border:2px solid var(--cream);"></div>
+        <span class="badge badge-green">เดือน 12</span>
+        <div style="font-weight:700;margin:.4rem 0 .25rem;">Scale + Franchise</div>
+        <p style="font-size:.82rem;opacity:.65;">2,000 ซอง · 71,600 ฿/เดือน · ขยายต่อ</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- SLIDE 12 — Team                                                    -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<section id="s12" class="slide" style="background:linear-gradient(145deg,var(--brown-dk),#1c0c04);">
+  <div class="container">
+    <div class="eyebrow" data-aos="fade-right" style="color:rgba(192,151,62,.7);">12 / Team</div>
+    <h2 class="title gold-text" data-aos="fade-right" data-aos-delay="50">
+      ทีมงาน
+      <span class="en" style="-webkit-text-fill-color:rgba(250,247,242,.5);">The People Behind Mae Puu</span>
+    </h2>
+    <div class="divider" data-aos="fade-right" data-aos-delay="80"></div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8 max-w-2xl mx-auto">
+      <div class="glass" data-aos="fade-right" data-aos-delay="120" style="padding:2rem;text-align:center;">
+        <div class="team-avatar mx-auto">👨‍💼</div>
+        <div style="font-weight:800;font-size:1.15rem;color:var(--cream);">เจ้าของ</div>
+        <div class="divider" style="width:2.5rem;margin:.85rem auto;"></div>
+        <div style="font-size:.82rem;color:rgba(250,247,242,.55);line-height:1.7;text-align:left;">
+          ✅ วางกลยุทธ์ธุรกิจ<br>
+          ✅ ดูแล Online Marketing (Shopee / FB)<br>
+          ✅ บัญชีรายรับ-รายจ่าย<br>
+          ✅ ติดต่อ supplier + logistics
+        </div>
+      </div>
+      <div class="glass" data-aos="fade-left" data-aos-delay="200" style="padding:2rem;text-align:center;">
+        <div class="team-avatar mx-auto">👩‍🍳</div>
+        <div style="font-weight:800;font-size:1.15rem;color:var(--cream);">ฝ่ายผลิต</div>
+        <div class="divider" style="width:2.5rem;margin:.85rem auto;"></div>
+        <div style="font-size:.82rem;color:rgba(250,247,242,.55);line-height:1.7;text-align:left;">
+          ✅ ผู้คิดค้นสูตรน้ำพริกแม่ปู<br>
+          ✅ ควบคุมคุณภาพทุก batch<br>
+          ✅ จัดการวัตถุดิบ + ครัว<br>
+          ✅ ประสบการณ์การผลิต 10+ ปี
+        </div>
+      </div>
+    </div>
+
+    <div data-aos="fade-up" data-aos-delay="300" style="margin-top:2rem;text-align:center;">
+      <div style="display:inline-flex;align-items:center;gap:.75rem;padding:.85rem 1.75rem;border-radius:99px;background:rgba(192,151,62,.12);border:1.5px solid rgba(192,151,62,.3);">
+        <span>📍</span>
+        <span style="font-size:.88rem;color:rgba(250,247,242,.7);">ระยอง · ภาคตะวันออก · ร้านชอบโภชนา 4.7⭐</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- SLIDE 13 — CTA / Investment Ask                                    -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<section id="s13" class="slide" style="background:linear-gradient(145deg,#1a0800 0%,#2d1200 40%,#120800 100%);position:relative;overflow:hidden;">
+  <!-- decorative -->
+  <span class="f1" style="position:absolute;top:15%;left:5%;font-size:5rem;opacity:.06;">🌶️</span>
+  <span class="f2" style="position:absolute;bottom:20%;right:8%;font-size:4rem;opacity:.06;">🐟</span>
+  <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:700px;background:radial-gradient(ellipse,rgba(192,151,62,.1) 0%,transparent 65%);border-radius:50%;pointer-events:none;"></div>
+
+  <div class="container" style="position:relative;z-index:1;text-align:center;">
+    <div class="eyebrow" data-aos="fade-down" style="justify-content:center;color:rgba(192,151,62,.6);">13 / Investment Ask</div>
+    <h2 class="shimmer" data-aos="fade-down" data-aos-delay="80" style="font-size:clamp(2rem,5vw,4rem);font-weight:900;line-height:1.15;margin-bottom:1rem;">
+      ร่วมลงทุนกับแม่ปู
+    </h2>
+    <p data-aos="fade-up" data-aos-delay="120" style="color:rgba(250,247,242,.55);max-width:550px;margin:0 auto 2.5rem;font-size:1rem;line-height:1.7;">
+      เราไม่ได้ขายฝัน — เราขายน้ำพริกที่อร่อย มีตัวเลข มีแผน และ พร้อมเปิดตัว
+    </p>
+
+    <!-- Investment options -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-xl mx-auto mb-8" data-aos="zoom-in" data-aos-delay="180">
+      <div class="glass" style="padding:1.75rem;text-align:center;border:1.5px solid rgba(192,151,62,.3);">
+        <div style="font-size:.7rem;color:rgba(250,247,242,.45);letter-spacing:.15em;text-transform:uppercase;margin-bottom:.5rem;">Option A</div>
+        <div style="font-size:1.85rem;font-weight:900;" class="gold-text">72,480 ฿</div>
+        <div style="font-size:.85rem;color:rgba(250,247,242,.6);margin:.5rem 0;">เงินลงทุน Standard</div>
+        <div class="badge badge-gold" style="font-size:.7rem;">20% Equity</div>
+        <p style="font-size:.78rem;color:rgba(250,247,242,.45);margin-top:.75rem;line-height:1.5;">รวม อย./มผช. · เริ่ม 2,000 ซอง/เดือนเต็มรูปแบบ</p>
+      </div>
+      <div class="glass" style="padding:1.75rem;text-align:center;border:1.5px solid rgba(230,74,25,.3);">
+        <div style="font-size:.7rem;color:rgba(250,247,242,.45);letter-spacing:.15em;text-transform:uppercase;margin-bottom:.5rem;">Option B</div>
+        <div style="font-size:1.85rem;font-weight:900;color:var(--chilli);">42,480 ฿</div>
+        <div style="font-size:.85rem;color:rgba(250,247,242,.6);margin:.5rem 0;">เงินกู้ยืม MVP</div>
+        <div class="badge badge-chilli" style="font-size:.7rem;">คืนใน 6 เดือน</div>
+        <p style="font-size:.78rem;color:rgba(250,247,242,.45);margin-top:.75rem;line-height:1.5;">ไม่รวม อย. · ทดสอบตลาดก่อน · ความเสี่ยงต่ำ</p>
+      </div>
+    </div>
+
+    <div data-aos="fade-up" data-aos-delay="250">
+      <a href="mailto:nottakan02@gmail.com?subject=ลงทุนน้ำพริกแม่ปู" class="btn btn-primary">
+        <span>📩</span> ติดต่อเราเลย · Let's Talk
+      </a>
+    </div>
+
+    <div data-aos="fade-up" data-aos-delay="350" style="margin-top:3rem;max-width:560px;margin-left:auto;margin-right:auto;border-top:1px solid rgba(192,151,62,.15);padding-top:2rem;">
+      <blockquote style="font-style:italic;font-size:1.05rem;color:rgba(250,247,242,.55);line-height:1.75;">
+        "น้ำพริกแม่ปูไม่ใช่แค่น้ำพริก<br>มันคือรสชาติบ้านที่คนไทยทุกคนจำได้"
+      </blockquote>
+      <div style="margin-top:1rem;font-size:.8rem;color:rgba(250,247,242,.3);">nottakan02@gmail.com · ระยอง · 2026</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ Scripts ══════════════════════════════════════════════════════ -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+/* ── AOS init ─────────────────────────────────────────────────────── */
+AOS.init({ duration:800, once:true, easing:'ease-out-cubic', offset:80 });
+
+/* ── Progress bar ─────────────────────────────────────────────────── */
+const progress = document.getElementById('progress');
+window.addEventListener('scroll', () => {
+  const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
+  progress.style.width = Math.min(pct, 100) + '%';
+}, { passive:true });
+
+/* ── Nav dots ─────────────────────────────────────────────────────── */
+const slides = document.querySelectorAll('.slide');
+const dots   = document.querySelectorAll('.nav-dot');
+
+dots.forEach(dot => {
+  dot.addEventListener('click', () => {
+    const target = document.getElementById(dot.dataset.target);
+    if (target) target.scrollIntoView({ behavior:'smooth' });
+  });
+});
+
+const navObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const idx = [...slides].indexOf(entry.target);
+      dots.forEach(d => d.classList.remove('active'));
+      if (dots[idx]) dots[idx].classList.add('active');
+    }
+  });
+}, { threshold:[0.3, 0.5] });
+
+slides.forEach(s => navObserver.observe(s));
+
+/* ── Count-up animation ───────────────────────────────────────────── */
+function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
+
+function startCountUp(el) {
+  const target   = parseFloat(el.dataset.target);
+  const decimals = parseInt(el.dataset.decimals || '0');
+  const suffix   = el.dataset.suffix || '';
+  const duration = 2000;
+  const start    = performance.now();
+
+  function tick(now) {
+    const elapsed = now - start;
+    const progress = Math.min(elapsed / duration, 1);
+    const current  = target * easeOut(progress);
+    el.textContent = current.toFixed(decimals) + suffix;
+    if (progress < 1) requestAnimationFrame(tick);
+    else el.textContent = target.toFixed(decimals) + suffix;
+  }
+  requestAnimationFrame(tick);
+}
+
+const countUpObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      startCountUp(entry.target);
+      countUpObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold:0.5 });
+
+document.querySelectorAll('.count-up').forEach(el => countUpObserver.observe(el));
+
+/* ── CSS bar animation ────────────────────────────────────────────── */
+const barObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.querySelectorAll('.bar-fill').forEach(b => b.classList.add('ready'));
+      barObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold:0.3 });
+
+document.querySelectorAll('.cost-bars').forEach(el => barObserver.observe(el));
+
+/* ── Chart.js — Forecast ──────────────────────────────────────────── */
+(function initForecastChart() {
+  const canvas = document.getElementById('forecastChart');
+  if (!canvas) { console.warn('forecastChart canvas not found'); return; }
+
+  const months = ['M1','M2','M3','M4','M5','M6','M7','M8','M9','M10','M11','M12'];
+  const monthlyProfit = [5195,5195,5195,14890,14890,14890,34280,34280,34280,34280,34280,34280];
+  const cumulative    = [5195,10390,15585,30475,45365,60255,94535,128815,163095,197375,231655,265935];
+
+  const barColors = [
+    ...Array(3).fill('rgba(192,151,62,.7)'),
+    ...Array(3).fill('rgba(192,151,62,.85)'),
+    ...Array(6).fill('rgba(192,151,62,1)'),
+  ];
+
+  new Chart(canvas, {
+    type:'bar',
+    data:{
+      labels:months,
+      datasets:[
+        {
+          type:'bar',
+          label:'กำไร/เดือน (฿)',
+          data:monthlyProfit,
+          backgroundColor:barColors,
+          borderRadius:6,
+          order:2,
+          yAxisID:'y',
+        },
+        {
+          type:'line',
+          label:'กำไรสะสม (฿)',
+          data:cumulative,
+          borderColor:'#e64a19',
+          backgroundColor:'rgba(230,74,25,.08)',
+          borderWidth:2.5,
+          pointBackgroundColor:'#e64a19',
+          pointRadius:4,
+          pointHoverRadius:7,
+          tension:.4,
+          fill:true,
+          order:1,
+          yAxisID:'y1',
+        },
+      ],
+    },
+    options:{
+      responsive:true,
+      interaction:{ mode:'index', intersect:false },
+      animation:{ duration:1600, easing:'easeOutQuart' },
+      plugins:{
+        legend:{ labels:{ color:'#5d4037', font:{ family:'Sarabun', size:12 }, usePointStyle:true } },
+        tooltip:{
+          backgroundColor:'rgba(18,13,8,.92)',
+          titleColor:'#e4b84a',
+          bodyColor:'rgba(250,247,242,.85)',
+          borderColor:'rgba(192,151,62,.3)',
+          borderWidth:1,
+          padding:12,
+          callbacks:{
+            label: ctx => ' ' + ctx.dataset.label + ': ' + ctx.parsed.y.toLocaleString() + ' ฿',
+          },
+        },
+        annotation:{},
+      },
+      scales:{
+        x:{ ticks:{ color:'#5d4037', font:{ family:'Sarabun' } }, grid:{ color:'rgba(93,64,55,.07)' } },
+        y:{
+          position:'left',
+          ticks:{ color:'#c0973e', callback: v => (v/1000).toFixed(0)+'k', font:{family:'Sarabun',size:11} },
+          grid:{ color:'rgba(192,151,62,.08)' },
+          title:{ display:true, text:'กำไร/เดือน (฿)', color:'#c0973e', font:{family:'Sarabun',size:11} },
+        },
+        y1:{
+          position:'right',
+          ticks:{ color:'#e64a19', callback: v => (v/1000).toFixed(0)+'k', font:{family:'Sarabun',size:11} },
+          grid:{ drawOnChartArea:false },
+          title:{ display:true, text:'สะสม (฿)', color:'#e64a19', font:{family:'Sarabun',size:11} },
+        },
+      },
+    },
+  });
+})();
+
+/* ── Chart.js — Use of Funds ──────────────────────────────────────── */
+(function initFundsChart() {
+  const canvas = document.getElementById('fundsChart');
+  if (!canvas) { console.warn('fundsChart canvas not found'); return; }
+
+  const TOTAL = 72480;
+  new Chart(canvas, {
+    type:'doughnut',
+    data:{
+      labels:['วัตถุดิบ batch','อย./มผช.','ซอง+สติ๊กเกอร์','อุปกรณ์+ออกแบบ','เงินสำรอง'],
+      datasets:[{
+        data:[25480, 30000, 6000, 6500, 4500],
+        backgroundColor:['#c0973e','#e64a19','#8bc34a','#42a5f5','#ab47bc'],
+        borderWidth:0,
+        hoverOffset:12,
+      }],
+    },
+    options:{
+      responsive:true,
+      cutout:'65%',
+      animation:{ duration:1600, animateRotate:true },
+      plugins:{
+        legend:{ display:false },
+        tooltip:{
+          backgroundColor:'rgba(18,13,8,.92)',
+          titleColor:'#e4b84a',
+          bodyColor:'rgba(250,247,242,.85)',
+          borderColor:'rgba(192,151,62,.3)',
+          borderWidth:1,
+          callbacks:{
+            label: ctx => ' ' + ctx.label + ': ' + ctx.raw.toLocaleString() + ' ฿ (' + Math.round(ctx.raw / TOTAL * 100) + '%)',
+          },
+        },
+      },
+    },
+  });
+})();
+</script>
+</body>
+</html>
