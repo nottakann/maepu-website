@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>จองคิวล็อตแรก | น้ำพริกแม่ปู ระยอง</title>
+    <meta name="description" content="จองคิวน้ำพริกแม่ปูล็อตแรกจากครัวใหม่ จองฟรี ยังไม่ต้องโอน ได้วันผลิตแล้วจะแจ้งทาง LINE ก่อนใคร">
+    <!-- เปิดจากริชเมนู LINE เท่านั้น ไม่ต้องให้ Google เก็บ -->
+    <meta name="robots" content="noindex, follow">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="th_TH">
+    <meta property="og:title" content="จองคิวล็อตแรก น้ำพริกแม่ปู">
+    <meta property="og:description" content="จองฟรี ยังไม่ต้องโอน ได้วันผลิตแล้วจะแจ้งทาง LINE ก่อนใคร">
+    <meta property="og:image" content="https://www.xn--s3cl7e3azb.com/images/jar-ปลาสลิด.jpg">
+    <meta property="og:site_name" content="น้ำพริกแม่ปู">
+    <link rel="icon" href="/images/logo-chic.webp" type="image/webp">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700&family=Charmonman:wght@700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-color: #fdfbf7;
+            --card-bg: #ffffff;
+            --text-color: #3e2723;
+            --muted: #6d5d57;
+            --line: #eadfce;
+            --accent-color: #d84315;
+            --secondary-color: #ffcc80;
+            --soft: #fff6e8;
+            --line-green: #06c755;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html, body {
+            width: 100%;
+            overflow-x: hidden;
+            font-family: 'Sarabun', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.7;
+            font-size: 17px;
+        }
+        h1, h2 { font-family: 'Charmonman', cursive; font-weight: 700; line-height: 1.35; }
+        a { color: var(--accent-color); }
+
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 14px 16px; position: sticky; top: 0; z-index: 10;
+            background: rgba(253, 251, 247, 0.97); border-bottom: 1px solid #eee;
+        }
+        .logo { font-family: 'Charmonman', cursive; font-size: 1.35rem; font-weight: 700; color: var(--accent-color); text-decoration: none; }
+        .btn-back { color: var(--text-color); text-decoration: none; font-weight: 600; font-size: 0.95rem; }
+
+        main { max-width: 560px; margin: 0 auto; padding: 24px 16px 64px; }
+        header.page-head { text-align: center; margin-bottom: 20px; }
+        header.page-head h1 { font-size: clamp(1.9rem, 7vw, 2.4rem); }
+        .badges { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 10px; }
+        .badge { background: var(--soft); border: 1px solid var(--secondary-color); border-radius: 999px; padding: 2px 12px; font-size: 0.9rem; font-weight: 600; }
+
+        .note { background: var(--soft); border-radius: 14px; padding: 14px 16px; font-size: 0.95rem; }
+        .note strong { color: var(--accent-color); }
+
+        fieldset { border: 0; margin-top: 28px; }
+        legend { font-weight: 700; font-size: 1.1rem; margin-bottom: 10px; }
+        legend .step { display: inline-block; width: 28px; height: 28px; border-radius: 50%; background: var(--accent-color); color: #fff; text-align: center; line-height: 28px; font-size: 0.95rem; margin-right: 8px; }
+        .hint { color: var(--muted); font-size: 0.9rem; font-weight: 400; }
+
+        .item { display: flex; align-items: center; gap: 12px; background: var(--card-bg); border: 1px solid var(--line); border-radius: 14px; padding: 10px 12px; margin-bottom: 10px; }
+        .item.on { border-color: var(--accent-color); box-shadow: 0 0 0 1px var(--accent-color) inset; }
+        .item img { width: 52px; height: 52px; object-fit: cover; border-radius: 10px; flex: 0 0 52px; background: var(--soft); }
+        .item .info { flex: 1; min-width: 0; line-height: 1.35; }
+        .item .name { font-weight: 700; }
+        .item .sub { color: var(--muted); font-size: 0.85rem; }
+        .item .price { color: var(--accent-color); font-weight: 700; margin-top: 2px; }
+        .item .tag { font-size: 0.75rem; background: var(--accent-color); color: #fff; border-radius: 6px; padding: 0 6px; margin-left: 6px; vertical-align: 2px; white-space: nowrap; }
+        .stepper { display: flex; align-items: center; gap: 2px; flex: 0 0 auto; }
+        .stepper button { width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--line); background: var(--soft); color: var(--text-color); font-size: 1.3rem; font-weight: 700; cursor: pointer; line-height: 1; }
+        .stepper button:active { transform: scale(0.94); }
+        .stepper output { min-width: 28px; text-align: center; font-weight: 700; font-size: 1.1rem; }
+
+        .total { text-align: right; font-weight: 600; margin-top: 4px; }
+        .total span { color: var(--accent-color); font-size: 1.2rem; }
+
+        label.field { display: block; margin-bottom: 14px; }
+        label.field > span { display: block; font-weight: 600; margin-bottom: 4px; }
+        input[type=text], select, textarea {
+            width: 100%; font: inherit; color: inherit; background: var(--card-bg);
+            border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px;
+        }
+        input[type=text]:focus, select:focus, textarea:focus { outline: 2px solid var(--secondary-color); border-color: var(--accent-color); }
+        textarea { min-height: 76px; resize: vertical; }
+
+        .choices { display: flex; flex-wrap: wrap; gap: 8px; }
+        .choices label { cursor: pointer; }
+        .choices input { position: absolute; opacity: 0; pointer-events: none; }
+        .choices span { display: inline-block; border: 1px solid var(--line); background: var(--card-bg); border-radius: 999px; padding: 6px 14px; font-weight: 600; font-size: 0.95rem; }
+        .choices input:checked + span { background: var(--accent-color); border-color: var(--accent-color); color: #fff; }
+        .choices input:focus-visible + span { outline: 2px solid var(--secondary-color); }
+        #provinceWrap { margin-top: 12px; }
+
+        .error { color: #b3261e; font-weight: 600; min-height: 1.5em; margin-top: 20px; text-align: center; }
+        .btn-send {
+            display: block; width: 100%; margin-top: 8px; border: 0; cursor: pointer;
+            background: var(--line-green); color: #fff; font: inherit; font-weight: 700; font-size: 1.15rem;
+            padding: 14px 20px; border-radius: 999px; box-shadow: 0 4px 14px rgba(6, 199, 85, 0.35);
+        }
+        .privacy { color: var(--muted); font-size: 0.85rem; text-align: center; margin-top: 10px; }
+
+        #fallback { display: none; margin-top: 22px; background: var(--card-bg); border: 1px dashed var(--accent-color); border-radius: 14px; padding: 14px 16px; }
+        #fallback.show { display: block; }
+        #fallback pre { white-space: pre-wrap; font-family: inherit; background: var(--soft); border-radius: 10px; padding: 10px 12px; margin: 10px 0; font-size: 0.95rem; }
+        .row-btns { display: flex; flex-wrap: wrap; gap: 8px; }
+        .btn-ghost { flex: 1 1 160px; text-align: center; border: 1px solid var(--accent-color); background: #fff; color: var(--accent-color); font: inherit; font-weight: 600; padding: 9px 14px; border-radius: 999px; cursor: pointer; text-decoration: none; }
+
+        footer { text-align: center; padding: 8px 16px 40px; font-size: 0.9rem; color: var(--muted); }
+        footer a { margin: 0 8px; }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/" class="logo">น้ำพริกแม่ปู</a>
+        <a href="/about.html" class="btn-back">รู้จักแม่ปู</a>
+    </nav>
+
+    <main>
+        <header class="page-head">
+            <h1>จองคิวล็อตแรก</h1>
+            <div class="badges">
+                <span class="badge">จองฟรี ยังไม่ต้องโอน</span>
+                <span class="badge">🏆 ของดีเมืองระยอง</span>
+            </div>
+        </header>
+
+        <p class="note">ตอนนี้แม่ปูกำลังปรับครัวให้ได้มาตรฐานและเตรียมยื่นขอเลข อย. เลย<strong>ยังไม่ประกาศวันผลิต</strong> จองคิวไว้ก่อนได้เลย พอได้วันผลิตจะทักไปบอกทาง LINE ก่อนใคร แล้วค่อยยืนยันจำนวนและโอนตอนนั้น เปลี่ยนใจยกเลิกได้ตลอด</p>
+
+        <form id="jong" novalidate>
+            <fieldset>
+                <legend><span class="step">1</span>เลือกรสและจำนวน</legend>
+                <div id="items"></div>
+                <p class="total">รวมประมาณ <span id="total">0</span> บาท <span class="hint">(ยังไม่รวมค่าส่ง)</span></p>
+            </fieldset>
+
+            <fieldset>
+                <legend><span class="step">2</span>ชื่อและการรับของ</legend>
+                <label class="field">
+                    <span>ชื่อที่ให้เรียก</span>
+                    <input type="text" id="name" name="name" maxlength="40" autocomplete="nickname" placeholder="เช่น พี่ส้ม">
+                </label>
+                <div class="choices" role="radiogroup" aria-label="รับของยังไง">
+                    <label><input type="radio" name="deliver" value="ส่งพัสดุ" checked><span>ส่งพัสดุ</span></label>
+                    <label><input type="radio" name="deliver" value="รับเองในระยอง"><span>รับเองในระยอง</span></label>
+                </div>
+                <label class="field" id="provinceWrap">
+                    <span>ส่งจังหวัดไหน <span class="hint">(ไว้คิดค่าส่ง ที่อยู่เต็มค่อยขอตอนยืนยัน)</span></span>
+                    <select id="province" name="province"><option value="">เลือกจังหวัด</option></select>
+                </label>
+            </fieldset>
+
+            <fieldset>
+                <legend><span class="step">3</span>รู้จักแม่ปูจากไหน <span class="hint">(ไม่ตอบก็ได้)</span></legend>
+                <!-- value = ชื่อช่องทางใน dropdown ของชีท (แท็บตั้งค่า A31:A44) -->
+                <div class="choices" role="radiogroup" aria-label="รู้จักแม่ปูจากไหน">
+                    <label><input type="radio" name="source" value="TikTok"><span>TikTok</span></label>
+                    <label><input type="radio" name="source" value="Instagram"><span>Instagram</span></label>
+                    <label><input type="radio" name="source" value="เว็บไซต์"><span>เว็บไซต์</span></label>
+                    <label><input type="radio" name="source" value="ชายหาด"><span>เจอที่ชายหาด</span></label>
+                    <label><input type="radio" name="source" value="ร้านฝากขาย (กระปุกเล็ก)"><span>กระปุกเล็กตามร้าน</span></label>
+                    <label><input type="radio" name="source" value="ลูกค้าเก่า/บอกต่อ"><span>เคยกิน / เพื่อนบอก</span></label>
+                    <label><input type="radio" name="source" value="อื่นๆ"><span>อื่นๆ</span></label>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend><span class="step">4</span>ฝากบอกแม่ปู <span class="hint">(ไม่ใส่ก็ได้)</span></legend>
+                <label class="field">
+                    <span class="hint">เช่น อยากได้ไปเป็นของขวัญปีใหม่ · ขอเผ็ดน้อย</span>
+                    <textarea id="note" name="note" maxlength="200"></textarea>
+                </label>
+            </fieldset>
+
+            <p class="error" id="error" role="alert"></p>
+            <button type="submit" class="btn-send">ส่งคิวจองเข้า LINE แม่ปู</button>
+            <p class="privacy">เว็บนี้ไม่เก็บข้อมูลที่กรอก ข้อความจองจะเด้งไปที่แชท LINE ของแม่ปู แล้วคุณกดส่งเอง</p>
+        </form>
+
+        <div id="fallback" aria-live="polite">
+            <strong>LINE ไม่เปิดขึ้นมา?</strong>
+            <p class="hint">คัดลอกข้อความนี้ แล้ววางในแชท LINE @977kplqu ได้เลย</p>
+            <pre id="msgPreview"></pre>
+            <div class="row-btns">
+                <button type="button" class="btn-ghost" id="copyBtn">คัดลอกข้อความ</button>
+                <a class="btn-ghost" href="https://line.me/R/ti/p/@977kplqu" target="_blank" rel="noopener">เพิ่มเพื่อน LINE แม่ปู</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <a href="/">หน้าหลัก</a>
+        <a href="/about.html">รู้จักแม่ปู</a>
+    </footer>
+
+    <script>
+    (function () {
+        var OA_ID = '@977kplqu';
+        // name = ชื่อสินค้าในชีท (แท็บตั้งค่า A6:A9) · price ตามหน้าเว็บ
+        var PRODUCTS = [
+            { name: 'ปลาสลิด ใหญ่', label: 'น้ำพริกปลาสลิด', sub: 'กระปุกใหญ่ · เนื้อปลาชิ้นโต กรอบ', price: 200, img: '/images/jar-ปลาสลิด.webp', tag: 'ขายดี' },
+            { name: 'ซิวแก้ว ใหญ่', label: 'น้ำพริกปลาซิวแก้ว', sub: 'ปลาทั้งตัว แคลเซียมเน้นๆ', price: 100, img: '/images/jar-ปลาซิวแก้ว.webp' },
+            { name: 'ปลาสลิด เล็ก', label: 'กระปุกเล็กลองชิม', sub: 'รสปลาสลิด', price: 40, img: '/images/rice-salid.webp' },
+            { name: 'ซิวแก้ว เล็ก', label: 'กระปุกเล็กลองชิม', sub: 'รสปลาซิวแก้ว', price: 40, img: '/images/rice-siu-kaew.webp' }
+        ];
+        var PROVINCES = ['ระยอง', 'กรุงเทพมหานคร', 'กระบี่', 'กาญจนบุรี', 'กาฬสินธุ์', 'กำแพงเพชร', 'ขอนแก่น', 'จันทบุรี', 'ฉะเชิงเทรา', 'ชลบุรี', 'ชัยนาท', 'ชัยภูมิ', 'ชุมพร', 'เชียงราย', 'เชียงใหม่', 'ตรัง', 'ตราด', 'ตาก', 'นครนายก', 'นครปฐม', 'นครพนม', 'นครราชสีมา', 'นครศรีธรรมราช', 'นครสวรรค์', 'นนทบุรี', 'นราธิวาส', 'น่าน', 'บึงกาฬ', 'บุรีรัมย์', 'ปทุมธานี', 'ประจวบคีรีขันธ์', 'ปราจีนบุรี', 'ปัตตานี', 'พระนครศรีอยุธยา', 'พะเยา', 'พังงา', 'พัทลุง', 'พิจิตร', 'พิษณุโลก', 'เพชรบุรี', 'เพชรบูรณ์', 'แพร่', 'ภูเก็ต', 'มหาสารคาม', 'มุกดาหาร', 'แม่ฮ่องสอน', 'ยโสธร', 'ยะลา', 'ร้อยเอ็ด', 'ระนอง', 'ราชบุรี', 'ลพบุรี', 'ลำปาง', 'ลำพูน', 'เลย', 'ศรีสะเกษ', 'สกลนคร', 'สงขลา', 'สตูล', 'สมุทรปราการ', 'สมุทรสงคราม', 'สมุทรสาคร', 'สระแก้ว', 'สระบุรี', 'สิงห์บุรี', 'สุโขทัย', 'สุพรรณบุรี', 'สุราษฎร์ธานี', 'สุรินทร์', 'หนองคาย', 'หนองบัวลำภู', 'อ่างทอง', 'อำนาจเจริญ', 'อุดรธานี', 'อุตรดิตถ์', 'อุทัยธานี', 'อุบลราชธานี'];
+
+        var qty = PRODUCTS.map(function () { return 0; });
+        var itemsEl = document.getElementById('items');
+        var totalEl = document.getElementById('total');
+        var errorEl = document.getElementById('error');
+
+        PRODUCTS.forEach(function (p, i) {
+            var row = document.createElement('div');
+            row.className = 'item';
+            row.innerHTML =
+                '<img src="' + p.img + '" alt="" loading="lazy" width="56" height="56">' +
+                '<div class="info"><div class="name">' + p.label + '</div>' +
+                '<div class="sub">' + p.sub + '</div>' +
+                '<div class="price">' + p.price + '.-' + (p.tag ? '<span class="tag">' + p.tag + '</span>' : '') + '</div></div>' +
+                '<div class="stepper">' +
+                '<button type="button" aria-label="ลด ' + p.label + ' ' + p.sub + '">−</button>' +
+                '<output aria-live="polite">0</output>' +
+                '<button type="button" aria-label="เพิ่ม ' + p.label + ' ' + p.sub + '">+</button></div>';
+            var btns = row.querySelectorAll('button');
+            var out = row.querySelector('output');
+            function set(n) {
+                qty[i] = Math.max(0, Math.min(50, n));
+                out.textContent = qty[i];
+                row.classList.toggle('on', qty[i] > 0);
+                render();
+            }
+            btns[0].addEventListener('click', function () { set(qty[i] - 1); });
+            btns[1].addEventListener('click', function () { set(qty[i] + 1); });
+            itemsEl.appendChild(row);
+        });
+
+        var sel = document.getElementById('province');
+        PROVINCES.forEach(function (pv) {
+            var o = document.createElement('option');
+            o.value = pv; o.textContent = pv;
+            sel.appendChild(o);
+        });
+
+        var provinceWrap = document.getElementById('provinceWrap');
+        document.querySelectorAll('input[name=deliver]').forEach(function (r) {
+            r.addEventListener('change', function () {
+                provinceWrap.style.display = deliverValue() === 'ส่งพัสดุ' ? '' : 'none';
+            });
+        });
+
+        function deliverValue() { var r = document.querySelector('input[name=deliver]:checked'); return r ? r.value : ''; }
+        function sourceValue() { var r = document.querySelector('input[name=source]:checked'); return r ? r.value : ''; }
+        function total() { return PRODUCTS.reduce(function (s, p, i) { return s + p.price * qty[i]; }, 0); }
+        function render() { totalEl.textContent = total().toLocaleString('th-TH'); errorEl.textContent = ''; }
+
+        function buildMessage() {
+            var name = document.getElementById('name').value.trim();
+            var lines = ['📝 จองคิวล็อตแรก', 'ชื่อ: ' + name];
+            PRODUCTS.forEach(function (p, i) {
+                if (qty[i] > 0) lines.push('• ' + p.name + ' (' + p.price + '.-) × ' + qty[i]);
+            });
+            lines.push('รวมประมาณ ' + total().toLocaleString('th-TH') + ' บาท (ยังไม่รวมค่าส่ง)');
+            var d = deliverValue();
+            lines.push('รับของ: ' + (d === 'ส่งพัสดุ' ? 'ส่งพัสดุ จ.' + sel.value : d));
+            var src = sourceValue();
+            if (src) lines.push('รู้จักจาก: ' + src);
+            var note = document.getElementById('note').value.trim();
+            if (note) lines.push('ฝากบอก: ' + note);
+            return lines.join('\n');
+        }
+
+        document.getElementById('jong').addEventListener('submit', function (e) {
+            e.preventDefault();
+            if (total() === 0) { errorEl.textContent = 'เลือกอย่างน้อย 1 กระปุกก่อนนะครับ'; return; }
+            if (!document.getElementById('name').value.trim()) { errorEl.textContent = 'ใส่ชื่อที่ให้เรียกก่อนนะครับ'; document.getElementById('name').focus(); return; }
+            if (deliverValue() === 'ส่งพัสดุ' && !sel.value) { errorEl.textContent = 'เลือกจังหวัดที่จะให้ส่งก่อนนะครับ'; sel.focus(); return; }
+
+            var msg = buildMessage();
+            document.getElementById('msgPreview').textContent = msg;
+            document.getElementById('fallback').classList.add('show');
+            window.location.href = 'https://line.me/R/oaMessage/' + OA_ID + '/?' + encodeURIComponent(msg);
+        });
+
+        document.getElementById('copyBtn').addEventListener('click', function () {
+            var text = document.getElementById('msgPreview').textContent;
+            var btn = this;
+            function done() { btn.textContent = 'คัดลอกแล้ว ✓'; }
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(done, function () { legacyCopy(text); done(); });
+            } else { legacyCopy(text); done(); }
+        });
+        function legacyCopy(text) {
+            var ta = document.createElement('textarea');
+            ta.value = text; document.body.appendChild(ta); ta.select();
+            try { document.execCommand('copy'); } catch (err) {}
+            document.body.removeChild(ta);
+        }
+    })();
+    </script>
+</body>
+</html>
